@@ -1,0 +1,59 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Epidemic Sound Partner Content API — Beta
+  description: >-
+    Beta endpoints: beat detection on individual tracks and the asynchronous
+    track-versions generation job that adapts a recording to a target
+    duration while preserving musical structure.
+  tags:
+    - Epidemic Sound
+    - Beta
+    - Beats
+    - Track Versions
+    - Adaptation
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      EPIDEMIC_SOUND_API_KEY: EPIDEMIC_SOUND_API_KEY
+capability:
+  consumes:
+    - type: http
+      namespace: beta
+      baseUri: https://partner-content-api.epidemicsound.com
+      description: Beta Partner Content API endpoints.
+      resources:
+        - name: track-beats
+          path: /v0/tracks/{trackId}/beats
+          operations:
+            - name: getTrackBeats
+              method: GET
+              description: Get beat timing data for a track (beta).
+              inputParameters:
+                - name: trackId
+                  in: path
+                  type: string
+                  required: true
+        - name: track-versions
+          path: /v0/tracks/versions
+          operations:
+            - name: createTrackVersionsJob
+              method: POST
+              description: Start an asynchronous track-versions generation job (beta).
+        - name: track-versions-job
+          path: /v0/tracks/versions/{jobId}
+          operations:
+            - name: getTrackVersionsJob
+              method: GET
+              description: Get the status of a track-versions generation job (beta).
+              inputParameters:
+                - name: jobId
+                  in: path
+                  type: string
+                  required: true
+      authentication:
+        type: apikey
+        key: x-api-key
+        value: '{{env.EPIDEMIC_SOUND_API_KEY}}'
+        placement: header

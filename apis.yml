@@ -1,0 +1,204 @@
+aid: epidemic-sound
+name: Epidemic Sound
+description: >-
+  Epidemic Sound is a Stockholm-based royalty-free music and sound effects
+  licensing platform for video creators, businesses, and platforms. The catalog
+  includes 55,000+ tracks across 390 genres, 250,000+ sound effects, stems and
+  instrumental versions, all under an all-inclusive license that covers
+  mechanical, sync, and public performance rights globally. The Partner Content
+  API ("Epidemic Sound Connect") exposes the full catalog and Epidemic Sound's
+  AI-powered soundtracking tools — Soundmatch (video-to-music recommendation),
+  semantic search, similar-track and similar-section lookup, image-based
+  matching, beat detection, HLS streaming previews, AI voiceover generation,
+  and the new track-versions endpoint that adapts a recording to a target
+  duration while preserving musical structure. An official Model Context
+  Protocol (MCP) server (beta) makes the same catalog and tools available to
+  AI agents at https://www.epidemicsound.com/a/mcp-service/mcp. Access to the
+  Partner API is gated behind a partnership agreement; once signed, partner
+  engineers receive credentials via the Developer Portal and authenticate
+  using API Key, Partner Token, or Epidemic Sound Connect (OAuth 2.0).
+type: Index
+position: Provider
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Music
+  - Sound Effects
+  - Royalty-Free Music
+  - Audio
+  - Audio Licensing
+  - Soundtracking
+  - Sync Licensing
+  - Creators
+  - Video
+  - AI Voiceover
+  - Semantic Search
+  - MCP
+url: https://raw.githubusercontent.com/api-evangelist/epidemic-sound/refs/heads/main/apis.yml
+created: '2026-05-25'
+modified: '2026-05-25'
+specificationVersion: '0.20'
+apis:
+  - aid: epidemic-sound:epidemic-sound-partner-content-api
+    name: Epidemic Sound Partner Content API
+    description: >-
+      Single REST API exposing the entire Epidemic Sound catalog — tracks,
+      collections, moods, genres, sound effects, stems, beats, HLS previews,
+      similar-track/section search, image-based and video-based matching,
+      track-versions generation (beta), AI voiceovers (via the MCP tools),
+      partner audio/image uploads, usage reporting, and safelisting licenses
+      for end-user channels. Authenticates with ApiKey (`x-api-key`),
+      Partner Token (bearer), or Epidemic Sound Connect OAuth (user-scoped).
+      Versioned with `/v0/` path prefix. Hosted in Europe; audio delivered
+      via Fastly's global CDN. No local caching of metadata or collections
+      is permitted by the partner terms.
+    humanURL: https://developers.epidemicsound.com/docs/
+    baseURL: https://partner-content-api.epidemicsound.com
+    tags:
+      - Music
+      - Sound Effects
+      - Tracks
+      - Search
+      - Soundtracking
+      - Voiceover
+      - Licensing
+    properties:
+      - type: Documentation
+        url: https://developers.epidemicsound.com/docs/
+      - type: Documentation
+        url: https://developers.epidemicsound.com/docs/api-reference/
+      - type: Documentation
+        url: https://developers.epidemicsound.com/docs/guides
+      - type: SwaggerUI
+        url: https://partner-content-api.epidemicsound.com/swagger
+      - type: OpenAPI
+        url: openapi/epidemic-sound-partner-content-api-openapi.yml
+      - type: NaftikoCapability
+        url: capabilities/browse-and-search.yaml
+      - type: NaftikoCapability
+        url: capabilities/tracks.yaml
+      - type: NaftikoCapability
+        url: capabilities/sound-effects.yaml
+      - type: NaftikoCapability
+        url: capabilities/assets.yaml
+      - type: NaftikoCapability
+        url: capabilities/safelisting.yaml
+      - type: NaftikoCapability
+        url: capabilities/reporting.yaml
+      - type: NaftikoCapability
+        url: capabilities/authentication.yaml
+      - type: NaftikoCapability
+        url: capabilities/users.yaml
+      - type: NaftikoCapability
+        url: capabilities/beta.yaml
+common:
+  - type: Website
+    url: https://www.epidemicsound.com
+  - type: Portal
+    url: https://www.epidemicsound.com/business/developers/
+    name: Music API for Developers & Platforms
+  - type: Portal
+    url: https://developers.epidemicsound.com/
+    name: Epidemic Sound Connect Developer Portal
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/api-reference/
+    name: Partner Content API Reference
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/guides
+    name: Guides
+  - type: GettingStarted
+    url: https://developers.epidemicsound.com/docs/get-started
+  - type: Authentication
+    url: https://developers.epidemicsound.com/docs/authentication
+  - type: SwaggerUI
+    url: https://partner-content-api.epidemicsound.com/swagger
+  - type: OpenAPI
+    url: https://partner-content-api.epidemicsound.com/docs/spec.json
+  - type: MCP
+    url: https://developers.epidemicsound.com/docs/mcp/
+    name: Epidemic Sound MCP Server (Beta)
+  - type: Pricing
+    url: https://www.epidemicsound.com/pricing/
+  - type: Plans
+    url: plans/epidemic-sound-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/epidemic-sound-rate-limits.yml
+  - type: FinOps
+    url: finops/epidemic-sound-finops.yml
+  - type: Blog
+    url: https://www.epidemicsound.com/blog/
+  - type: Blog
+    url: https://www.epidemicsound.com/blog/epidemic-sound-api/
+    name: Learn how the Epidemic Sound API works
+  - type: Careers
+    url: https://www.epidemicsound.com/careers/
+  - type: About
+    url: https://www.epidemicsound.com/about/
+  - type: Contact
+    url: https://www.epidemicsound.com/contact/
+  - type: TermsOfService
+    url: https://www.epidemicsound.com/terms/
+  - type: PrivacyPolicy
+    url: https://www.epidemicsound.com/privacy-notice/
+  - type: GitHubOrganization
+    url: https://github.com/epidemicsound
+  - type: SDK
+    url: https://github.com/epidemicsound/partner-content-api-demo-ios
+    name: Partner Content API Demo (iOS, Swift)
+  - type: SDK
+    url: https://github.com/epidemicsound/homebrew-epidemicsound
+    name: Homebrew tap (internal tooling)
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/epidemic-sound
+  - type: Twitter
+    url: https://twitter.com/epidemicsound
+  - type: YouTube
+    url: https://www.youtube.com/@EpidemicSound
+  - type: Instagram
+    url: https://www.instagram.com/epidemicsound/
+  - type: Facebook
+    url: https://www.facebook.com/epidemicsound
+  - type: TikTok
+    url: https://www.tiktok.com/@epidemicsound
+  - type: Apps
+    url: https://www.epidemicsound.com/apps/
+    name: Desktop and mobile apps
+  - type: Integrations
+    url: https://www.epidemicsound.com/integrations/
+  - type: Partners
+    url: https://www.epidemicsound.com/business/partners/
+  - type: Features
+    data:
+      - 55,000+ royalty-free music tracks across 390 genres
+      - 250,000+ sound effects across categorized collections
+      - Stems and instrumental versions included with every track
+      - All-inclusive licensing covering mechanical, sync, and public performance rights worldwide
+      - Semantic search by natural-language description
+      - Soundmatch — video-frame analysis returning mood-matched track recommendations
+      - Similar-track and similar-section discovery for seamless audio replacement
+      - Image-based track matching (`/v0/tracks/matching-image/{imageId}`)
+      - Beat detection for video-sync workflows (`/v0/tracks/{trackId}/beats`)
+      - HLS streaming previews with cookie-authenticated playback
+      - Track-versions generation (beta) — adapt a track to a target duration while preserving structure
+      - AI voiceover generation via the MCP server (browse artists, generate, status, download)
+      - Partner audio and image uploads for similarity / matching workflows
+      - Safelisting licenses for end-user YouTube/social channels
+      - Usage and analytics reporting endpoints for partner billing reconciliation
+      - Three authentication modes — ApiKey, Partner Token, Epidemic Sound Connect (OAuth 2.0)
+      - Official Model Context Protocol (MCP) server (Beta) at https://www.epidemicsound.com/a/mcp-service/mcp
+      - Audio delivered via Fastly's global CDN; API hosted in Europe
+      - Versioned API surface with `/v0/` path prefix
+      - 30-day-rotation API keys for programmatic MCP access
+      - Partnership-gated access; credentials provisioned via the Developer Portal
+    sources:
+      - https://www.epidemicsound.com/business/developers/
+      - https://developers.epidemicsound.com/docs/
+      - https://developers.epidemicsound.com/docs/mcp/
+      - https://partner-content-api.epidemicsound.com/docs/spec.json
+      - https://www.epidemicsound.com/blog/epidemic-sound-api/
+    updated: '2026-05-25'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

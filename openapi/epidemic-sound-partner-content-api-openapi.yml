@@ -1,0 +1,5145 @@
+openapi: 3.0.1
+info:
+  title: Partner Content API
+  version: 0.1.17
+servers:
+- url: https://partner-content-api.epidemicsound.com
+  description: Epidemic Sound Content API
+tags:
+- name: Authentication
+  description: Endpoints for user authentication.
+- name: Browse & search
+  description: These endpoints will allow you to explore the Epidemic Sound library. You can display tracks grouped in curated playlists, moods or genres or use search to get tracks by any term.
+- name: Tracks
+  description: Endpoints to get track specific information.
+- name: Sound effects
+  description: Endpoints to get sound effect specific information. These endpoints allow you to build a UI to browse and search for sound effects.
+- name: Reporting
+  description: These endpoints will allow you to report how tracks are used in your application.
+- name: Users
+  description: These endpoints allows your application to get user specific information such as liked sounds.
+- name: Assets
+  description: These endpoints allows your application to upload assets such as images or audio.
+- name: Beta
+  description: These endpoints are in beta.
+- name: Safelisting
+  description: Endpoints for managing safelisting licenses. Allows partners to create, list, update, and delete licenses for channels and videos on behalf of their end users.
+paths:
+  /v0/collections:
+    get:
+      tags:
+      - Browse & search
+      summary: List collections
+      description: 'The collections endpoint returns playlists curated by our team of in-house experts.
+
+
+        We offer collections for any occasion: from holidays like "Día de Muertos" to content types like "Real Estate" or "Badass ads".
+
+
+        You can manage the order and which collections are part or your applications'' free tier via the developer portal. As default, we return the collections included in your free tier first, followed by all collections in the Epidemic Sound library.
+
+
+        Collections have attributes like title and cover art. In the few cases where we do not have cover art for a collection we return a default image.
+
+
+        You can choose to return collections with or without tracks. The response will include a maximum of 20 tracks per collection. If a collection contains more than 20 tracks use endpoint ''/collections/{collectionId}'' to get all tracks.'
+      operationId: GET_Collections
+      parameters:
+      - $ref: '#/components/parameters/excludeField'
+      - name: limit
+        in: query
+        description: Max number of entries returned in the response, default 10 and max 20
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Collection response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionsPaginatedResponse'
+              example:
+                collections:
+                - id: 4caef099-43bd-4653-8203-3086fa01d3b7
+                  name: Happy
+                  tracks:
+                  - id: 6rUPerw2po
+                    mainArtists:
+                    - Main Artist
+                    featuredArtists:
+                    - Featured Artist
+                    title: Happy Song
+                    bpm: 135
+                    length: 3123
+                    moods:
+                    - id: happy
+                      name: Happy
+                    - id: eccentric
+                      name: Eccentric
+                    genres:
+                    - id: beats
+                      name: Beats
+                      parent:
+                        id: parent
+                        name: Parent Beats
+                    - id: trap
+                      name: Trap
+                    images:
+                      default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                      M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                      S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                    waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                    hasVocals: true
+                    added: '2020-10-10'
+                    isExplicit: false
+                    isPreviewOnly: true
+                  availableTracks: 1
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/128x128.jpg
+                - id: 9917d694-511b-4b66-ab8a-c553660399e4
+                  name: Sad
+                  tracks:
+                  - id: 0dZCtol3bs
+                    mainArtists:
+                    - Main Artist
+                    featuredArtists:
+                    - Featured Artist
+                    title: Sad Song
+                    bpm: 97
+                    length: 2976
+                    moods:
+                    - id: happy
+                      name: Happy
+                    - id: eccentric
+                      name: Eccentric
+                    genres:
+                    - id: beats
+                      name: Beats
+                      parent:
+                        id: parent
+                        name: Parent Beats
+                    - id: trap
+                      name: Trap
+                    images:
+                      default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                      M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                      S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                    waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                    hasVocals: true
+                    added: '2020-10-10'
+                    isExplicit: false
+                    isPreviewOnly: true
+                  availableTracks: 1
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/128x128.jpg
+                pagination:
+                  page: 3
+                  limit: 20
+                  offset: 40
+                links:
+                  next: /v0/collections?limit=20&offset=60
+                  prev: /v0/collections?limit=20&offset=20
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/collections/{collectionId}:
+    get:
+      tags:
+      - Browse & search
+      summary: Collection details
+      description: The collections endpoint allows you to list all the tracks in a specific collection.
+      operationId: GET_Collection
+      parameters:
+      - $ref: '#/components/parameters/collectionId'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Collection response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionPaginatedResponse'
+              example:
+                id: f10e65eb-9998-4c41-9777-ac9183ab85dd
+                name: Happy
+                tracks:
+                - id: 6rUPerw2po
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Happy Song
+                  bpm: 135
+                  length: 3123
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                availableTracks: 1
+                pagination:
+                  page: 4
+                  limit: 20
+                  offset: 60
+                links:
+                  next: /v0/collections/f10e65eb-9998-4c41-9777-ac9183ab85dd?limit=20&offset=80
+                  prev: /v0/collections/f10e65eb-9998-4c41-9777-ac9183ab85dd?limit=20&offset=40
+                images:
+                  default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg
+                  L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/1050x1050.jpg
+                  M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/600x600.jpg
+                  S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg
+                  XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/128x128.jpg
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '404':
+          description: Collection was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Collection was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/sound-effects/collections:
+    get:
+      tags:
+      - Sound effects
+      summary: List sound-effect collections
+      description: 'Returns the sound-effect collections active for your application.
+
+
+        Sound-effect collections are managed via the developer portal: an admin imports an EMS
+
+        playlist into a collection, and end users see only Active collections through this endpoint.
+
+
+        Every application has access to every sound effect, so there is no per-tier cap and no
+
+        paid/free distinction. Up to 20 sound effects per collection are included by default;
+
+        pass `excludeField=soundEffects` to omit them, or paginate the full set via
+
+        `/sound-effects/collections/{collectionId}`.'
+      operationId: GET_Sound_Effect_Collections
+      parameters:
+      - name: excludeField
+        in: query
+        description: Pass `soundEffects` to omit sound-effect data from the response and return only collection metadata.
+        required: false
+        schema:
+          type: string
+          enum:
+          - soundEffects
+      - name: limit
+        in: query
+        description: Max number of collections returned in the response, default 10 and max 20
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Sound-effect collections response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoundEffectCollectionsPaginatedResponse'
+              example:
+                collections:
+                - id: 4caef099-43bd-4653-8203-3086fa01d3b7
+                  name: Crowd & Applause
+                  soundEffects:
+                  - id: 4bd22142-d121-4bab-89d7-bd0945fd3b24
+                    title: Applause
+                    added: '2026-05-11T07:45:47.571914418Z'
+                    length: 10
+                    images:
+                      default: https://image.url?w=300&h=300&fit=fill&q=90&fm=jpg
+                      L: https://image.url?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                      M: https://image.url?w=600&h=600&fit=fill&q=90&fm=jpg
+                      S: https://image.url?w=300&h=300&fit=fill&q=90&fm=jpg
+                      XS: https://image.url?w=128&h=128&fit=fill&q=90&fm=jpg
+                  availableSoundEffects: 1
+                pagination:
+                  page: 1
+                  limit: 10
+                  offset: 0
+                links:
+                  next: /v0/sound-effects/collections?limit=10&offset=10
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/sound-effects/collections/{collectionId}:
+    get:
+      tags:
+      - Sound effects
+      summary: Sound-effect collection details
+      description: Returns a single sound-effect collection along with a paginated set of its sound effects. Use `limit` and `offset` to page through the collection.
+      operationId: GET_Sound_Effect_Collection
+      parameters:
+      - $ref: '#/components/parameters/collectionId'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Sound-effect collection response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoundEffectCollectionPaginatedResponse'
+              example:
+                id: f10e65eb-9998-4c41-9777-ac9183ab85dd
+                name: Crowd & Applause
+                soundEffects:
+                - id: a66c413e-7d9d-4916-9d69-993ac782cf79
+                  title: Applause
+                  added: '2026-05-11T07:45:47.573735118Z'
+                  length: 10
+                  images:
+                    default: https://image.url?w=300&h=300&fit=fill&q=90&fm=jpg
+                    L: https://image.url?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                    M: https://image.url?w=600&h=600&fit=fill&q=90&fm=jpg
+                    S: https://image.url?w=300&h=300&fit=fill&q=90&fm=jpg
+                    XS: https://image.url?w=128&h=128&fit=fill&q=90&fm=jpg
+                availableSoundEffects: 1
+                pagination:
+                  page: 1
+                  limit: 50
+                  offset: 0
+                links: {}
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '404':
+          description: Sound-effect collection was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Collection was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks:
+    get:
+      tags:
+      - Tracks
+      summary: List tracks based on mood, genre or BPM
+      description: The tracks endpoint allows you to list all tracks based on a specified mood, genre or BPM.
+      operationId: GET_Tracks
+      parameters:
+      - $ref: '#/components/parameters/genre'
+      - $ref: '#/components/parameters/mood'
+      - $ref: '#/components/parameters/bpmMin'
+      - $ref: '#/components/parameters/bpmMax'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Tracks response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TracksResponse'
+              example:
+                tracks:
+                - id: 6rUPerw2po
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Happy Song
+                  bpm: 135
+                  length: 3123
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                - id: 0dZCtol3bs
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Sad Song
+                  bpm: 97
+                  length: 2976
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                pagination:
+                  page: 4
+                  limit: 20
+                  offset: 60
+                links:
+                  next: /v0/tracks?limit=20&offset=80
+                  prev: /v0/tracks?limit=20&offset=40
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/metadata:
+    get:
+      tags:
+      - Tracks
+      summary: Tracks metadata
+      description: The metadata endpoint allows you to get metadata for a list of tracks.
+      operationId: GET_Tracks_Metadata
+      parameters:
+      - name: trackId
+        in: query
+        description: List of track ids
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Tracks response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrackResponse'
+              example:
+              - id: 6rUPerw2po
+                mainArtists:
+                - Main Artist
+                featuredArtists:
+                - Featured Artist
+                title: Happy Song
+                bpm: 135
+                length: 3123
+                moods:
+                - id: happy
+                  name: Happy
+                - id: eccentric
+                  name: Eccentric
+                genres:
+                - id: beats
+                  name: Beats
+                  parent:
+                    id: parent
+                    name: Parent Beats
+                - id: trap
+                  name: Trap
+                images:
+                  default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                  L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                  M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                  S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                  XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                hasVocals: true
+                added: '2020-10-10'
+                isExplicit: false
+                isPreviewOnly: true
+              - id: 0dZCtol3bs
+                mainArtists:
+                - Main Artist
+                featuredArtists:
+                - Featured Artist
+                title: Sad Song
+                bpm: 97
+                length: 2976
+                moods:
+                - id: happy
+                  name: Happy
+                - id: eccentric
+                  name: Eccentric
+                genres:
+                - id: beats
+                  name: Beats
+                  parent:
+                    id: parent
+                    name: Parent Beats
+                - id: trap
+                  name: Trap
+                images:
+                  default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                  L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                  M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                  S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                  XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                hasVocals: true
+                added: '2020-10-10'
+                isExplicit: false
+                isPreviewOnly: true
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/search:
+    get:
+      tags:
+      - Browse & search
+      summary: Search music
+      description: The search endpoint allows your users to search the entire Epidemic Sound library. Search indexes track attributes such as moods, genres, artist, song title and bpm.
+      operationId: GET_Tracks_Search
+      parameters:
+      - $ref: '#/components/parameters/offset'
+      - name: limit
+        in: query
+        description: Max number of entries returned in the response, default 50 and max 60
+        required: false
+      - $ref: '#/components/parameters/term'
+      - $ref: '#/components/parameters/genre'
+      - $ref: '#/components/parameters/mood'
+      - $ref: '#/components/parameters/bpmMin'
+      - $ref: '#/components/parameters/bpmMax'
+      - name: sort
+        in: query
+        description: Sort for search
+        required: false
+        schema:
+          type: string
+          enum:
+          - Title
+          - Relevance
+          - Date
+          - Popularity
+          - Duration
+          - BPM
+          default: Relevance
+      - name: order
+        in: query
+        description: Order
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      responses:
+        '200':
+          description: Tracks response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TracksResponse'
+              example:
+                tracks:
+                - id: 6rUPerw2po
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Happy Song
+                  bpm: 135
+                  length: 3123
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                - id: 0dZCtol3bs
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Sad Song
+                  bpm: 97
+                  length: 2976
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                pagination:
+                  page: 2
+                  limit: 25
+                  offset: 25
+                links:
+                  next: /tracks/search?limit=25&offset=50
+                  prev: /tracks/search?limit=25&offset=0
+                aggregations:
+                  moods:
+                  - id: energetic
+                    name: Energetic
+                    count: 1
+                  genres:
+                  - id: rock
+                    name: Rock
+                    count: 1
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '403':
+          description: Forbidden. Only available for ES Connect tokens or User tokens when the app allows to preview tracks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Forbidden
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Service unavailable
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/search/suggestions:
+    get:
+      tags:
+      - Browse & search
+      summary: Search autosuggest
+      description: 'The search suggestions endpoint allows your users to get autocomplete suggestions for Epidemic Sound music or external provider music search.
+
+
+        Returns:
+
+        - value: The exact search term to pass to the /tracks/search endpoint.
+
+        - title: Display text to show users in the autocomplete UI.
+
+        - type - Indicates whether this is a search term of type text or external reference URI (e.g., Spotify track).
+
+
+        Usage: When a user selects a suggestion, use the ''value'' field as the ''term'' parameter when calling /tracks/search to get matching tracks.'
+      operationId: GET_Tracks_Search_suggestions
+      parameters:
+      - $ref: '#/components/parameters/term'
+      responses:
+        '200':
+          description: Tracks Search Suggestions response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchSuggestionsResponse'
+              example:
+                suggestions:
+                - value: rock
+                  title: rock
+                  type: TEXT
+                - value: rocker
+                  title: rocker
+                  type: TEXT
+                - value: https://open.spotify.com/track/12345
+                  title: rocker
+                  type: EXTERNAL_SPOTIFY
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '403':
+          description: Forbidden. Only available for ES Connect tokens or User tokens when the app allows to preview tracks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Forbidden
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Service unavailable
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/parameters:
+    get:
+      tags:
+      - Tracks
+      summary: List track parameters
+      description: Get a list of possible track query parameters
+      operationId: GET_Track_Parameters
+      responses:
+        '200':
+          description: Track parameters response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackParametersResponse'
+              example:
+                genres:
+                - id: rock
+                  name: Rock
+                  parent:
+                    id: rock-parent
+                    name: Rock Parent
+                - id: rock-parent
+                  name: Rock Parent
+                - id: skate-punk
+                  name: Skate-Punk
+                moods:
+                - id: energetic
+                  name: Energetic
+                - id: happy
+                  name: Happy
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/moods:
+    get:
+      tags:
+      - Browse & search
+      summary: List moods
+      description: 'The moods endpoint allows your users to browse the music catalog based on moods like happy, epic or relaxing. Moods have cover art that you can show in your interface.
+
+
+        By specifying the "type" of moods you want to display, you can choose to show all moods in the Epidemic Sound library, only the moods that are featured on epidemicsound.com or only the moods that are available for your free tier tracks.'
+      operationId: GET_All_Moods
+      parameters:
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/order'
+      - $ref: '#/components/parameters/type'
+      - name: limit
+        in: query
+        description: Max number of entries returned in the response, default 20 and max 20
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Track moods response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoodsPaginatedResponseWithImages'
+              example:
+                moods:
+                - id: energetic
+                  name: Epic
+                  images:
+                    default: https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=300&h=300&fit=fill&q=90&fm=jpg
+                    L: https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                    M: https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=600&h=600&fit=fill&q=90&fm=jpg
+                    S: https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=300&h=300&fit=fill&q=90&fm=jpg
+                    XS: https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=128&h=128&fit=fill&q=90&fm=jpg
+                - id: happy
+                  name: Happy
+                  images:
+                    default: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=300&h=300&fit=fill&q=90&fm=jpg
+                    L: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                    M: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=600&h=600&fit=fill&q=90&fm=jpg
+                    S: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=300&h=300&fit=fill&q=90&fm=jpg
+                    XS: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=128&h=128&fit=fill&q=90&fm=jpg
+                pagination:
+                  page: 1
+                  limit: 20
+                  offset: 0
+                links: {}
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/moods/{moodId}:
+    get:
+      tags:
+      - Browse & search
+      summary: Mood details
+      description: Get mood details
+      operationId: GET_Mood_details
+      parameters:
+      - $ref: '#/components/parameters/moodId'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Track mood response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoodResponseWithImages'
+              example:
+                id: happy
+                name: Happy
+                images:
+                  default: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=300&h=300&fit=fill&q=90&fm=jpg
+                  L: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                  M: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=600&h=600&fit=fill&q=90&fm=jpg
+                  S: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=300&h=300&fit=fill&q=90&fm=jpg
+                  XS: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=128&h=128&fit=fill&q=90&fm=jpg
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '404':
+          description: Mood was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Mood was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/genres:
+    get:
+      tags:
+      - Browse & search
+      summary: List genres
+      description: "The genres endpoint allows your users to browse the music catalog based on genres like rock, hiphop or acoustic. \n\nGenres are nested and both parent and child genres are returned in the response. Parent genres have cover art that you can show in your interface.\n\nBy specifying the \"type\" of genres you want to display, you can choose to show all genres in the Epidemic Sound library, only the genres that are featured on epidemicsound.com or only the genres that are available for your free tier tracks."
+      operationId: GET_All_Genres
+      parameters:
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/order'
+      - $ref: '#/components/parameters/type'
+      - name: limit
+        in: query
+        description: Max number of entries returned in the response, default 20 and max 20
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Track genres response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenresWithImagesPaginatedResponse'
+              example:
+                genres:
+                - id: beats
+                  name: Beats
+                  images:
+                    default: https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=300&h=300&fit=fill&q=90&fm=jpg
+                    L: https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                    M: https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=600&h=600&fit=fill&q=90&fm=jpg
+                    S: https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=300&h=300&fit=fill&q=90&fm=jpg
+                    XS: https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=128&h=128&fit=fill&q=90&fm=jpg
+                pagination:
+                  page: 1
+                  limit: 20
+                  offset: 0
+                links: {}
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/genres/{genreId}:
+    get:
+      tags:
+      - Browse & search
+      summary: Genre details
+      description: This endpoint gives you the parent and child relationships of a specific genre as well as all tracks that belong to it.
+      operationId: GET_Genre_details
+      parameters:
+      - $ref: '#/components/parameters/genreId'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Track genre response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenreResponseWithChildren'
+              example:
+                id: parent-beats
+                name: Parent Beats
+                children:
+                - id: true-beats
+                  name: True Beats
+                  parent:
+                    id: parent-beats
+                    name: Parent Beats
+                tracks:
+                  tracks:
+                  - id: 6rUPerw2po
+                    mainArtists:
+                    - Main Artist
+                    featuredArtists:
+                    - Featured Artist
+                    title: Happy Song
+                    bpm: 135
+                    length: 3123
+                    moods:
+                    - id: happy
+                      name: Happy
+                    - id: eccentric
+                      name: Eccentric
+                    genres:
+                    - id: parent-beats
+                      name: Beats
+                      parent:
+                        id: parent
+                        name: Parent Beats
+                    - id: trap
+                      name: Trap
+                    images:
+                      default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                      M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                      S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                    waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                    hasVocals: true
+                    added: '2020-10-10'
+                    isExplicit: false
+                    isPreviewOnly: true
+                  pagination:
+                    page: 2
+                    limit: 25
+                    offset: 25
+                  links:
+                    next: v0/genres/{genreId}?limit=25&offset=50
+                    prev: v0/genres/{genreId}?limit=25&offset=0
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '404':
+          description: Genre was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Genre was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/{trackId}/download:
+    get:
+      tags:
+      - Tracks
+      summary: Download track
+      description: "The download endpoint allows you to download an MP3 file of the track. \n\nWe offer MP3 files in two qualities; normal (128kbps) and high (320kbps).\n\nThe high quality files can be used in content when needed, but normal quality is sufficient for most use cases. \n\nThe download links expire after 24 hours (normal quality) or 1 hour (high quality files). The expiration time is stated in the response. \n\nAll users can download the tracks that are part of the free tier. Only connected users with an active Epidemic Sound subscription can download tracks that are part of the premium library. If a user does not have access to download a track, you will get an error response. You can proactively mark premium tracks in your UI by using the track attribute `isPreviewOnly` (see track attributes)."
+      operationId: GET_Download
+      parameters:
+      - $ref: '#/components/parameters/trackId'
+      - $ref: '#/components/parameters/format'
+      - $ref: '#/components/parameters/quality'
+      responses:
+        '200':
+          description: Information about download url
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadResponse'
+              example:
+                url: https://pdn.epidemicsound.com/ES_ITUNES/Happy_Song/ES_Happy_Song.mp3
+                expires: '2022-12-22T11:01:48Z'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '404':
+          description: Track was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Track was not found
+        '403':
+          description: User does not have access to download the track.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: User does not have access to download the track
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/{trackId}/beats:
+    get:
+      tags:
+      - Beta
+      summary: Beats
+      description: "The beats endpoint provides information about the timestamps of beats in a track. You can use this endpoint to simplify the process to cut the video in sync with the music.\n\nUnlike BPM which is a single number for the entire track, beats can change dynamically across a music piece. This is particularly valuable for capturing variations in tempo, such as a slower intro, a build-up with faster beats, or changes in rhythm throughout the composition.\n\nThe response includes two types of metadata:  `time` and `value`. \n\n`time` represents the timestamp of the beat in seconds. `value` indicates the beat's position in a bar (or measure in the US), where 1 corresponds to the first beat (downbeat).\n\nExamples:\n\nMost pop songs have four beats in a bar. For example, if we looked at the beats data for Coolio's `1, 2, 3, 4` it would look something like:  1-2-3-4, 1-2-3-4\n\nHowever, a waltz has three beats in a bar, and the data would look something like: 1-2-3, 1-2-3\n\nUsage\
+        \ Scenarios:\n\n* Automatically cut a video in sync with the beat\n\n* Adding snap markers aligned with beat timestamps in the UI."
+      operationId: GET_Track_Beats
+      parameters:
+      - $ref: '#/components/parameters/trackId'
+      responses:
+        '200':
+          description: Beats response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackBeatsResponse'
+              example:
+                beats:
+                - time: 0.0
+                  value: 1.0
+                - time: 0.62
+                  value: 2.0
+                - time: 1.2
+                  value: 3.0
+                - time: 1.8
+                  value: 4.0
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '404':
+          description: Track was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Track was not found
+        '403':
+          description: User does not have access to download the track.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: User does not have access to download the track
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/{trackId}/hls:
+    get:
+      tags:
+      - Tracks
+      summary: Preview track using cookies
+      description: "We recommend using HLS to allow users to play/preview a track. The main benefits of this compared to MP3 are smaller file transfers and alternate qualities, allowing the HLS client library to switch to a lower quality when necessary. \n\nThe audio is encoded using the AAC coding standard, which results in a smaller footprint for a similar quality compared to MP3. The primary manifest refers to two variant quality streams. HLS client libraries typically choose the optimal quality automatically, based on download speed.\n\nThe format consists of audio files split into smaller chunks and manifests that refer to these audio files. Since the format is made up of multiple files, access to these are controlled using cookies.\n\nWe provide an example app for iOS that plays HLS streams. Users do not need to connect their account or have an active Epidemic Sound subscription to play any track using HLS streaming. That allows your users to listen to all tracks before they connect\
+        \ their account."
+      operationId: GET_HLS_Download_Data
+      parameters:
+      - $ref: '#/components/parameters/trackId'
+      responses:
+        '200':
+          description: HLS download details for the track
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HLSDownloadResponse'
+              example:
+                url: https://hls-storage.epidemicsite.com/hls/v1/q4MImKW47D/daefecd205c01496b42ae6950c446c6e/master.m3u8
+                cookie:
+                  name: Cloud-CDN-Cookie
+                  domain: hls-storage.epidemicsite.com
+                  path: /
+                  value: URLPrefix=aHR0cHM6Ly9obHMtaW52ZXN0aWdhdGlvbi5lcGlkZW1pY3NpdGUuY29tL2hscy92MS9xNE1JbUtXNDdEL2RhZWZlY2QyMDVjMDE0OTZiNDJhZTY5NTBjNDQ2YzZlLw==:Expires=1638185196:KeyName=KeyName:Signature=S0QZ20ijEWKA-w9B9MycB0yTca0=
+                  expires: '2021-11-29T11:26:36Z'
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '404':
+          description: Track was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Track was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/{trackId}/similar:
+    get:
+      tags:
+      - Tracks
+      summary: Similar tracks
+      description: 'The similar tracks endpoint allows developers to retrieve a list of tracks that are similar to a given reference track. This feature is designed to help users discover tracks that share similar characteristics, such as genre, mood, tempo, and more.
+
+        This endpoint helps your users replace tracks that don''t fit perfectly or discover multiple alternatives to a track they enjoy.'
+      operationId: GET_Similar_tracks
+      parameters:
+      - $ref: '#/components/parameters/trackId'
+      - $ref: '#/components/parameters/offset'
+      - name: limit
+        in: query
+        description: Max number of entries returned in the response, default 50 and max 60
+        required: false
+      responses:
+        '200':
+          description: Paginated list of similar tracks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TracksResponse'
+              example:
+                tracks:
+                - id: 6rUPerw2po
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Happy Song
+                  bpm: 135
+                  length: 3123
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                - id: 0dZCtol3bs
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Sad Song
+                  bpm: 97
+                  length: 2976
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                pagination:
+                  page: 4
+                  limit: 20
+                  offset: 60
+                links:
+                  next: /v0/tracks?limit=20&offset=80
+                  prev: /v0/tracks?limit=20&offset=40
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '404':
+          description: Track was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Track was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/similar-sections:
+    get:
+      tags:
+      - Tracks
+      summary: Similar track segment based on audio file
+      description: Returns a list of track sections that are matched to the provided audio file id.
+      operationId: GET_Similar_Audio_Match_Section_tracks
+      parameters:
+      - name: audioUploadId
+        in: query
+        description: Reference to the uploaded audio file
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: start
+        in: query
+        description: Start of the section in milliseconds
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: end
+        in: query
+        description: End of the section in milliseconds
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Paginated list of similar tracks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackSectionPaginatedResponse'
+              example:
+                trackSections:
+                - track:
+                    id: 0dZCtol3bs
+                    mainArtists:
+                    - Main Artist
+                    featuredArtists:
+                    - Featured Artist
+                    title: Sad Song
+                    bpm: 97
+                    length: 2976
+                    moods:
+                    - id: happy
+                      name: Happy
+                    - id: eccentric
+                      name: Eccentric
+                    genres:
+                    - id: beats
+                      name: Beats
+                      parent:
+                        id: parent
+                        name: Parent Beats
+                    - id: trap
+                      name: Trap
+                    images:
+                      default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                      M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                      S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                    waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                    hasVocals: true
+                    added: '2020-10-10'
+                    isExplicit: false
+                    isPreviewOnly: true
+                  start: 0
+                  end: 10000
+                pagination:
+                  page: 4
+                  limit: 20
+                  offset: 60
+                links:
+                  next: /v0/tracks/similar-sections?audioUploadId=ca90c41b-d879-4dc0-82a5-8d3755203eb1&limit=20&offset=80&start=0&end=10000
+                  prev: /v0/tracks/similar-sections?audioUploadId=410fc3f9-94f2-4039-87c7-497e694cda68&limit=20&offset=40&start=0&end=10000
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '404':
+          description: Track was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Track was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/{trackId}/similar-sections:
+    get:
+      tags:
+      - Tracks
+      summary: Similar track segment based on trackID
+      description: "The similar segments endpoint allows developers to use part of a track as a reference to search for music segments in the Epidemic Sound catalog that sound similar.\n\nThe feature utilizes the Epidemic Audio Reference (EAR) technology to provide users with the ability to quickly find alternative segments of music.\n\nUsage Scenarios:\n\n  * Video Editing Templates: Replace default tracks in video templates with segments that fit better.\n  * Quick Swaps: Swap out a segment of music in a video where the existing track doesn't quite match.\n  * Creative Iteration: Easily experiment with different music segments to enhance your video's impact."
+      operationId: GET_Similar_Section_tracks
+      parameters:
+      - $ref: '#/components/parameters/trackId'
+      - name: start
+        in: query
+        description: Start of the section in milliseconds
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: end
+        in: query
+        description: End of the section in milliseconds
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Paginated list of similar tracks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackSectionPaginatedResponse'
+              example:
+                trackSections:
+                - track:
+                    id: 0dZCtol3bs
+                    mainArtists:
+                    - Main Artist
+                    featuredArtists:
+                    - Featured Artist
+                    title: Sad Song
+                    bpm: 97
+                    length: 2976
+                    moods:
+                    - id: happy
+                      name: Happy
+                    - id: eccentric
+                      name: Eccentric
+                    genres:
+                    - id: beats
+                      name: Beats
+                      parent:
+                        id: parent
+                        name: Parent Beats
+                    - id: trap
+                      name: Trap
+                    images:
+                      default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                      M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                      S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                    waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                    hasVocals: true
+                    added: '2020-10-10'
+                    isExplicit: false
+                    isPreviewOnly: true
+                  start: 0
+                  end: 10000
+                pagination:
+                  page: 4
+                  limit: 20
+                  offset: 60
+                links:
+                  next: /v0/tracks/trackId/similar-sections?limit=20&offset=80&start=0&end=10000
+                  prev: /v0/tracks/trackId/similar-sections?limit=20&offset=40&start=0&end=10000
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '404':
+          description: Track was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Track was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/{trackId}/stream:
+    get:
+      tags:
+      - Tracks
+      summary: Preview track
+      description: "We recommend using HLS to allow users to play/preview a track. The main benefits of this compared to MP3 are smaller file transfers and alternate qualities, allowing the HLS client library to switch to a lower quality when necessary. \n\nThe audio is encoded using the AAC coding standard, which results in a smaller footprint for a similar quality compared to MP3. The primary manifest refers to two variant quality streams. HLS client libraries typically choose the optimal quality automatically, based on download speed.\n\nThe format consists of audio files split into smaller chunks and manifests that refer to these audio files.\n\nWe provide an example app for iOS that plays HLS streams. Users do not need to connect their account or have an active Epidemic Sound subscription to play any track using HLS streaming. That allows your users to listen to all tracks before they connect their account."
+      operationId: GET_Stream
+      parameters:
+      - $ref: '#/components/parameters/trackId'
+      responses:
+        '200':
+          description: Information about the stream url
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadResponse'
+              example:
+                url: https://hls-storage.epidemicsite.com/hls/v1/q4MImKW47D/daefecd205c01496b42ae6950c446c6e/master.m3u8
+                expires: '2022-12-22T11:01:48Z'
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '404':
+          description: Track was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Track was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/{trackId}/highlights:
+    get:
+      tags:
+      - Tracks
+      summary: Popular segment
+      description: 'Powered by our 2 billion daily streams on YouTube, the popular segments endpoint uses machine learning to recommend the best time section.
+
+
+        You can use popular segments to start playing the track from the right millisecond, or recommend the right part of the track for shorter content.
+
+
+        The popular segments endpoint provides start and stop timestamps in milliseconds. The default duration is 30 seconds.
+
+
+        The endpoint accepts up to 5 different durations per request where each duration must be at least 5 seconds and at most 60 seconds.'
+      operationId: GET_Highlights_Details
+      parameters:
+      - $ref: '#/components/parameters/trackId'
+      - $ref: '#/components/parameters/duration'
+      responses:
+        '200':
+          description: List of highlighted sections for the track. The times are given in milliseconds. If there is no available highlight, a fallback to the first section of the track is returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HighlightsResponse'
+              example:
+                highlights:
+                - from: 9000
+                  to: 39000
+                  duration: 30
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '404':
+          description: Track was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Track was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/uploads/audio/{checksum}:
+    get:
+      tags:
+      - Assets
+      summary: Get audio by checksum
+      description: Will return the audio id of an audio file uploaded by the partner, matched by checksum. Should be used to avoid duplicate uploads
+      operationId: GET_Partner_Audio_By_Checksum
+      parameters:
+      - $ref: '#/components/parameters/checksum'
+      responses:
+        '200':
+          description: Partner audio response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnerAudioResponse'
+              example:
+                audioUploadId: d99319b0-5b28-445a-a337-baa82df25394
+                length: 10.0
+                expires: '2026-06-10T07:45:47.611686848Z'
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '404':
+          description: Audio file was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Audio was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+      - PartnerAuth: []
+  /v0/uploads/audio/{audioIdOrChecksum}:
+    delete:
+      tags:
+      - Assets
+      summary: Delete audio
+      description: Use the delete audio endpoint to delete an audio file.
+      operationId: DELETE_Partner_audio
+      parameters:
+      - $ref: '#/components/parameters/audioIdOrChecksum'
+      responses:
+        '200':
+          description: List of deleted audio ids
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnerAudioDeleteResponse'
+              example:
+                audioFilesRemoved:
+                - a9acf7c6-5d1f-4e9c-8f74-14390c3f3bbe
+        '202':
+          description: List of audio files marked for deletion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnerAudioDeleteResponse'
+              example:
+                audioFilesRemoved:
+                - 7e1745a6-5ac9-4716-a362-7f9e430c4df8
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+      security:
+      - PartnerAuth: []
+      - ApiKeyAuth: []
+  /v0/uploads/audio:
+    post:
+      tags:
+      - Assets
+      summary: Upload audio
+      description: "Upload an audio file to get recommendations of similar tracks in the Epidemic Sound library. When you post the audio file to this endpoint, you will receive an AudioID in return. Use this AudioID in a request to the similar tracks endpoint to get track recommendations.\n \n We currently support the formats: mp3, mpeg, ogg and vorbis. Maximum file size is 3.5MB. You can only upload music with the partner token, since we currently do not allow end users to use this feature."
+      operationId: POST_Upload_Partner_Audio
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Returns the id of the uploaded audio, as well as the expiration date for the audio.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadUserImageResponse'
+              example:
+                imageId: 2f0f5883-5b03-4663-a703-9142a531443d
+                expirationDate: '2026-05-12T07:45:47.615665317Z'
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - PartnerAuth: []
+      - ApiKeyAuth: []
+  /v0/uploads/images/{imageId}:
+    delete:
+      tags:
+      - Assets
+      summary: Delete single image
+      description: Use the delete image endpoint to delete a single image uploaded by a user
+      operationId: DELETE_User_Image
+      parameters:
+      - $ref: '#/components/parameters/imageId'
+      responses:
+        '204':
+          description: Image was deleted
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '404':
+          description: Image was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Image was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/uploads/images:
+    post:
+      tags:
+      - Assets
+      summary: Upload image
+      description: "Upload an image from the user's video to get recommendations of tracks in the Epidemic Sound library that would work for the video. When you post the image to this endpoint, you will receive an ImageID in return. Use this ImageID in a request to the matching image endpoint to get track recommendations.\n \n We currently support jpeg format and maximum file size is 2MB."
+      operationId: POST_Upload_User_Image
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Contains id to be used for endpoints requiring an image id, as well as the expiration date for the image.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadUserImageResponse'
+              example:
+                imageId: be4f3072-62f8-49c2-9904-0c99fb87a111
+                expirationDate: '2026-05-12T07:45:47.618440808Z'
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Assets
+      summary: Delete all the uploaded images by the user
+      description: Deletes all images uploaded by the user
+      operationId: DELETE_User_Images
+      responses:
+        '202':
+          description: Images were marked for deletion
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/matching-image/{imageId}:
+    get:
+      tags:
+      - Tracks
+      summary: Tracks based on image
+      description: "Upload an image from the user's video to get recommendations of tracks in the Epidemic Sound library that would work for the video. Use ImageID retrieved from the Upload Image endpoint to fetch the recommended tracks.\n "
+      operationId: GET_Tracks_Matching_Image
+      parameters:
+      - $ref: '#/components/parameters/imageId'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/genre'
+      - $ref: '#/components/parameters/mood'
+      responses:
+        '200':
+          description: Paginated list of tracks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TracksResponse'
+              example:
+                tracks:
+                - id: 6rUPerw2po
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Happy Song
+                  bpm: 135
+                  length: 3123
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                - id: 0dZCtol3bs
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Sad Song
+                  bpm: 97
+                  length: 2976
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                pagination:
+                  page: 2
+                  limit: 25
+                  offset: 25
+                links:
+                  next: /tracks/search?limit=25&offset=50
+                  prev: /tracks/search?limit=25&offset=0
+                aggregations:
+                  moods:
+                  - id: energetic
+                    name: Energetic
+                    count: 1
+                  genres:
+                  - id: rock
+                    name: Rock
+                    count: 1
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '404':
+          description: Image was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Image was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/sound-effects/categories:
+    get:
+      tags:
+      - Sound effects
+      summary: List SFX categories
+      description: 'The sound effects categories endpoint allows you to get a list of all sound effects categories.
+
+
+        You can then browse the sound effects catalog based on categories like "Applause" or "Crowds".
+
+
+        Some sound effect categories have cover art that you can use in your interface. You can choose to display all categories, or choose type "featured" to only show the categories that are chosen by our curation team.'
+      operationId: GET_Sound_Effect_Categories
+      parameters:
+      - name: type
+        in: query
+        description: Category type
+        required: false
+        schema:
+          type: string
+          enum:
+          - all
+          - featured
+          default: all
+      - $ref: '#/components/parameters/offset'
+      - name: limit
+        in: query
+        description: Max number of entries returned in the response, default 50
+        required: false
+      responses:
+        '200':
+          description: Sound effects category list with related parent category. You can see the parent-child relationship in the response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoundEffectCategoriesResponse'
+              example:
+                categories:
+                - id: 00f328a4-3526-43de-9cd6-87a991e6f5ec
+                  name: Applause
+                  images:
+                    default: https://image.url?w=300&h=300&fit=fill&q=90&fm=jpg
+                    L: https://image.url?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                    M: https://image.url?w=600&h=600&fit=fill&q=90&fm=jpg
+                    S: https://image.url?w=300&h=300&fit=fill&q=90&fm=jpg
+                    XS: https://image.url?w=128&h=128&fit=fill&q=90&fm=jpg
+                  parent:
+                    id: 26d2325c-7642-4f52-9d98-478046b050d6
+                    name: Crowds
+                pagination:
+                  page: 2
+                  limit: 10
+                  offset: 10
+                links:
+                  next: /sound-effects/categories?limit=10&offset=20
+                  prev: /sound-effects/categories?limit=10&offset=0
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/sound-effects/categories/{categoryId}:
+    get:
+      tags:
+      - Sound effects
+      summary: SFX category details
+      description: 'The category details endpoint contains info on the requested sound effects category.
+
+
+        The purpose of this endpoint is to be able to validate that an individual object exists in the API if it was cached by the client.'
+      operationId: GET_Sound_Effect_Category
+      parameters:
+      - $ref: '#/components/parameters/categoryId'
+      responses:
+        '200':
+          description: Category with related parent and children categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoundEffectCategoryWithRelativesResponse'
+              example:
+                id: df41740b-62a5-4e96-882f-769698ae89b7
+                name: Applause
+                images:
+                  default: https://image.url?w=300&h=300&fit=fill&q=90&fm=jpg
+                  L: https://image.url?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                  M: https://image.url?w=600&h=600&fit=fill&q=90&fm=jpg
+                  S: https://image.url?w=300&h=300&fit=fill&q=90&fm=jpg
+                  XS: https://image.url?w=128&h=128&fit=fill&q=90&fm=jpg
+                parent:
+                  id: 8d1464ae-6b26-4727-9013-f5ef413648ed
+                  name: Crowds
+                children:
+                - id: 9e54ce9e-9033-4808-ba51-0993485d3318
+                  name: Claps
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '404':
+          description: Category was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Category was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/sound-effects/categories/{categoryId}/tracks:
+    get:
+      tags:
+      - Sound effects
+      summary: List SFX by category
+      description: Use the sound effects details endpoint to display all sound effects for a given category.
+      operationId: GET_Sound_Effect_Category_Tracks
+      parameters:
+      - $ref: '#/components/parameters/categoryId'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - name: sort
+        in: query
+        description: Sort
+        required: false
+        schema:
+          type: string
+          enum:
+          - title
+          - newest
+          - length
+          default: newest
+      - name: order
+        in: query
+        description: Order
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      - name: includeExplicit
+        in: query
+        description: Whether to include sound effects tagged as explicit in the results. Defaults to false, meaning explicit content is excluded by default.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: List of sound effects for a given category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSoundEffectsResponse'
+              example:
+                soundEffects:
+                - id: 4b162c28-197f-4e3b-b1b4-0d96fd211322
+                  title: Applause
+                  added: '2026-05-11T07:45:47.626987847Z'
+                  length: 10
+                  images:
+                    default: https://image.url?w=300&h=300&fit=fill&q=90&fm=jpg
+                    L: https://image.url?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                    M: https://image.url?w=600&h=600&fit=fill&q=90&fm=jpg
+                    S: https://image.url?w=300&h=300&fit=fill&q=90&fm=jpg
+                    XS: https://image.url?w=128&h=128&fit=fill&q=90&fm=jpg
+                pagination:
+                  page: 2
+                  limit: 10
+                  offset: 10
+                links:
+                  next: /sound-effects/categories?limit=10&offset=20
+                  prev: /sound-effects/categories?limit=10&offset=0
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '404':
+          description: Category was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Category was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/sound-effects/{trackId}/download:
+    get:
+      tags:
+      - Sound effects
+      summary: Download sound effect
+      description: 'The download endpoint allows you to download an MP3 file of the sound effect.
+
+
+        We offer MP3 files in two qualities; normal (128kbps) and high (320kbps).
+
+
+        The high quality files can be used in content when needed, but normal quality is sufficient for most use cases.
+
+
+        The download links expire after 24 hours (normal quality) or 1 hour (high quality files). The expiration time is stated in the response.'
+      operationId: GET_Sound_Effect_Download
+      parameters:
+      - $ref: '#/components/parameters/trackId'
+      - $ref: '#/components/parameters/format'
+      - $ref: '#/components/parameters/quality'
+      responses:
+        '200':
+          description: Information about download url
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadResponse'
+              example:
+                url: https://pdn.epidemicsound.com/ES_ITUNES/Happy_Song/ES_Happy_Song.mp3
+                expires: '2022-12-22T11:01:48Z'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '404':
+          description: Track was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Track was not found
+        '403':
+          description: User does not have access to download the track.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: User does not have access to download the track
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/sound-effects/search:
+    get:
+      tags:
+      - Sound effects
+      summary: Search SFX
+      description: 'Use the sound effects search endpoint to allow users to search within the sound effects library.
+
+        '
+      operationId: GET_Sound_Effect_Search
+      parameters:
+      - $ref: '#/components/parameters/offset'
+      - name: limit
+        in: query
+        description: Max number of entries returned in the response, default 50 and max 60
+        required: false
+      - required: true
+        $ref: '#/components/parameters/term'
+      - name: sort
+        in: query
+        description: Sort for search
+        required: false
+        schema:
+          type: string
+          enum:
+          - best-match
+          - newest
+          - popular
+          - length
+          - title
+          default: best-match
+      - name: order
+        in: query
+        description: Order
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      - name: includeExplicit
+        in: query
+        description: Whether to include sound effects tagged as explicit in the results. Defaults to false, meaning explicit content is excluded by default.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '200':
+          description: List of sound effect search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSoundEffectsResponse'
+              example:
+                soundEffects:
+                - id: 0e875aa3-56d7-4252-8b93-b51bd1b3bab3
+                  title: Applause
+                  added: '2026-05-11T07:45:47.632385297Z'
+                  length: 10
+                  images:
+                    default: https://image.url?w=300&h=300&fit=fill&q=90&fm=jpg
+                    L: https://image.url?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                    M: https://image.url?w=600&h=600&fit=fill&q=90&fm=jpg
+                    S: https://image.url?w=300&h=300&fit=fill&q=90&fm=jpg
+                    XS: https://image.url?w=128&h=128&fit=fill&q=90&fm=jpg
+                pagination:
+                  page: 2
+                  limit: 10
+                  offset: 10
+                links:
+                  next: /sound-effects/categories?limit=10&offset=20
+                  prev: /sound-effects/categories?limit=10&offset=0
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/analytics/report:
+    post:
+      tags:
+      - Reporting
+      summary: Report usage in bulk
+      description: "This endpoint should be used when you want to bulk report events to Epidemic Sound. We currently support the following events:\ntrackPreviewed, trackDownloaded and tracksExported. Note that the limit for number of events per request is limited to 100.\n Also note that for events containing the field trackIds, the limit for number of trackIds per event is 50. \n Events may not contain a timestamp older than 7 days ago."
+      operationId: POST_Analytics_Report
+      requestBody:
+        description: Analytics report
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsReportRequest'
+            example:
+              events:
+              - userId: '123'
+                timestamp: '2026-05-11T07:45:47.634091607Z'
+                userConnected: false
+                analyticsEvent:
+                  trackId: '12345'
+                  type: trackPreviewed
+              - userId: '456'
+                timestamp: '2026-05-11T07:45:47.634810417Z'
+                userConnected: true
+                analyticsEvent:
+                  trackId: '12345'
+                  format: mp3
+                  quality: normal
+                  type: trackDownloaded
+              - userId: '456'
+                timestamp: '2026-05-11T07:45:47.635468127Z'
+                analyticsEvent:
+                  trackIds:
+                  - '12345'
+                  platform: YOUTUBE
+                  type: tracksExported
+      responses:
+        '200':
+          description: Usage report response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsReportResponse'
+              example:
+                batchId: '12345'
+                eventsCount: 10
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - PartnerAuth: []
+      - ApiKeyAuth: []
+  /v0/usage:
+    post:
+      tags:
+      - Reporting
+      summary: Report usage
+      description: 'The usage endpoint lets you report when a user exports their content to social media or downloads the content file to their device.
+
+        You can specify which platform (YouTube, Twitch, Instagram, Facebook, TikTok, Twitter or Other) they export the file to. Use the platform `local` if the user downloads the content to their device.
+
+        This data is used for attribution and analytics purposes as well as to improve personalization.'
+      operationId: POST_Use
+      requestBody:
+        description: Usage report
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackUsageRequest'
+            example:
+              eventType: EXPORTED
+              platform: OTHER
+              trackIds:
+              - trackid1
+              - trackid2
+              other: OptionalValueForWhenNoMatchingPlatformEnum
+      responses:
+        '200':
+          description: Usage report response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Ok
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/partner-token:
+    post:
+      tags:
+      - Authentication
+      summary: Request a partner token
+      description: Request a Partner Token
+      operationId: POST_Partner_Token
+      requestBody:
+        description: Token request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnerTokenRequest'
+      responses:
+        '201':
+          description: User access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+              example:
+                accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJwYXJ0bmVyIiwiaXNzIjoiRXBpZGVtaWMgU291bmQiLCJwYXJ0bmVySWQiOiJlcGlkZW1pY3NvdW5kIiwiZXhwIjoxNjIwMTA4OTg0fQ
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      deprecated: true
+  /v0/token:
+    post:
+      tags:
+      - Authentication
+      summary: Request a user token
+      description: 'Request a User Token. This endpoint requires a Partner Token for authentication. '
+      operationId: POST_User_Token
+      requestBody:
+        description: Token request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserTokenRequest'
+      responses:
+        '201':
+          description: User access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+              example:
+                accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyVGllciI6ImJhc2VfdGllciIsImF1ZCI6ImVuZC11c2VyIiwiaXNzIjoiRXBpZGVtaWMgU291bmQiLCJwYXJ0bmVySWQiOiJlcGlkZW1pY3NvdW5kIiwiZXhwIjoxNjIwMTA5MDkyLCJ1c2VySWQiOiJ1c2VyX2lkIn0
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      deprecated: true
+      security:
+      - PartnerAuth: []
+  /v0/users/me:
+    get:
+      tags:
+      - Users
+      summary: User details
+      description: Get user details of the authenticated user.
+      operationId: GET_End_User_Details
+      responses:
+        '200':
+          description: End user details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+              example:
+                userId: d8492175-8795-44e6-a1e6-e2198448ba33
+                esConnect: false
+                hasActiveSubscription: null
+                email: null
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+  /v0/users/me/liked/tracks:
+    get:
+      tags:
+      - Users
+      summary: List users' liked tracks
+      description: 'The liked tracks endpoint lets you list the liked tracks of a connected user.
+
+        Users can add new tracks to their list on epidemicsound.com or via the Epidemic Sound app, giving them a smooth cross-device experience.'
+      operationId: GET_Users_Liked_Tracks
+      parameters:
+      - name: offset
+        in: query
+        description: Offset for the pagination. For this endpoint the number of results is fixed at 25, so the offset needs to be evenly divisible by 25.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Liked Tracks response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TracksResponse'
+              example:
+                tracks:
+                - id: 6rUPerw2po
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Happy Song
+                  bpm: 135
+                  length: 3123
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                - id: 0dZCtol3bs
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Sad Song
+                  bpm: 97
+                  length: 2976
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                pagination:
+                  page: 2
+                  limit: 25
+                  offset: 25
+                links:
+                  next: /users/me/liked/tracks?limit=25&offset=50
+                  prev: /users/me/liked/tracks?limit=25&offset=0
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - EpidemicSoundConnectAuth: []
+  /v0/tracks/versions:
+    post:
+      tags:
+      - Beta
+      summary: Start a track versions generation job
+      description: "This endpoint allows you to start a job to generate edited versions of a track.\nThe job will be processed asynchronously and you can check the status using the\nGET /tracks/versions/{jobId} endpoint. Note that the url expires in 24 hours. \n\n**Duration limits:**\n- The duration must be between 1 second and 5 minutes. \n- Longer durations result in increased processing time, as latency scales with the desired duration."
+      operationId: POST_Track_Versions
+      requestBody:
+        description: Track edit request configuration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackEditsJobRequest'
+      responses:
+        '200':
+          description: Track edit job response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackEditsResponse'
+              example:
+                status: PENDING
+                results: []
+                message: Job is still processing
+                jobId: f854c9cf-bf6d-4345-b94c-c5a5c7d1979e
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/versions/{jobId}:
+    get:
+      tags:
+      - Beta
+      summary: Get track versions job status
+      description: 'This endpoint allows you to check the status of a track versions job.
+
+        When the job is complete, it will return the URLs to the generated tracks.
+
+
+        **Waveform Data:**
+
+        - By default, waveform data is excluded to reduce payload size
+
+        - Use `expand=waveform` to include waveform data in the response'
+      operationId: GET_Track_Versions_Job
+      parameters:
+      - name: jobId
+        in: path
+        description: The ID of the job to check
+        required: true
+      - name: expand
+        in: query
+        description: Include additional data in response. Use 'waveform' to include waveform data.
+        required: false
+      responses:
+        '200':
+          description: Track edit job response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackEditsResponse'
+              example:
+                status: COMPLETED
+                results:
+                - previewUrl: https://cdn.epidemicsound.com/edited-tracks/12345.mp3
+                  highQualityUrl: https://cdn.epidemicsound.com/edited-tracks/12345.wav
+                message: Job completed successfully
+                jobId: 10887737-61a9-4a75-8ea1-cd0e4630670f
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/safelisting/licenses:
+    get:
+      tags:
+      - Safelisting
+      summary: List safelisting licenses
+      description: List safelisting licenses for the specified end user. Supports filtering by asset type, platform, and status, with pagination and sorting.
+      operationId: GET_Safelisting_Licenses
+      parameters:
+      - name: X-Partner-User-Id
+        in: header
+        description: The partner's end user identifier. Used to scope licenses per end user.
+        required: true
+      - name: assetType
+        in: query
+        description: Filter by asset type
+        required: true
+        schema:
+          type: string
+          enum:
+          - channel
+          - video
+      - name: platform
+        in: query
+        description: Filter by platform
+        required: false
+        schema:
+          type: string
+          enum:
+          - youtube
+          - instagram
+          - facebook
+          - twitch
+          - tiktok
+          - podcast
+          - website
+      - name: status
+        in: query
+        description: Filter by status. Currently only `active` licenses are returned.
+        required: false
+        schema:
+          type: string
+          enum:
+          - active
+      - name: sortBy
+        in: query
+        description: Field to sort results by
+        required: false
+        schema:
+          type: string
+          enum:
+          - createdAt
+          - expiresAt
+          default: expiresAt
+      - name: sortOrder
+        in: query
+        description: Sort direction
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+      - name: page
+        in: query
+        description: Page number (1-based)
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: Number of results per page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 25
+      responses:
+        '200':
+          description: License list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SafelistingLicenseListResponse'
+              example:
+                page: 1
+                pageSize: 25
+                totalItems: 1
+                data:
+                - id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                  createdAt: '2024-06-01T10:00:00Z'
+                  expiresAt: '2026-12-31T23:59:59Z'
+                  asset:
+                    id: UCxxxxxxxxxxxxxxxxxx
+                    type: channel
+                    platform: youtube
+                    url: https://www.youtube.com/@somechannel
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Safelisting
+      summary: Create a safelisting license
+      description: Create a new safelisting license for a channel or video. The `X-Partner-User-Id` header is required to scope the license to a specific end user.
+      operationId: POST_Safelisting_License
+      parameters:
+      - name: X-Partner-User-Id
+        in: header
+        description: The partner's end user identifier. Used to scope licenses per end user.
+        required: true
+      requestBody:
+        description: License creation request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSafelistingLicenseRequest'
+            example:
+              asset:
+                type: channel
+                platform: youtube
+                url: https://www.youtube.com/@somechannel
+              expiresAt: '2026-12-31T23:59:59Z'
+        required: true
+      responses:
+        '201':
+          description: Created license
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SafelistingLicenseResponse'
+              example:
+                id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                createdAt: '2024-06-01T10:00:00Z'
+                expiresAt: '2026-12-31T23:59:59Z'
+                asset:
+                  id: UCxxxxxxxxxxxxxxxxxx
+                  type: channel
+                  platform: youtube
+                  url: https://www.youtube.com/@somechannel
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '409':
+          description: Asset already safelisted by another user in this workspace
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Conflict
+        '403':
+          description: Workspace does not have safelisting entitlement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Forbidden
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Safelisting
+      summary: Delete all licenses for an end user
+      description: Expires all active licenses for the specified end user within the workspace. Intended for end-user churn scenarios (e.g. when a user cancels their subscription). Returns 204 regardless of whether the user had any active licenses.
+      operationId: DELETE_Safelisting_Licenses
+      parameters:
+      - name: X-Partner-User-Id
+        in: header
+        description: The partner's end user identifier. Used to scope licenses per end user.
+        required: true
+      responses:
+        '204':
+          description: All licenses expired successfully
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+      security:
+      - ApiKeyAuth: []
+  /v0/safelisting/licenses/{licenseId}:
+    get:
+      tags:
+      - Safelisting
+      summary: Get a safelisting license
+      description: Retrieve a single safelisting license by ID. Returns 404 if the license does not exist or does not belong to the specified end user.
+      operationId: GET_Safelisting_License
+      parameters:
+      - name: licenseId
+        in: path
+        description: License ID
+        required: true
+      - name: X-Partner-User-Id
+        in: header
+        description: The partner's end user identifier. Used to scope licenses per end user.
+        required: true
+      responses:
+        '200':
+          description: License
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SafelistingLicenseResponse'
+              example:
+                id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                createdAt: '2024-06-01T10:00:00Z'
+                expiresAt: '2026-12-31T23:59:59Z'
+                asset:
+                  id: UCxxxxxxxxxxxxxxxxxx
+                  type: channel
+                  platform: youtube
+                  url: https://www.youtube.com/@somechannel
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '404':
+          description: License not found or does not belong to this end user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Safelisting license was not found
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Safelisting
+      summary: Delete a safelisting license
+      description: Expire a safelisting license by ID. The license is soft-deleted and will no longer appear in active license listings.
+      operationId: DELETE_Safelisting_License
+      parameters:
+      - name: licenseId
+        in: path
+        description: License ID
+        required: true
+      - name: X-Partner-User-Id
+        in: header
+        description: The partner's end user identifier. Used to scope licenses per end user.
+        required: true
+      responses:
+        '204':
+          description: License expired successfully
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '404':
+          description: License not found or does not belong to this end user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Safelisting license was not found
+      security:
+      - ApiKeyAuth: []
+    patch:
+      tags:
+      - Safelisting
+      summary: Update a safelisting license
+      description: Update a safelisting license. Currently only the expiration date can be modified.
+      operationId: PATCH_Safelisting_License
+      parameters:
+      - name: licenseId
+        in: path
+        description: License ID
+        required: true
+      - name: X-Partner-User-Id
+        in: header
+        description: The partner's end user identifier. Used to scope licenses per end user.
+        required: true
+      requestBody:
+        description: License update request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSafelistingLicenseRequest'
+            example:
+              expiresAt: '2027-12-31T23:59:59Z'
+        required: true
+      responses:
+        '200':
+          description: Updated license
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SafelistingLicenseResponse'
+              example:
+                id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                createdAt: '2024-06-01T10:00:00Z'
+                expiresAt: '2027-12-31T23:59:59Z'
+                asset:
+                  id: UCxxxxxxxxxxxxxxxxxx
+                  type: channel
+                  platform: youtube
+                  url: https://www.youtube.com/@somechannel
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '404':
+          description: License not found or does not belong to this end user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Safelisting license was not found
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    TrackResponse:
+      required:
+      - added
+      - bpm
+      - featuredArtists
+      - genres
+      - id
+      - length
+      - mainArtists
+      - moods
+      - title
+      - waveformUrl
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the track
+        mainArtists:
+          type: array
+          description: The main artist that created the track.
+          items:
+            type: string
+            description: The main artist that created the track.
+        featuredArtists:
+          type: array
+          description: Additional artists that contributed to the track.
+          items:
+            type: string
+            description: Additional artists that contributed to the track.
+        title:
+          type: string
+          description: Title of the track
+        bpm:
+          type: integer
+          description: Beats per minute for the track.
+          format: int32
+        length:
+          type: integer
+          description: Track length in seconds
+          format: int32
+        moods:
+          type: array
+          description: Lists the moods of the track.
+          items:
+            $ref: '#/components/schemas/MoodResponse'
+        genres:
+          type: array
+          description: Lists the genres of the track.
+          items:
+            $ref: '#/components/schemas/GenreResponse'
+        images:
+          $ref: '#/components/schemas/ImagesResponse'
+        waveformUrl:
+          type: string
+          description: Reference to the waveform as a json object.
+        hasVocals:
+          type: boolean
+          description: Set to true if the track has vocals. Set to false for instrumental tracks.
+          nullable: true
+        added:
+          type: string
+          description: The date the track was released in the format YYYY-mm-dd.
+        tierOption:
+          type: string
+          nullable: true
+          enum:
+          - PAID
+          - FREE
+        isExplicit:
+          type: boolean
+          nullable: true
+        isPreviewOnly:
+          type: boolean
+    MoodResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the mood
+        name:
+          type: string
+          description: Name of the mood
+    MoodImagesResponse:
+      type: object
+      properties:
+        default:
+          type: string
+          nullable: true
+        L:
+          type: string
+          nullable: true
+        M:
+          type: string
+          nullable: true
+        S:
+          type: string
+          nullable: true
+        XS:
+          type: string
+          nullable: true
+    ParentGenreResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the parent genre
+        name:
+          type: string
+          description: Name of the parent genre
+    GenreResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        parent:
+          $ref: '#/components/schemas/ParentGenreResponse'
+    GenreImagesResponse:
+      type: object
+      properties:
+        default:
+          type: string
+        L:
+          type: string
+          nullable: true
+        M:
+          type: string
+          nullable: true
+        S:
+          type: string
+          nullable: true
+        XS:
+          type: string
+          nullable: true
+    TrackMoodsResponse:
+      required:
+      - moods
+      type: object
+      properties:
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/MoodResponse'
+    TrackGenresResponse:
+      required:
+      - genres
+      type: object
+      properties:
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreResponse'
+    GenreResponseWithChildren:
+      required:
+      - children
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        parent:
+          $ref: '#/components/schemas/ParentGenreResponse'
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreResponse'
+        images:
+          $ref: '#/components/schemas/GenreImagesResponse'
+        tracks:
+          $ref: '#/components/schemas/TracksResponse'
+    TrackParametersResponse:
+      required:
+      - genres
+      - moods
+      type: object
+      properties:
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreResponse'
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/MoodResponse'
+    MoodsPaginatedResponseWithImages:
+      required:
+      - links
+      - moods
+      - pagination
+      type: object
+      properties:
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/MoodResponseWithImages'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    MoodResponseWithImages:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        images:
+          $ref: '#/components/schemas/MoodImagesResponse'
+        tracks:
+          $ref: '#/components/schemas/TracksResponse'
+    GenresWithImagesPaginatedResponse:
+      required:
+      - genres
+      - links
+      - pagination
+      type: object
+      properties:
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreResponseWithImages'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    GenreResponseWithImages:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        parent:
+          $ref: '#/components/schemas/ParentGenreResponseWithImages'
+        images:
+          $ref: '#/components/schemas/GenreImagesResponse'
+    ParentGenreResponseWithImages:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        images:
+          $ref: '#/components/schemas/GenreImagesResponse'
+    TrackSectionPaginatedResponse:
+      required:
+      - links
+      - pagination
+      - trackSections
+      type: object
+      properties:
+        trackSections:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackSectionResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    DownloadResponse:
+      required:
+      - expires
+      - url
+      type: object
+      properties:
+        url:
+          type: string
+        expires:
+          type: string
+    HLSDownloadResponse:
+      required:
+      - cookie
+      - url
+      type: object
+      properties:
+        url:
+          type: string
+        cookie:
+          $ref: '#/components/schemas/HLSCookieResponse'
+    HLSCookieResponse:
+      required:
+      - domain
+      - expires
+      - name
+      - path
+      - value
+      type: object
+      properties:
+        name:
+          type: string
+        domain:
+          type: string
+        path:
+          type: string
+        value:
+          type: string
+        expires:
+          type: string
+    HighlightsResponse:
+      required:
+      - highlights
+      type: object
+      properties:
+        highlights:
+          type: array
+          items:
+            $ref: '#/components/schemas/HighlightSectionResponse'
+    HighlightSectionResponse:
+      required:
+      - duration
+      - from
+      - to
+      type: object
+      properties:
+        from:
+          type: integer
+          format: int32
+        to:
+          type: integer
+          format: int32
+        duration:
+          type: integer
+          format: int32
+    TracksResponse:
+      required:
+      - links
+      - pagination
+      - tracks
+      type: object
+      properties:
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        aggregations:
+          $ref: '#/components/schemas/TaxonomyAggregations'
+    SearchSuggestionsResponse:
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+    Option:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - TEXT
+          - EXTERNAL_SPOTIFY
+    Pagination:
+      required:
+      - limit
+      - page
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+    PaginationLinks:
+      type: object
+      properties:
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    AccessTokenResponse:
+      required:
+      - accessToken
+      type: object
+      properties:
+        accessToken:
+          type: string
+    CollectionPaginatedResponse:
+      required:
+      - id
+      - images
+      - links
+      - name
+      - pagination
+      - tracks
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackResponse'
+        availableTracks:
+          type: integer
+          format: int32
+          nullable: true
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        images:
+          $ref: '#/components/schemas/CollectionImagesPublicResponse'
+    CollectionResponse:
+      required:
+      - id
+      - images
+      - name
+      - tracks
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the track.
+          format: uuid
+        name:
+          type: string
+          description: Name of the collection
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackResponse'
+        availableTracks:
+          type: integer
+          description: Number of available tracks based on the partner's tier
+          format: int32
+          nullable: true
+        images:
+          $ref: '#/components/schemas/CollectionImagesPublicResponse'
+    CollectionImagesPublicResponse:
+      required:
+      - default
+      type: object
+      properties:
+        default:
+          type: string
+        L:
+          type: string
+          nullable: true
+        M:
+          type: string
+          nullable: true
+        S:
+          type: string
+          nullable: true
+        XS:
+          type: string
+          nullable: true
+    CollectionsPaginatedResponse:
+      required:
+      - collections
+      - links
+      - pagination
+      type: object
+      properties:
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SoundEffectCollectionPaginatedResponse:
+      required:
+      - id
+      - links
+      - name
+      - pagination
+      - soundEffects
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        soundEffects:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoundEffectResponse'
+        availableSoundEffects:
+          type: integer
+          format: int32
+          nullable: true
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SoundEffectCollectionResponse:
+      required:
+      - id
+      - name
+      - soundEffects
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the sound-effect collection.
+          format: uuid
+        name:
+          type: string
+          description: Name of the collection
+        soundEffects:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoundEffectResponse'
+        availableSoundEffects:
+          type: integer
+          description: Total number of sound effects available in the collection
+          format: int32
+          nullable: true
+    SoundEffectCollectionsPaginatedResponse:
+      required:
+      - collections
+      - links
+      - pagination
+      type: object
+      properties:
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoundEffectCollectionResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SoundEffectsExcludeField:
+      type: string
+      enum:
+      - soundEffects
+    ImagesResponse:
+      type: object
+      properties:
+        default:
+          type: string
+          nullable: true
+        L:
+          type: string
+          nullable: true
+        M:
+          type: string
+          nullable: true
+        S:
+          type: string
+          nullable: true
+        XS:
+          type: string
+          nullable: true
+    TrackFormat:
+      type: string
+      enum:
+      - mp3
+    PartnerTokenRequest:
+      required:
+      - accessKeyId
+      - accessKeySecret
+      type: object
+      properties:
+        accessKeyId:
+          type: string
+        accessKeySecret:
+          type: string
+    TrackSectionResponse:
+      required:
+      - end
+      - start
+      - track
+      type: object
+      properties:
+        track:
+          $ref: '#/components/schemas/TrackResponse'
+        start:
+          type: integer
+          format: int32
+        end:
+          type: integer
+          format: int32
+    UserTokenRequest:
+      required:
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+          description: End user id. UUID, numeric or matching ^[a-zA-Z0-9_-]+$
+          example: 898d611f-46bc-4747-af61-9883ff06b35b
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    TrackUsageRequest:
+      required:
+      - platform
+      - trackIds
+      type: object
+      properties:
+        eventType:
+          type: string
+          enum:
+          - EXPORTED
+        platform:
+          type: string
+          enum:
+          - YOUTUBE
+          - TWITTER
+          - TWITCH
+          - FACEBOOK
+          - INSTAGRAM
+          - TIKTOK
+          - OTHER
+          - LOCAL
+        trackIds:
+          type: array
+          items:
+            type: string
+        other:
+          type: string
+          nullable: true
+    UserInfo:
+      required:
+      - esConnect
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+          description: 'is the userId given in the User Token if not ES Connect authenticated or
+
+            the ES Connect user id if user is authenticated against ES Connect.'
+        esConnect:
+          type: boolean
+          description: "is false for a not ES Connect authenticated user but \nis true for a ES Connect authenticated user."
+        hasActiveSubscription:
+          type: boolean
+          description: 'is true if the user has an active subscription but
+
+            is false if the user has no active subscription.
+
+            Returns null if the user is not ES Connect authenticated.'
+          nullable: true
+        email:
+          type: string
+          description: email value will present only for the Epidemic Sound users and will be null otherwise
+          nullable: true
+    AnalyticsReportRequest:
+      required:
+      - events
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyticsReportEvent'
+    AnalyticsReportEvent:
+      type: object
+      properties:
+        userId:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        userConnected:
+          type: boolean
+          nullable: true
+        analyticsEvent:
+          $ref: '#/components/schemas/AnalyticsEvent'
+    TrackPreviewedEvent:
+      type: object
+      properties:
+        trackId:
+          type: string
+        type:
+          type: string
+          enum:
+          - trackPreviewed
+    TrackDownloadedEvent:
+      type: object
+      properties:
+        trackId:
+          type: string
+        format:
+          type: string
+          enum:
+          - mp3
+          - hls
+          - hls_with_cookie
+        quality:
+          type: string
+          enum:
+          - normal
+          - high
+        type:
+          type: string
+          enum:
+          - trackDownloaded
+    TracksExportedEvent:
+      type: object
+      properties:
+        trackIds:
+          type: array
+          items:
+            type: string
+        platform:
+          type: string
+          enum:
+          - YOUTUBE
+          - TWITTER
+          - TWITCH
+          - FACEBOOK
+          - INSTAGRAM
+          - TIKTOK
+          - OTHER
+          - LOCAL
+        type:
+          type: string
+          enum:
+          - tracksExported
+    AnalyticsEvent:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/TrackPreviewedEvent'
+      - $ref: '#/components/schemas/TrackDownloadedEvent'
+      - $ref: '#/components/schemas/TracksExportedEvent'
+    AnalyticsReportResponse:
+      required:
+      - batchId
+      - eventsCount
+      type: object
+      properties:
+        batchId:
+          type: string
+        eventsCount:
+          type: integer
+          format: int32
+    UploadUserImageResponse:
+      required:
+      - expirationDate
+      - imageId
+      type: object
+      properties:
+        imageId:
+          type: string
+          format: uuid
+        expirationDate:
+          type: string
+          format: date-time
+    PartnerAudioResponse:
+      required:
+      - audioUploadId
+      - expires
+      - length
+      type: object
+      properties:
+        audioUploadId:
+          type: string
+          format: uuid
+        length:
+          type: number
+          format: double
+        expires:
+          type: string
+          format: date-time
+    PartnerAudioDeleteResponse:
+      required:
+      - audioFilesRemoved
+      type: object
+      properties:
+        audioFilesRemoved:
+          type: array
+          items:
+            type: string
+            format: uuid
+    SoundEffectCategoriesResponse:
+      required:
+      - categories
+      - links
+      - pagination
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoundEffectCategoryWithParentResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SoundEffectCategoryWithParentResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        images:
+          $ref: '#/components/schemas/ImagesResponse'
+        parent:
+          $ref: '#/components/schemas/RelatedSoundEffectCategoryResponse'
+    SoundEffectCategoryWithRelativesResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        images:
+          $ref: '#/components/schemas/ImagesResponse'
+        parent:
+          $ref: '#/components/schemas/RelatedSoundEffectCategoryResponse'
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedSoundEffectCategoryResponse'
+    RelatedSoundEffectCategoryResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    CategoryResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    SoundEffectResponse:
+      required:
+      - added
+      - id
+      - length
+      - title
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        added:
+          type: string
+          format: date-time
+        length:
+          type: integer
+          format: int32
+        images:
+          $ref: '#/components/schemas/ImagesResponse'
+    PaginatedSoundEffectsResponse:
+      required:
+      - links
+      - pagination
+      - soundEffects
+      type: object
+      properties:
+        soundEffects:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoundEffectResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    TrackBeatsResponse:
+      type: object
+      properties:
+        beats:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackBeat'
+    TrackBeat:
+      type: object
+      properties:
+        time:
+          type: number
+          format: double
+        value:
+          type: number
+          format: double
+    TaxonomyAggregations:
+      type: object
+      properties:
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+    TaxonomyAggregation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        count:
+          type: integer
+          format: int32
+    TrackEditsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackEditResultResponse'
+        message:
+          type: string
+        jobId:
+          type: string
+          format: uuid
+    TrackEditResult:
+      type: object
+      properties:
+        previewUrl:
+          type: string
+        waveform:
+          $ref: '#/components/schemas/TrackEditWaveform'
+        highQualityUrl:
+          type: string
+    TrackEditsJobStatus:
+      type: string
+      enum:
+      - PENDING
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+    TrackEditsJobRequest:
+      required:
+      - durationMs
+      - trackId
+      type: object
+      properties:
+        durationMs:
+          type: integer
+          format: int32
+        trackId:
+          type: string
+          format: uuid
+    TrackEditWaveform:
+      type: object
+      properties:
+        version:
+          type: integer
+          format: int32
+        channels:
+          type: integer
+          format: int32
+        sampleRate:
+          type: integer
+          format: int32
+        samplesPerPixel:
+          type: integer
+          format: int32
+        bits:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+        data:
+          type: array
+          items:
+            type: integer
+            format: int32
+    TrackEditResultResponse:
+      type: object
+      properties:
+        previewUrl:
+          type: string
+        waveform:
+          $ref: '#/components/schemas/TrackEditWaveform'
+        highQualityUrl:
+          type: string
+    SafelistingLicenseResponse:
+      required:
+      - asset
+      - createdAt
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+        expiresAt:
+          type: string
+        asset:
+          $ref: '#/components/schemas/SafelistingAssetResponse'
+    SafelistingAssetResponse:
+      required:
+      - id
+      - platform
+      - type
+      - url
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - channel
+          - video
+        platform:
+          type: string
+          enum:
+          - youtube
+          - instagram
+          - facebook
+          - twitch
+          - tiktok
+          - podcast
+          - website
+        url:
+          type: string
+    SafelistingLicenseListResponse:
+      required:
+      - data
+      - page
+      - pageSize
+      - totalItems
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalItems:
+          type: integer
+          format: int32
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SafelistingLicenseResponse'
+    CreateSafelistingLicenseRequest:
+      required:
+      - asset
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/SafelistingAssetRequest'
+        expiresAt:
+          type: string
+    SafelistingAssetRequest:
+      required:
+      - platform
+      - type
+      - url
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - channel
+          - video
+        platform:
+          type: string
+          enum:
+          - youtube
+          - instagram
+          - facebook
+          - twitch
+          - tiktok
+          - podcast
+          - website
+        url:
+          type: string
+    UpdateSafelistingLicenseRequest:
+      required:
+      - expiresAt
+      type: object
+      properties:
+        expiresAt:
+          type: string
+  parameters:
+    collectionId:
+      name: collectionId
+      in: path
+      description: Collection id
+      required: true
+      schema:
+        type: string
+    excludeField:
+      name: excludeField
+      in: query
+      description: Add parameter if tracks should be excluded in the response
+      required: false
+      schema:
+        type: string
+        enum:
+        - tracks
+    expand:
+      name: expand
+      in: query
+      description: Add parameter if tracks should be included in the response
+      required: false
+      schema:
+        type: string
+        enum:
+        - tracks
+    genre:
+      name: genre
+      in: query
+      description: Id for genre
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    trackId:
+      name: trackId
+      in: path
+      description: Track id
+      required: true
+      schema:
+        type: string
+    term:
+      name: term
+      in: query
+      description: Term for search
+      required: false
+      schema:
+        type: string
+    mood:
+      name: mood
+      in: query
+      description: Id for mood
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    limit:
+      name: limit
+      in: query
+      description: Max number of entries returned in the response, default 50 and max 100
+      required: false
+      schema:
+        type: integer
+        format: int32
+    offset:
+      name: offset
+      in: query
+      description: Index of the entry track in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+    bpmMin:
+      name: bpmMin
+      in: query
+      description: BPM Min
+      required: false
+      schema:
+        type: integer
+        format: int32
+    bpmMax:
+      name: bpmMax
+      in: query
+      description: BPM Max
+      required: false
+      schema:
+        type: integer
+        format: int32
+    imageId:
+      name: imageId
+      in: path
+      description: Image id
+      required: true
+      schema:
+        type: string
+    checksum:
+      name: checksum
+      in: path
+      description: File checksum
+      required: true
+      schema:
+        type: string
+    audioIdOrChecksum:
+      name: audioIdOrChecksum
+      in: path
+      description: Audio upload id or checksum of audio file
+      required: true
+      schema:
+        type: string
+    moodId:
+      name: moodId
+      in: path
+      description: Mood id
+      required: true
+      schema:
+        type: string
+    genreId:
+      name: genreId
+      in: path
+      description: Genre id
+      required: true
+      schema:
+        type: string
+    categoryId:
+      name: categoryId
+      in: path
+      description: Category id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    format:
+      name: format
+      in: query
+      description: Track format
+      required: false
+      schema:
+        type: string
+        enum:
+        - mp3
+    quality:
+      name: quality
+      in: query
+      description: Track quality, normal is used as the default if not specified
+      required: false
+      schema:
+        type: string
+        enum:
+        - normal
+        - high
+        default: normal
+    sort:
+      name: sort
+      in: query
+      description: 'Sorting options. Available values: alphabetic, relevance'
+      required: false
+      schema:
+        type: string
+        enum:
+        - alphabetic
+        - relevance
+        default: relevance
+    order:
+      name: order
+      in: query
+      description: 'Order options. Available values: asc, desc'
+      required: false
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: asc
+    type:
+      name: type
+      in: query
+      description: "Types to filter by:\n  * `all` - all the objects in the Epidemic Sound library\n  * `partner-tier` - objects available to the partner within their tier\n  * `featured` - only objects featured and curated by Epidemic Sound"
+      required: false
+      schema:
+        type: string
+        enum:
+        - all
+        - featured
+        - partner-tier
+        default: all
+    duration:
+      name: duration
+      in: query
+      description: The highlight duration in seconds
+      required: false
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int32
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      description: 'API key authentication for server-to-server communication.
+
+        Pass your API key as a Bearer token in the Authorization header.
+
+        API keys are prefixed with `epidemic_live_`.
+
+
+        > **Example Header:** `Authorization: Bearer epidemic_live_your-api-key`'
+      scheme: bearer
+    PartnerAuth:
+      type: http
+      description: 'Partner authentication is handled with short lived partner access tokens.
+
+        Use your api credentials to request these tokens.
+
+        The access token is of JWT format and should be passed in a header with your API requests:
+
+
+        > **Example Header:** `Authorization: Bearer your-partner-token`'
+      scheme: Bearer
+    UserAuth:
+      type: http
+      description: "User authentication is handled with short lived user access tokens.\n Use a partner token to request these tokens.\n The access token is of JWT format and should be passed in a header with your API requests:\n\n > **Example Header:** `Authorization: Bearer a-user-token`"
+      scheme: Bearer
+    EpidemicSoundConnectAuth:
+      type: oauth2
+      description: 'For users signing in with an Epidemic Sound account, user authentication is
+
+        handled with OpenID Connect, which is a layer on top of OAuth 2.0.
+
+
+        > **Example Header:** `Authorization: Bearer es-connect-token`'
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/auth
+          tokenUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/token
+          scopes: {}

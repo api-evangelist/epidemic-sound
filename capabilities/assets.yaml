@@ -1,0 +1,79 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Epidemic Sound Partner Content API — Assets
+  description: >-
+    Upload and manage partner-side audio and image assets used as references
+    for similar-track lookup, Soundmatch image matching, and other
+    matching/upload workflows.
+  tags:
+    - Epidemic Sound
+    - Uploads
+    - Assets
+    - Reference Audio
+    - Reference Image
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      EPIDEMIC_SOUND_API_KEY: EPIDEMIC_SOUND_API_KEY
+capability:
+  consumes:
+    - type: http
+      namespace: assets
+      baseUri: https://partner-content-api.epidemicsound.com
+      description: Partner audio + image upload management.
+      resources:
+        - name: upload-audio
+          path: /v0/uploads/audio
+          operations:
+            - name: uploadAudio
+              method: POST
+              description: Upload a partner audio asset for similarity matching.
+        - name: audio-by-checksum
+          path: /v0/uploads/audio/{checksum}
+          operations:
+            - name: getAudioByChecksum
+              method: GET
+              description: Look up an uploaded audio asset by checksum.
+              inputParameters:
+                - name: checksum
+                  in: path
+                  type: string
+                  required: true
+        - name: delete-audio
+          path: /v0/uploads/audio/{audioIdOrChecksum}
+          operations:
+            - name: deleteAudio
+              method: DELETE
+              description: Delete a partner-uploaded audio asset.
+              inputParameters:
+                - name: audioIdOrChecksum
+                  in: path
+                  type: string
+                  required: true
+        - name: upload-image
+          path: /v0/uploads/images
+          operations:
+            - name: uploadImage
+              method: POST
+              description: Upload an image for Soundmatch.
+            - name: deleteAllImages
+              method: DELETE
+              description: Delete all uploaded images for the user.
+        - name: delete-image
+          path: /v0/uploads/images/{imageId}
+          operations:
+            - name: deleteImage
+              method: DELETE
+              description: Delete a single uploaded image.
+              inputParameters:
+                - name: imageId
+                  in: path
+                  type: string
+                  required: true
+      authentication:
+        type: apikey
+        key: x-api-key
+        value: '{{env.EPIDEMIC_SOUND_API_KEY}}'
+        placement: header

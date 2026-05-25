@@ -1,0 +1,41 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Epidemic Sound Partner Content API — Users
+  description: >-
+    User-scoped endpoints driven by Epidemic Sound Connect: fetch the
+    current user's profile and their liked tracks for personalized
+    experiences.
+  tags:
+    - Epidemic Sound
+    - Users
+    - Personalization
+    - OAuth
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      EPIDEMIC_SOUND_USER_TOKEN: EPIDEMIC_SOUND_USER_TOKEN
+capability:
+  consumes:
+    - type: http
+      namespace: users
+      baseUri: https://partner-content-api.epidemicsound.com
+      description: Current-user endpoints (Epidemic Sound Connect / OAuth).
+      resources:
+        - name: me
+          path: /v0/users/me
+          operations:
+            - name: getCurrentUser
+              method: GET
+              description: Get the authenticated end-user's profile details.
+        - name: liked-tracks
+          path: /v0/users/me/liked/tracks
+          operations:
+            - name: listLikedTracks
+              method: GET
+              description: List the authenticated end-user's liked tracks.
+      authentication:
+        type: bearer
+        value: '{{env.EPIDEMIC_SOUND_USER_TOKEN}}'
+        placement: header

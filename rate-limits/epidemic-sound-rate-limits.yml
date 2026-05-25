@@ -1,0 +1,57 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Epidemic Sound
+providerId: epidemic-sound
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - Music
+  - Audio
+  - Rate Limiting
+  - Partner API
+description: >-
+  Rate limits for the Epidemic Sound Partner Content API. Specific per-route
+  request-per-minute and per-day quotas are negotiated per partnership
+  agreement and provisioned via the Developer Portal rather than published
+  publicly. The API documentation explicitly calls out shared limits, error
+  handling for 429 responses, and a no-local-caching constraint on metadata
+  and collections that effectively raises read pressure compared with other
+  catalog APIs.
+sources:
+  - https://developers.epidemicsound.com/docs/
+  - https://developers.epidemicsound.com/docs/guides
+responseCodes:
+  throttled: 429
+  unauthorized: 401
+  forbidden: 403
+algorithm: per-partner-quota
+constraints:
+  - name: no-metadata-caching
+    description: >-
+      Partners are not permitted to locally cache metadata or collection
+      contents. Reads must hit the Partner Content API on every request.
+  - name: cors-domain-whitelisting
+    description: >-
+      Web partners must whitelist their browser-facing domains with
+      Epidemic Sound to use the API from client-side code.
+  - name: api-key-rotation
+    description: >-
+      API keys used to authenticate the MCP server programmatically are
+      valid for 30 days before requiring regeneration.
+limits:
+  - tier: Partner
+    surface: Partner Content API (REST)
+    rpm: contact
+    dailyQuota: contact
+    description: Negotiated per partnership agreement; provisioned by Success Manager.
+  - tier: Partner
+    surface: MCP Server (Beta)
+    rpm: contact
+    dailyQuota: contact
+    description: Beta MCP endpoint; same partner credentials apply.
+notes:
+  - Catalog endpoints are served from European data centers; audio is delivered via Fastly's global CDN.
+  - 429 responses should be retried with exponential backoff per the Error handling guide.
+  - The Partner Content API is versioned with a /v0/ path prefix; deprecations will be communicated via the Developer Portal.

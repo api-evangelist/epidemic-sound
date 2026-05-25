@@ -1,0 +1,133 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Epidemic Sound Partner Content API — Tracks
+  description: >-
+    Inspect, stream, download, and find similar music tracks. Covers track
+    metadata, parameters, downloads, HLS previews, streaming, popular
+    highlight segments, similar tracks, similar sections, and tracks
+    matching an uploaded image.
+  tags:
+    - Epidemic Sound
+    - Music
+    - Tracks
+    - Streaming
+    - Similarity
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      EPIDEMIC_SOUND_API_KEY: EPIDEMIC_SOUND_API_KEY
+capability:
+  consumes:
+    - type: http
+      namespace: tracks
+      baseUri: https://partner-content-api.epidemicsound.com
+      description: Music track operations on the Partner Content API.
+      resources:
+        - name: tracks
+          path: /v0/tracks
+          operations:
+            - name: listTracks
+              method: GET
+              description: List tracks filtered by mood, genre, or BPM.
+        - name: tracks-metadata
+          path: /v0/tracks/metadata
+          operations:
+            - name: getTracksMetadata
+              method: GET
+              description: Bulk track metadata lookup.
+        - name: track-parameters
+          path: /v0/tracks/parameters
+          operations:
+            - name: listTrackParameters
+              method: GET
+              description: List available filter parameters for tracks.
+        - name: track-download
+          path: /v0/tracks/{trackId}/download
+          operations:
+            - name: downloadTrack
+              method: GET
+              description: Download a track audio asset.
+              inputParameters:
+                - name: trackId
+                  in: path
+                  type: string
+                  required: true
+        - name: track-hls
+          path: /v0/tracks/{trackId}/hls
+          operations:
+            - name: getTrackHls
+              method: GET
+              description: Preview a track via HLS streaming (cookie-authenticated).
+              inputParameters:
+                - name: trackId
+                  in: path
+                  type: string
+                  required: true
+        - name: track-stream
+          path: /v0/tracks/{trackId}/stream
+          operations:
+            - name: streamTrack
+              method: GET
+              description: Stream a preview of a track.
+              inputParameters:
+                - name: trackId
+                  in: path
+                  type: string
+                  required: true
+        - name: track-highlights
+          path: /v0/tracks/{trackId}/highlights
+          operations:
+            - name: getTrackHighlights
+              method: GET
+              description: Get the popular highlight segment of a track.
+              inputParameters:
+                - name: trackId
+                  in: path
+                  type: string
+                  required: true
+        - name: track-similar
+          path: /v0/tracks/{trackId}/similar
+          operations:
+            - name: getSimilarTracks
+              method: GET
+              description: Find tracks similar to a given track.
+              inputParameters:
+                - name: trackId
+                  in: path
+                  type: string
+                  required: true
+        - name: tracks-similar-sections
+          path: /v0/tracks/similar-sections
+          operations:
+            - name: getSimilarSectionsByAudio
+              method: GET
+              description: Find similar track sections based on an uploaded audio reference.
+        - name: track-similar-sections
+          path: /v0/tracks/{trackId}/similar-sections
+          operations:
+            - name: getSimilarSectionsByTrack
+              method: GET
+              description: Find similar track sections based on a known track id.
+              inputParameters:
+                - name: trackId
+                  in: path
+                  type: string
+                  required: true
+        - name: tracks-matching-image
+          path: /v0/tracks/matching-image/{imageId}
+          operations:
+            - name: getTracksMatchingImage
+              method: GET
+              description: Return tracks that mood-match an uploaded image (Soundmatch).
+              inputParameters:
+                - name: imageId
+                  in: path
+                  type: string
+                  required: true
+      authentication:
+        type: apikey
+        key: x-api-key
+        value: '{{env.EPIDEMIC_SOUND_API_KEY}}'
+        placement: header

@@ -1,0 +1,104 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Epidemic Sound
+providerId: epidemic-sound
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - FinOps
+  - Cost Management
+  - Audio Licensing
+  - Royalty-Free Music
+  - Sound Effects
+description: >-
+  FinOps-aligned billing definition for Epidemic Sound. Consumer and creator
+  subscriptions are flat monthly/annual fees with no usage-metering exposed
+  to FinOps. Partner Content API ("Epidemic Sound Connect") is a B2B
+  partnership: charges are governed by the partner's commercial agreement
+  and typically reconciled from the partner's own /v0/usage and
+  /v0/analytics/report submissions to Epidemic Sound.
+sources:
+  - https://www.epidemicsound.com/pricing/
+  - https://www.epidemicsound.com/business/developers/
+  - https://developers.epidemicsound.com/docs/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Epidemic Sound
+serviceCategory: Media and Content Licensing
+billingModel:
+  pricingCategory: Subscription + Partnership
+  billingFrequency: Monthly / Annual / Contractual
+  billingCurrency: USD / EUR / SEK
+  chargeCategories:
+    - Usage
+    - Purchase
+    - Adjustment
+    - Tax
+  primaryUnit: subscription-month
+  secondaryUnits:
+    - track-download
+    - sound-effect-download
+    - voiceover-generation
+    - api-call
+    - safelisting-license
+focusColumns:
+  ServiceName: Epidemic Sound
+  ServiceCategory: Media and Content Licensing
+  ProviderName: Epidemic Sound
+  PublisherName: Epidemic Sound
+  InvoiceIssuerName: Epidemic Sound AB
+  PricingCategory: Subscription
+  PricingUnit: subscription-month
+  BillingCurrency: USD
+meters:
+  - name: subscription_seats
+    unit: seat-month
+    aggregation: sum
+    dimensions:
+      - plan
+      - channel
+    description: Number of active subscription seats per plan tier.
+  - name: track_downloads
+    unit: download
+    aggregation: count
+    dimensions:
+      - track_id
+      - partner_id
+      - end_user_id
+    description: >-
+      Track downloads via /v0/tracks/{trackId}/download, reported by partners
+      through /v0/analytics/report or /v0/usage.
+  - name: sound_effect_downloads
+    unit: download
+    aggregation: count
+    dimensions:
+      - effect_id
+      - partner_id
+      - end_user_id
+    description: Sound effect downloads via /v0/sound-effects/{trackId}/download.
+  - name: voiceover_generations
+    unit: generation
+    aggregation: count
+    dimensions:
+      - voice_id
+      - partner_id
+      - end_user_id
+    description: AI voiceover generations via the MCP server.
+  - name: safelisting_licenses
+    unit: license-month
+    aggregation: sum
+    dimensions:
+      - partner_id
+      - end_user_id
+    description: Active end-user safelisting licenses created via /v0/safelisting/licenses.
+notes:
+  - Partner Content API access is partnership-gated; no public list-price exists for API tiers.
+  - Partners are expected to submit end-user usage events back to Epidemic Sound for billing reconciliation via /v0/usage and /v0/analytics/report.
+  - Subscription plans (Personal, Commercial, Pro) are flat fees and not metered.
+  - Enterprise and Partner agreements are billed by invoice on negotiated commercial terms.

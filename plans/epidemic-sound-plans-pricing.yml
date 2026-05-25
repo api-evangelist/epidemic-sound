@@ -1,0 +1,105 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Epidemic Sound
+providerId: epidemic-sound
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - Music
+  - Sound Effects
+  - Audio Licensing
+  - Royalty-Free
+  - Partner API
+description: >-
+  Plans for Epidemic Sound. Consumer/creator subscriptions are published on
+  epidemicsound.com/pricing and follow Personal, Commercial, Pro, and
+  Enterprise tiers. Partner Content API access ("Epidemic Sound Connect") is
+  partnership-gated and priced via custom commercial agreements rather than
+  self-serve tiers — partners receive a Success Manager, curated catalog
+  scope, and negotiated licensing aligned to their business model.
+sources:
+  - https://www.epidemicsound.com/pricing/
+  - https://www.epidemicsound.com/business/developers/
+  - https://developers.epidemicsound.com/docs/
+plans:
+  - id: epidemic-sound-personal
+    name: Personal
+    type: subscription
+    description: >-
+      For non-commercial creators monetizing on social platforms (YouTube,
+      TikTok, Instagram, Twitch). Includes one channel per platform.
+    entries:
+      - label: Monthly
+        name: monthly
+        type: fixed
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact
+        userMultiplied: true
+  - id: epidemic-sound-commercial
+    name: Commercial
+    type: subscription
+    description: >-
+      For commercial creators and businesses producing client work, ads,
+      and branded content. Covers paid digital advertising and client
+      deliverables.
+    entries:
+      - label: Monthly
+        name: monthly
+        type: fixed
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact
+        userMultiplied: true
+  - id: epidemic-sound-pro
+    name: Pro
+    type: subscription
+    description: >-
+      For agencies and production teams. Higher seat counts, multi-channel
+      coverage, and broader commercial use.
+    entries:
+      - label: Monthly
+        name: monthly
+        type: fixed
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact
+        userMultiplied: true
+  - id: epidemic-sound-enterprise
+    name: Enterprise
+    type: contract
+    description: >-
+      Custom plans for large brands and publishers; bespoke licensing terms,
+      dedicated account management, and SLAs.
+    entries:
+      - label: Annual contract
+        name: annual
+        type: contract
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: call
+        userMultiplied: false
+  - id: epidemic-sound-connect-partner
+    name: Epidemic Sound Connect (Partner API)
+    type: partnership
+    description: >-
+      Commercial agreement granting platforms and developers programmatic
+      access to the Partner Content API and MCP server. Pricing,
+      catalog scope, and license terms are negotiated per partner and
+      provisioned through the Developer Portal once an agreement is in
+      place.
+    entries:
+      - label: Partner agreement
+        name: partner-agreement
+        type: contract
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: call
+        userMultiplied: false
