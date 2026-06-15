@@ -1,0 +1,1435 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Partner Content API",
+    "version": "0.1.17"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Browse & search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/collections",
+            "params": [
+              {
+                "name": "excludeField",
+                "value": "",
+                "type": "query",
+                "description": "Add parameter if tracks should be excluded in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 10 and max 20"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "The collections endpoint returns playlists curated by our team of in-house experts.\n\nWe offer collections for any occasion: from holidays like \"Día de Muertos\" to content types like \"Real Estate\" or \"Badass ads\".\n\nYou can manage the order and which collections are part or your applications' free tier via the developer portal. As default, we return the collections included in your free tier first, followed by all collections in the Epidemic Sound library.\n\nCollections have attributes like title a"
+        },
+        {
+          "info": {
+            "name": "Collection details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/collections/:collectionId",
+            "params": [
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "Collection id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "The collections endpoint allows you to list all the tracks in a specific collection."
+        },
+        {
+          "info": {
+            "name": "Search music",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/search",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 60"
+              },
+              {
+                "name": "term",
+                "value": "",
+                "type": "query",
+                "description": "Term for search"
+              },
+              {
+                "name": "genre",
+                "value": "",
+                "type": "query",
+                "description": "Id for genre"
+              },
+              {
+                "name": "mood",
+                "value": "",
+                "type": "query",
+                "description": "Id for mood"
+              },
+              {
+                "name": "bpmMin",
+                "value": "",
+                "type": "query",
+                "description": "BPM Min"
+              },
+              {
+                "name": "bpmMax",
+                "value": "",
+                "type": "query",
+                "description": "BPM Max"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort for search"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order"
+              }
+            ]
+          },
+          "docs": "The search endpoint allows your users to search the entire Epidemic Sound library. Search indexes track attributes such as moods, genres, artist, song title and bpm."
+        },
+        {
+          "info": {
+            "name": "Search autosuggest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/search/suggestions",
+            "params": [
+              {
+                "name": "term",
+                "value": "",
+                "type": "query",
+                "description": "Term for search"
+              }
+            ]
+          },
+          "docs": "The search suggestions endpoint allows your users to get autocomplete suggestions for Epidemic Sound music or external provider music search.\n\nReturns:\n- value: The exact search term to pass to the /tracks/search endpoint.\n- title: Display text to show users in the autocomplete UI.\n- type - Indicates whether this is a search term of type text or external reference URI (e.g., Spotify track).\n\nUsage: When a user selects a suggestion, use the 'value' field as the 'term' parameter when calling /trac"
+        },
+        {
+          "info": {
+            "name": "List moods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/moods",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorting options. Available values: alphabetic, relevance"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order options. Available values: asc, desc"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Types to filter by:\n  * `all` - all the objects in the Epidemic Sound library\n  * `partner-tier` - objects available to the partner within their tier\n  * `featured` - only objects featured and curated by Epidemic Sound"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 20 and max 20"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "The moods endpoint allows your users to browse the music catalog based on moods like happy, epic or relaxing. Moods have cover art that you can show in your interface.\n\nBy specifying the \"type\" of moods you want to display, you can choose to show all moods in the Epidemic Sound library, only the moods that are featured on epidemicsound.com or only the moods that are available for your free tier tracks."
+        },
+        {
+          "info": {
+            "name": "Mood details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/moods/:moodId",
+            "params": [
+              {
+                "name": "moodId",
+                "value": "",
+                "type": "path",
+                "description": "Mood id"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Add parameter if tracks should be included in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "Get mood details"
+        },
+        {
+          "info": {
+            "name": "List genres",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/genres",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorting options. Available values: alphabetic, relevance"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order options. Available values: asc, desc"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Types to filter by:\n  * `all` - all the objects in the Epidemic Sound library\n  * `partner-tier` - objects available to the partner within their tier\n  * `featured` - only objects featured and curated by Epidemic Sound"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 20 and max 20"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "The genres endpoint allows your users to browse the music catalog based on genres like rock, hiphop or acoustic. \n\nGenres are nested and both parent and child genres are returned in the response. Parent genres have cover art that you can show in your interface.\n\nBy specifying the \"type\" of genres you want to display, you can choose to show all genres in the Epidemic Sound library, only the genres that are featured on epidemicsound.com or only the genres that are available for your free tier trac"
+        },
+        {
+          "info": {
+            "name": "Genre details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/genres/:genreId",
+            "params": [
+              {
+                "name": "genreId",
+                "value": "",
+                "type": "path",
+                "description": "Genre id"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Add parameter if tracks should be included in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "This endpoint gives you the parent and child relationships of a specific genre as well as all tracks that belong to it."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sound effects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sound-effect collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/collections",
+            "params": [
+              {
+                "name": "excludeField",
+                "value": "",
+                "type": "query",
+                "description": "Pass `soundEffects` to omit sound-effect data from the response and return only collection metadata."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of collections returned in the response, default 10 and max 20"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "Returns the sound-effect collections active for your application.\n\nSound-effect collections are managed via the developer portal: an admin imports an EMS\nplaylist into a collection, and end users see only Active collections through this endpoint.\n\nEvery application has access to every sound effect, so there is no per-tier cap and no\npaid/free distinction. Up to 20 sound effects per collection are included by default;\npass `excludeField=soundEffects` to omit them, or paginate the full set via\n`/s"
+        },
+        {
+          "info": {
+            "name": "Sound-effect collection details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/collections/:collectionId",
+            "params": [
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "Collection id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "Returns a single sound-effect collection along with a paginated set of its sound effects. Use `limit` and `offset` to page through the collection."
+        },
+        {
+          "info": {
+            "name": "List SFX categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/categories",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Category type"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50"
+              }
+            ]
+          },
+          "docs": "The sound effects categories endpoint allows you to get a list of all sound effects categories.\n\nYou can then browse the sound effects catalog based on categories like \"Applause\" or \"Crowds\".\n\nSome sound effect categories have cover art that you can use in your interface. You can choose to display all categories, or choose type \"featured\" to only show the categories that are chosen by our curation team."
+        },
+        {
+          "info": {
+            "name": "SFX category details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/categories/:categoryId",
+            "params": [
+              {
+                "name": "categoryId",
+                "value": "",
+                "type": "path",
+                "description": "Category id"
+              }
+            ]
+          },
+          "docs": "The category details endpoint contains info on the requested sound effects category.\n\nThe purpose of this endpoint is to be able to validate that an individual object exists in the API if it was cached by the client."
+        },
+        {
+          "info": {
+            "name": "List SFX by category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/categories/:categoryId/tracks",
+            "params": [
+              {
+                "name": "categoryId",
+                "value": "",
+                "type": "path",
+                "description": "Category id"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order"
+              },
+              {
+                "name": "includeExplicit",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include sound effects tagged as explicit in the results. Defaults to false, meaning explicit content is excluded by default."
+              }
+            ]
+          },
+          "docs": "Use the sound effects details endpoint to display all sound effects for a given category."
+        },
+        {
+          "info": {
+            "name": "Download sound effect",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/:trackId/download",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Track format"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query",
+                "description": "Track quality, normal is used as the default if not specified"
+              }
+            ]
+          },
+          "docs": "The download endpoint allows you to download an MP3 file of the sound effect.\n\nWe offer MP3 files in two qualities; normal (128kbps) and high (320kbps).\n\nThe high quality files can be used in content when needed, but normal quality is sufficient for most use cases.\n\nThe download links expire after 24 hours (normal quality) or 1 hour (high quality files). The expiration time is stated in the response."
+        },
+        {
+          "info": {
+            "name": "Search SFX",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/search",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 60"
+              },
+              {
+                "name": "term",
+                "value": "",
+                "type": "query",
+                "description": "Term for search"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort for search"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order"
+              },
+              {
+                "name": "includeExplicit",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include sound effects tagged as explicit in the results. Defaults to false, meaning explicit content is excluded by default."
+              }
+            ]
+          },
+          "docs": "Use the sound effects search endpoint to allow users to search within the sound effects library.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tracks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List tracks based on mood, genre or BPM",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks",
+            "params": [
+              {
+                "name": "genre",
+                "value": "",
+                "type": "query",
+                "description": "Id for genre"
+              },
+              {
+                "name": "mood",
+                "value": "",
+                "type": "query",
+                "description": "Id for mood"
+              },
+              {
+                "name": "bpmMin",
+                "value": "",
+                "type": "query",
+                "description": "BPM Min"
+              },
+              {
+                "name": "bpmMax",
+                "value": "",
+                "type": "query",
+                "description": "BPM Max"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "The tracks endpoint allows you to list all tracks based on a specified mood, genre or BPM."
+        },
+        {
+          "info": {
+            "name": "Tracks metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/metadata",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "query",
+                "description": "List of track ids"
+              }
+            ]
+          },
+          "docs": "The metadata endpoint allows you to get metadata for a list of tracks."
+        },
+        {
+          "info": {
+            "name": "List track parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/parameters"
+          },
+          "docs": "Get a list of possible track query parameters"
+        },
+        {
+          "info": {
+            "name": "Download track",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/download",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Track format"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query",
+                "description": "Track quality, normal is used as the default if not specified"
+              }
+            ]
+          },
+          "docs": "The download endpoint allows you to download an MP3 file of the track. \n\nWe offer MP3 files in two qualities; normal (128kbps) and high (320kbps).\n\nThe high quality files can be used in content when needed, but normal quality is sufficient for most use cases. \n\nThe download links expire after 24 hours (normal quality) or 1 hour (high quality files). The expiration time is stated in the response. \n\nAll users can download the tracks that are part of the free tier. Only connected users with an acti"
+        },
+        {
+          "info": {
+            "name": "Preview track using cookies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/hls",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              }
+            ]
+          },
+          "docs": "We recommend using HLS to allow users to play/preview a track. The main benefits of this compared to MP3 are smaller file transfers and alternate qualities, allowing the HLS client library to switch to a lower quality when necessary. \n\nThe audio is encoded using the AAC coding standard, which results in a smaller footprint for a similar quality compared to MP3. The primary manifest refers to two variant quality streams. HLS client libraries typically choose the optimal quality automatically, bas"
+        },
+        {
+          "info": {
+            "name": "Similar tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/similar",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 60"
+              }
+            ]
+          },
+          "docs": "The similar tracks endpoint allows developers to retrieve a list of tracks that are similar to a given reference track. This feature is designed to help users discover tracks that share similar characteristics, such as genre, mood, tempo, and more.\nThis endpoint helps your users replace tracks that don't fit perfectly or discover multiple alternatives to a track they enjoy."
+        },
+        {
+          "info": {
+            "name": "Similar track segment based on audio file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/similar-sections",
+            "params": [
+              {
+                "name": "audioUploadId",
+                "value": "",
+                "type": "query",
+                "description": "Reference to the uploaded audio file"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start of the section in milliseconds"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End of the section in milliseconds"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              }
+            ]
+          },
+          "docs": "Returns a list of track sections that are matched to the provided audio file id."
+        },
+        {
+          "info": {
+            "name": "Similar track segment based on trackID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/similar-sections",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start of the section in milliseconds"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End of the section in milliseconds"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              }
+            ]
+          },
+          "docs": "The similar segments endpoint allows developers to use part of a track as a reference to search for music segments in the Epidemic Sound catalog that sound similar.\n\nThe feature utilizes the Epidemic Audio Reference (EAR) technology to provide users with the ability to quickly find alternative segments of music.\n\nUsage Scenarios:\n\n  * Video Editing Templates: Replace default tracks in video templates with segments that fit better.\n  * Quick Swaps: Swap out a segment of music in a video where the"
+        },
+        {
+          "info": {
+            "name": "Preview track",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/stream",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              }
+            ]
+          },
+          "docs": "We recommend using HLS to allow users to play/preview a track. The main benefits of this compared to MP3 are smaller file transfers and alternate qualities, allowing the HLS client library to switch to a lower quality when necessary. \n\nThe audio is encoded using the AAC coding standard, which results in a smaller footprint for a similar quality compared to MP3. The primary manifest refers to two variant quality streams. HLS client libraries typically choose the optimal quality automatically, bas"
+        },
+        {
+          "info": {
+            "name": "Popular segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/highlights",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "The highlight duration in seconds"
+              }
+            ]
+          },
+          "docs": "Powered by our 2 billion daily streams on YouTube, the popular segments endpoint uses machine learning to recommend the best time section.\n\nYou can use popular segments to start playing the track from the right millisecond, or recommend the right part of the track for shorter content.\n\nThe popular segments endpoint provides start and stop timestamps in milliseconds. The default duration is 30 seconds.\n\nThe endpoint accepts up to 5 different durations per request where each duration must be at le"
+        },
+        {
+          "info": {
+            "name": "Tracks based on image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/matching-image/:imageId",
+            "params": [
+              {
+                "name": "imageId",
+                "value": "",
+                "type": "path",
+                "description": "Image id"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "genre",
+                "value": "",
+                "type": "query",
+                "description": "Id for genre"
+              },
+              {
+                "name": "mood",
+                "value": "",
+                "type": "query",
+                "description": "Id for mood"
+              }
+            ]
+          },
+          "docs": "Upload an image from the user's video to get recommendations of tracks in the Epidemic Sound library that would work for the video. Use ImageID retrieved from the Upload Image endpoint to fetch the recommended tracks.\n "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Beta",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Beats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/beats",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              }
+            ]
+          },
+          "docs": "The beats endpoint provides information about the timestamps of beats in a track. You can use this endpoint to simplify the process to cut the video in sync with the music.\n\nUnlike BPM which is a single number for the entire track, beats can change dynamically across a music piece. This is particularly valuable for capturing variations in tempo, such as a slower intro, a build-up with faster beats, or changes in rhythm throughout the composition.\n\nThe response includes two types of metadata:  `t"
+        },
+        {
+          "info": {
+            "name": "Start a track versions generation job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/versions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to start a job to generate edited versions of a track.\nThe job will be processed asynchronously and you can check the status using the\nGET /tracks/versions/{jobId} endpoint. Note that the url expires in 24 hours. \n\n**Duration limits:**\n- The duration must be between 1 second and 5 minutes. \n- Longer durations result in increased processing time, as latency scales with the desired duration."
+        },
+        {
+          "info": {
+            "name": "Get track versions job status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/versions/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job to check"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Include additional data in response. Use 'waveform' to include waveform data."
+              }
+            ]
+          },
+          "docs": "This endpoint allows you to check the status of a track versions job.\nWhen the job is complete, it will return the URLs to the generated tracks.\n\n**Waveform Data:**\n- By default, waveform data is excluded to reduce payload size\n- Use `expand=waveform` to include waveform data in the response"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get audio by checksum",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/uploads/audio/:checksum",
+            "params": [
+              {
+                "name": "checksum",
+                "value": "",
+                "type": "path",
+                "description": "File checksum"
+              }
+            ]
+          },
+          "docs": "Will return the audio id of an audio file uploaded by the partner, matched by checksum. Should be used to avoid duplicate uploads"
+        },
+        {
+          "info": {
+            "name": "Delete audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://partner-content-api.epidemicsound.com/v0/uploads/audio/:audioIdOrChecksum",
+            "params": [
+              {
+                "name": "audioIdOrChecksum",
+                "value": "",
+                "type": "path",
+                "description": "Audio upload id or checksum of audio file"
+              }
+            ]
+          },
+          "docs": "Use the delete audio endpoint to delete an audio file."
+        },
+        {
+          "info": {
+            "name": "Upload audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/uploads/audio",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload an audio file to get recommendations of similar tracks in the Epidemic Sound library. When you post the audio file to this endpoint, you will receive an AudioID in return. Use this AudioID in a request to the similar tracks endpoint to get track recommendations.\n \n We currently support the formats: mp3, mpeg, ogg and vorbis. Maximum file size is 3.5MB. You can only upload music with the partner token, since we currently do not allow end users to use this feature."
+        },
+        {
+          "info": {
+            "name": "Delete single image",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://partner-content-api.epidemicsound.com/v0/uploads/images/:imageId",
+            "params": [
+              {
+                "name": "imageId",
+                "value": "",
+                "type": "path",
+                "description": "Image id"
+              }
+            ]
+          },
+          "docs": "Use the delete image endpoint to delete a single image uploaded by a user"
+        },
+        {
+          "info": {
+            "name": "Upload image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/uploads/images",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload an image from the user's video to get recommendations of tracks in the Epidemic Sound library that would work for the video. When you post the image to this endpoint, you will receive an ImageID in return. Use this ImageID in a request to the matching image endpoint to get track recommendations.\n \n We currently support jpeg format and maximum file size is 2MB."
+        },
+        {
+          "info": {
+            "name": "Delete all the uploaded images by the user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://partner-content-api.epidemicsound.com/v0/uploads/images"
+          },
+          "docs": "Deletes all images uploaded by the user"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Report usage in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/analytics/report",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint should be used when you want to bulk report events to Epidemic Sound. We currently support the following events:\ntrackPreviewed, trackDownloaded and tracksExported. Note that the limit for number of events per request is limited to 100.\n Also note that for events containing the field trackIds, the limit for number of trackIds per event is 50. \n Events may not contain a timestamp older than 7 days ago."
+        },
+        {
+          "info": {
+            "name": "Report usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/usage",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The usage endpoint lets you report when a user exports their content to social media or downloads the content file to their device.\nYou can specify which platform (YouTube, Twitch, Instagram, Facebook, TikTok, Twitter or Other) they export the file to. Use the platform `local` if the user downloads the content to their device.\nThis data is used for attribution and analytics purposes as well as to improve personalization."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request a partner token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/partner-token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request a Partner Token"
+        },
+        {
+          "info": {
+            "name": "Request a user token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request a User Token. This endpoint requires a Partner Token for authentication. "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "User details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/users/me"
+          },
+          "docs": "Get user details of the authenticated user."
+        },
+        {
+          "info": {
+            "name": "List users' liked tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/users/me/liked/tracks",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for the pagination. For this endpoint the number of results is fixed at 25, so the offset needs to be evenly divisible by 25."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/auth",
+              "accessTokenUrl": "https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "The liked tracks endpoint lets you list the liked tracks of a connected user.\nUsers can add new tracks to their list on epidemicsound.com or via the Epidemic Sound app, giving them a smooth cross-device experience."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Safelisting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List safelisting licenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/safelisting/licenses",
+            "headers": [
+              {
+                "name": "X-Partner-User-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "assetType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by asset type"
+              },
+              {
+                "name": "platform",
+                "value": "",
+                "type": "query",
+                "description": "Filter by platform"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status. Currently only `active` licenses are returned."
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort results by"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List safelisting licenses for the specified end user. Supports filtering by asset type, platform, and status, with pagination and sorting."
+        },
+        {
+          "info": {
+            "name": "Create a safelisting license",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/safelisting/licenses",
+            "headers": [
+              {
+                "name": "X-Partner-User-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new safelisting license for a channel or video. The `X-Partner-User-Id` header is required to scope the license to a specific end user."
+        },
+        {
+          "info": {
+            "name": "Delete all licenses for an end user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://partner-content-api.epidemicsound.com/v0/safelisting/licenses",
+            "headers": [
+              {
+                "name": "X-Partner-User-Id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Expires all active licenses for the specified end user within the workspace. Intended for end-user churn scenarios (e.g. when a user cancels their subscription). Returns 204 regardless of whether the user had any active licenses."
+        },
+        {
+          "info": {
+            "name": "Get a safelisting license",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/safelisting/licenses/:licenseId",
+            "headers": [
+              {
+                "name": "X-Partner-User-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "licenseId",
+                "value": "",
+                "type": "path",
+                "description": "License ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a single safelisting license by ID. Returns 404 if the license does not exist or does not belong to the specified end user."
+        },
+        {
+          "info": {
+            "name": "Update a safelisting license",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://partner-content-api.epidemicsound.com/v0/safelisting/licenses/:licenseId",
+            "headers": [
+              {
+                "name": "X-Partner-User-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "licenseId",
+                "value": "",
+                "type": "path",
+                "description": "License ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a safelisting license. Currently only the expiration date can be modified."
+        },
+        {
+          "info": {
+            "name": "Delete a safelisting license",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://partner-content-api.epidemicsound.com/v0/safelisting/licenses/:licenseId",
+            "headers": [
+              {
+                "name": "X-Partner-User-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "licenseId",
+                "value": "",
+                "type": "path",
+                "description": "License ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Expire a safelisting license by ID. The license is soft-deleted and will no longer appear in active license listings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
