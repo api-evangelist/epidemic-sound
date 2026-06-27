@@ -117,10 +117,10 @@ common:
     url: https://www.epidemicsound.com/privacy-notice/
   - type: GitHubOrganization
     url: https://github.com/epidemicsound
-  - type: SDK
+  - type: SDKs
     url: https://github.com/epidemicsound/partner-content-api-demo-ios
     name: Partner Content API Demo (iOS, Swift)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/epidemicsound/homebrew-epidemicsound
     name: Homebrew tap (internal tooling)
   - type: LinkedIn
