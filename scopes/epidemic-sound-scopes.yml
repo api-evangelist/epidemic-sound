@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/epidemic-sound-partner-content-api-openapi.yml
+docs: https://developers.epidemicsound.com/docs/auth/
+note: Epidemic Sound Connect uses OpenID Connect (authorization code + PKCE) but publishes no OAuth scopes reference — the auth docs (https://developers.epidemicsound.com/docs/auth/) show no scope parameter, and access is governed by the partnership agreement and the user's subscription tier rather than scopes (a token-response example shows only standard OIDC "email profile").
+schemes:
+- name: EpidemicSoundConnectAuth
+  source: openapi/epidemic-sound-partner-content-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/auth
+    tokenUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/token
+  description: |-
+    For users signing in with an Epidemic Sound account, user authentication is
+    handled with OpenID Connect, which is a layer on top of OAuth 2.0.
+
+    > **Example Header:** `Authorization: Bearer es-connect-token`
+scopes: []

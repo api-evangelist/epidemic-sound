@@ -65,6 +65,8 @@ apis:
       - type: OpenAPI
         url: openapi/epidemic-sound-partner-content-api-openapi.yml
 common:
+  - type: OAuthScopes
+    url: scopes/epidemic-sound-scopes.yml
   - type: Website
     url: https://www.epidemicsound.com
   - type: Portal
