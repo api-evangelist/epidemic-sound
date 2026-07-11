@@ -65,6 +65,10 @@ apis:
       - type: OpenAPI
         url: openapi/epidemic-sound-partner-content-api-openapi.yml
 common:
+  - type: DomainSecurity
+    url: security/epidemic-sound-domain-security.yml
+  - type: Authentication
+    url: authentication/epidemic-sound-authentication.yml
   - type: OAuthScopes
     url: scopes/epidemic-sound-scopes.yml
   - type: Website
