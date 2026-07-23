@@ -1,0 +1,203 @@
+openapi: 3.0.1
+info:
+  title: Partner Content Assets Authentication API
+  version: 0.1.17
+  description: These endpoints allows your application to upload assets such as images or audio.
+servers:
+- url: https://partner-content-api.epidemicsound.com
+  description: Epidemic Sound Content API
+tags:
+- name: Authentication
+  description: Endpoints for user authentication.
+paths:
+  /v0/partner-token:
+    post:
+      tags:
+      - Authentication
+      summary: Request a partner token
+      description: Request a Partner Token
+      operationId: POST_Partner_Token
+      requestBody:
+        description: Token request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnerTokenRequest'
+      responses:
+        '201':
+          description: User access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+              example:
+                accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJwYXJ0bmVyIiwiaXNzIjoiRXBpZGVtaWMgU291bmQiLCJwYXJ0bmVySWQiOiJlcGlkZW1pY3NvdW5kIiwiZXhwIjoxNjIwMTA4OTg0fQ
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      deprecated: true
+  /v0/token:
+    post:
+      tags:
+      - Authentication
+      summary: Request a user token
+      description: 'Request a User Token. This endpoint requires a Partner Token for authentication. '
+      operationId: POST_User_Token
+      requestBody:
+        description: Token request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserTokenRequest'
+      responses:
+        '201':
+          description: User access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+              example:
+                accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyVGllciI6ImJhc2VfdGllciIsImF1ZCI6ImVuZC11c2VyIiwiaXNzIjoiRXBpZGVtaWMgU291bmQiLCJwYXJ0bmVySWQiOiJlcGlkZW1pY3NvdW5kIiwiZXhwIjoxNjIwMTA5MDkyLCJ1c2VySWQiOiJ1c2VyX2lkIn0
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      deprecated: true
+      security:
+      - PartnerAuth: []
+components:
+  schemas:
+    UserTokenRequest:
+      required:
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+          description: End user id. UUID, numeric or matching ^[a-zA-Z0-9_-]+$
+          example: 898d611f-46bc-4747-af61-9883ff06b35b
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    PartnerTokenRequest:
+      required:
+      - accessKeyId
+      - accessKeySecret
+      type: object
+      properties:
+        accessKeyId:
+          type: string
+        accessKeySecret:
+          type: string
+    AccessTokenResponse:
+      required:
+      - accessToken
+      type: object
+      properties:
+        accessToken:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      description: 'API key authentication for server-to-server communication.
+
+        Pass your API key as a Bearer token in the Authorization header.
+
+        API keys are prefixed with `epidemic_live_`.
+
+
+        > **Example Header:** `Authorization: Bearer epidemic_live_your-api-key`'
+      scheme: bearer
+    PartnerAuth:
+      type: http
+      description: 'Partner authentication is handled with short lived partner access tokens.
+
+        Use your api credentials to request these tokens.
+
+        The access token is of JWT format and should be passed in a header with your API requests:
+
+
+        > **Example Header:** `Authorization: Bearer your-partner-token`'
+      scheme: Bearer
+    UserAuth:
+      type: http
+      description: "User authentication is handled with short lived user access tokens.\n Use a partner token to request these tokens.\n The access token is of JWT format and should be passed in a header with your API requests:\n\n > **Example Header:** `Authorization: Bearer a-user-token`"
+      scheme: Bearer
+    EpidemicSoundConnectAuth:
+      type: oauth2
+      description: 'For users signing in with an Epidemic Sound account, user authentication is
+
+        handled with OpenID Connect, which is a layer on top of OAuth 2.0.
+
+
+        > **Example Header:** `Authorization: Bearer es-connect-token`'
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/auth
+          tokenUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/token
+          scopes: {}

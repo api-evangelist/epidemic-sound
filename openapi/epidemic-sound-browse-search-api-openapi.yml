@@ -1,0 +1,1428 @@
+openapi: 3.0.1
+info:
+  title: Partner Content Assets Browse & search API
+  version: 0.1.17
+  description: These endpoints allows your application to upload assets such as images or audio.
+servers:
+- url: https://partner-content-api.epidemicsound.com
+  description: Epidemic Sound Content API
+tags:
+- name: Browse & search
+  description: These endpoints will allow you to explore the Epidemic Sound library. You can display tracks grouped in curated playlists, moods or genres or use search to get tracks by any term.
+paths:
+  /v0/collections:
+    get:
+      tags:
+      - Browse & search
+      summary: List collections
+      description: 'The collections endpoint returns playlists curated by our team of in-house experts.
+
+
+        We offer collections for any occasion: from holidays like "Día de Muertos" to content types like "Real Estate" or "Badass ads".
+
+
+        You can manage the order and which collections are part or your applications'' free tier via the developer portal. As default, we return the collections included in your free tier first, followed by all collections in the Epidemic Sound library.
+
+
+        Collections have attributes like title and cover art. In the few cases where we do not have cover art for a collection we return a default image.
+
+
+        You can choose to return collections with or without tracks. The response will include a maximum of 20 tracks per collection. If a collection contains more than 20 tracks use endpoint ''/collections/{collectionId}'' to get all tracks.'
+      operationId: GET_Collections
+      parameters:
+      - $ref: '#/components/parameters/excludeField'
+      - name: limit
+        in: query
+        description: Max number of entries returned in the response, default 10 and max 20
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Collection response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionsPaginatedResponse'
+              example:
+                collections:
+                - id: 4caef099-43bd-4653-8203-3086fa01d3b7
+                  name: Happy
+                  tracks:
+                  - id: 6rUPerw2po
+                    mainArtists:
+                    - Main Artist
+                    featuredArtists:
+                    - Featured Artist
+                    title: Happy Song
+                    bpm: 135
+                    length: 3123
+                    moods:
+                    - id: happy
+                      name: Happy
+                    - id: eccentric
+                      name: Eccentric
+                    genres:
+                    - id: beats
+                      name: Beats
+                      parent:
+                        id: parent
+                        name: Parent Beats
+                    - id: trap
+                      name: Trap
+                    images:
+                      default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                      M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                      S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                    waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                    hasVocals: true
+                    added: '2020-10-10'
+                    isExplicit: false
+                    isPreviewOnly: true
+                  availableTracks: 1
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/128x128.jpg
+                - id: 9917d694-511b-4b66-ab8a-c553660399e4
+                  name: Sad
+                  tracks:
+                  - id: 0dZCtol3bs
+                    mainArtists:
+                    - Main Artist
+                    featuredArtists:
+                    - Featured Artist
+                    title: Sad Song
+                    bpm: 97
+                    length: 2976
+                    moods:
+                    - id: happy
+                      name: Happy
+                    - id: eccentric
+                      name: Eccentric
+                    genres:
+                    - id: beats
+                      name: Beats
+                      parent:
+                        id: parent
+                        name: Parent Beats
+                    - id: trap
+                      name: Trap
+                    images:
+                      default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                      M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                      S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                    waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                    hasVocals: true
+                    added: '2020-10-10'
+                    isExplicit: false
+                    isPreviewOnly: true
+                  availableTracks: 1
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/128x128.jpg
+                pagination:
+                  page: 3
+                  limit: 20
+                  offset: 40
+                links:
+                  next: /v0/collections?limit=20&offset=60
+                  prev: /v0/collections?limit=20&offset=20
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/collections/{collectionId}:
+    get:
+      tags:
+      - Browse & search
+      summary: Collection details
+      description: The collections endpoint allows you to list all the tracks in a specific collection.
+      operationId: GET_Collection
+      parameters:
+      - $ref: '#/components/parameters/collectionId'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Collection response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionPaginatedResponse'
+              example:
+                id: f10e65eb-9998-4c41-9777-ac9183ab85dd
+                name: Happy
+                tracks:
+                - id: 6rUPerw2po
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Happy Song
+                  bpm: 135
+                  length: 3123
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                availableTracks: 1
+                pagination:
+                  page: 4
+                  limit: 20
+                  offset: 60
+                links:
+                  next: /v0/collections/f10e65eb-9998-4c41-9777-ac9183ab85dd?limit=20&offset=80
+                  prev: /v0/collections/f10e65eb-9998-4c41-9777-ac9183ab85dd?limit=20&offset=40
+                images:
+                  default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg
+                  L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/1050x1050.jpg
+                  M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/600x600.jpg
+                  S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg
+                  XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/128x128.jpg
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '404':
+          description: Collection was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Collection was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/search:
+    get:
+      tags:
+      - Browse & search
+      summary: Search music
+      description: The search endpoint allows your users to search the entire Epidemic Sound library. Search indexes track attributes such as moods, genres, artist, song title and bpm.
+      operationId: GET_Tracks_Search
+      parameters:
+      - $ref: '#/components/parameters/offset'
+      - name: limit
+        in: query
+        description: Max number of entries returned in the response, default 50 and max 60
+        required: false
+      - $ref: '#/components/parameters/term'
+      - $ref: '#/components/parameters/genre'
+      - $ref: '#/components/parameters/mood'
+      - $ref: '#/components/parameters/bpmMin'
+      - $ref: '#/components/parameters/bpmMax'
+      - name: sort
+        in: query
+        description: Sort for search
+        required: false
+        schema:
+          type: string
+          enum:
+          - Title
+          - Relevance
+          - Date
+          - Popularity
+          - Duration
+          - BPM
+          default: Relevance
+      - name: order
+        in: query
+        description: Order
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      responses:
+        '200':
+          description: Tracks response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TracksResponse'
+              example:
+                tracks:
+                - id: 6rUPerw2po
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Happy Song
+                  bpm: 135
+                  length: 3123
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                - id: 0dZCtol3bs
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Sad Song
+                  bpm: 97
+                  length: 2976
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                pagination:
+                  page: 2
+                  limit: 25
+                  offset: 25
+                links:
+                  next: /tracks/search?limit=25&offset=50
+                  prev: /tracks/search?limit=25&offset=0
+                aggregations:
+                  moods:
+                  - id: energetic
+                    name: Energetic
+                    count: 1
+                  genres:
+                  - id: rock
+                    name: Rock
+                    count: 1
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '403':
+          description: Forbidden. Only available for ES Connect tokens or User tokens when the app allows to preview tracks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Forbidden
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Service unavailable
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/search/suggestions:
+    get:
+      tags:
+      - Browse & search
+      summary: Search autosuggest
+      description: 'The search suggestions endpoint allows your users to get autocomplete suggestions for Epidemic Sound music or external provider music search.
+
+
+        Returns:
+
+        - value: The exact search term to pass to the /tracks/search endpoint.
+
+        - title: Display text to show users in the autocomplete UI.
+
+        - type - Indicates whether this is a search term of type text or external reference URI (e.g., Spotify track).
+
+
+        Usage: When a user selects a suggestion, use the ''value'' field as the ''term'' parameter when calling /tracks/search to get matching tracks.'
+      operationId: GET_Tracks_Search_suggestions
+      parameters:
+      - $ref: '#/components/parameters/term'
+      responses:
+        '200':
+          description: Tracks Search Suggestions response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchSuggestionsResponse'
+              example:
+                suggestions:
+                - value: rock
+                  title: rock
+                  type: TEXT
+                - value: rocker
+                  title: rocker
+                  type: TEXT
+                - value: https://open.spotify.com/track/12345
+                  title: rocker
+                  type: EXTERNAL_SPOTIFY
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '403':
+          description: Forbidden. Only available for ES Connect tokens or User tokens when the app allows to preview tracks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Forbidden
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Service unavailable
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/moods:
+    get:
+      tags:
+      - Browse & search
+      summary: List moods
+      description: 'The moods endpoint allows your users to browse the music catalog based on moods like happy, epic or relaxing. Moods have cover art that you can show in your interface.
+
+
+        By specifying the "type" of moods you want to display, you can choose to show all moods in the Epidemic Sound library, only the moods that are featured on epidemicsound.com or only the moods that are available for your free tier tracks.'
+      operationId: GET_All_Moods
+      parameters:
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/order'
+      - $ref: '#/components/parameters/type'
+      - name: limit
+        in: query
+        description: Max number of entries returned in the response, default 20 and max 20
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Track moods response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoodsPaginatedResponseWithImages'
+              example:
+                moods:
+                - id: energetic
+                  name: Epic
+                  images:
+                    default: https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=300&h=300&fit=fill&q=90&fm=jpg
+                    L: https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                    M: https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=600&h=600&fit=fill&q=90&fm=jpg
+                    S: https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=300&h=300&fit=fill&q=90&fm=jpg
+                    XS: https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=128&h=128&fit=fill&q=90&fm=jpg
+                - id: happy
+                  name: Happy
+                  images:
+                    default: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=300&h=300&fit=fill&q=90&fm=jpg
+                    L: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                    M: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=600&h=600&fit=fill&q=90&fm=jpg
+                    S: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=300&h=300&fit=fill&q=90&fm=jpg
+                    XS: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=128&h=128&fit=fill&q=90&fm=jpg
+                pagination:
+                  page: 1
+                  limit: 20
+                  offset: 0
+                links: {}
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/moods/{moodId}:
+    get:
+      tags:
+      - Browse & search
+      summary: Mood details
+      description: Get mood details
+      operationId: GET_Mood_details
+      parameters:
+      - $ref: '#/components/parameters/moodId'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Track mood response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoodResponseWithImages'
+              example:
+                id: happy
+                name: Happy
+                images:
+                  default: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=300&h=300&fit=fill&q=90&fm=jpg
+                  L: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                  M: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=600&h=600&fit=fill&q=90&fm=jpg
+                  S: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=300&h=300&fit=fill&q=90&fm=jpg
+                  XS: https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=128&h=128&fit=fill&q=90&fm=jpg
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '404':
+          description: Mood was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Mood was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/genres:
+    get:
+      tags:
+      - Browse & search
+      summary: List genres
+      description: "The genres endpoint allows your users to browse the music catalog based on genres like rock, hiphop or acoustic. \n\nGenres are nested and both parent and child genres are returned in the response. Parent genres have cover art that you can show in your interface.\n\nBy specifying the \"type\" of genres you want to display, you can choose to show all genres in the Epidemic Sound library, only the genres that are featured on epidemicsound.com or only the genres that are available for your free tier tracks."
+      operationId: GET_All_Genres
+      parameters:
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/order'
+      - $ref: '#/components/parameters/type'
+      - name: limit
+        in: query
+        description: Max number of entries returned in the response, default 20 and max 20
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Track genres response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenresWithImagesPaginatedResponse'
+              example:
+                genres:
+                - id: beats
+                  name: Beats
+                  images:
+                    default: https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=300&h=300&fit=fill&q=90&fm=jpg
+                    L: https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=1050&h=1050&fit=fill&q=90&fm=jpg
+                    M: https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=600&h=600&fit=fill&q=90&fm=jpg
+                    S: https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=300&h=300&fit=fill&q=90&fm=jpg
+                    XS: https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=128&h=128&fit=fill&q=90&fm=jpg
+                pagination:
+                  page: 1
+                  limit: 20
+                  offset: 0
+                links: {}
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/genres/{genreId}:
+    get:
+      tags:
+      - Browse & search
+      summary: Genre details
+      description: This endpoint gives you the parent and child relationships of a specific genre as well as all tracks that belong to it.
+      operationId: GET_Genre_details
+      parameters:
+      - $ref: '#/components/parameters/genreId'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Track genre response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenreResponseWithChildren'
+              example:
+                id: parent-beats
+                name: Parent Beats
+                children:
+                - id: true-beats
+                  name: True Beats
+                  parent:
+                    id: parent-beats
+                    name: Parent Beats
+                tracks:
+                  tracks:
+                  - id: 6rUPerw2po
+                    mainArtists:
+                    - Main Artist
+                    featuredArtists:
+                    - Featured Artist
+                    title: Happy Song
+                    bpm: 135
+                    length: 3123
+                    moods:
+                    - id: happy
+                      name: Happy
+                    - id: eccentric
+                      name: Eccentric
+                    genres:
+                    - id: parent-beats
+                      name: Beats
+                      parent:
+                        id: parent
+                        name: Parent Beats
+                    - id: trap
+                      name: Trap
+                    images:
+                      default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                      M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                      S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                      XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                    waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                    hasVocals: true
+                    added: '2020-10-10'
+                    isExplicit: false
+                    isPreviewOnly: true
+                  pagination:
+                    page: 2
+                    limit: 25
+                    offset: 25
+                  links:
+                    next: v0/genres/{genreId}?limit=25&offset=50
+                    prev: v0/genres/{genreId}?limit=25&offset=0
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '404':
+          description: Genre was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Genre was not found
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+components:
+  schemas:
+    TrackResponse:
+      required:
+      - added
+      - bpm
+      - featuredArtists
+      - genres
+      - id
+      - length
+      - mainArtists
+      - moods
+      - title
+      - waveformUrl
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the track
+        mainArtists:
+          type: array
+          description: The main artist that created the track.
+          items:
+            type: string
+            description: The main artist that created the track.
+        featuredArtists:
+          type: array
+          description: Additional artists that contributed to the track.
+          items:
+            type: string
+            description: Additional artists that contributed to the track.
+        title:
+          type: string
+          description: Title of the track
+        bpm:
+          type: integer
+          description: Beats per minute for the track.
+          format: int32
+        length:
+          type: integer
+          description: Track length in seconds
+          format: int32
+        moods:
+          type: array
+          description: Lists the moods of the track.
+          items:
+            $ref: '#/components/schemas/MoodResponse'
+        genres:
+          type: array
+          description: Lists the genres of the track.
+          items:
+            $ref: '#/components/schemas/GenreResponse'
+        images:
+          $ref: '#/components/schemas/ImagesResponse'
+        waveformUrl:
+          type: string
+          description: Reference to the waveform as a json object.
+        hasVocals:
+          type: boolean
+          description: Set to true if the track has vocals. Set to false for instrumental tracks.
+          nullable: true
+        added:
+          type: string
+          description: The date the track was released in the format YYYY-mm-dd.
+        tierOption:
+          type: string
+          nullable: true
+          enum:
+          - PAID
+          - FREE
+        isExplicit:
+          type: boolean
+          nullable: true
+        isPreviewOnly:
+          type: boolean
+    TaxonomyAggregations:
+      type: object
+      properties:
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+    TracksResponse:
+      required:
+      - links
+      - pagination
+      - tracks
+      type: object
+      properties:
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        aggregations:
+          $ref: '#/components/schemas/TaxonomyAggregations'
+    GenreImagesResponse:
+      type: object
+      properties:
+        default:
+          type: string
+        L:
+          type: string
+          nullable: true
+        M:
+          type: string
+          nullable: true
+        S:
+          type: string
+          nullable: true
+        XS:
+          type: string
+          nullable: true
+    GenreResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        parent:
+          $ref: '#/components/schemas/ParentGenreResponse'
+    ImagesResponse:
+      type: object
+      properties:
+        default:
+          type: string
+          nullable: true
+        L:
+          type: string
+          nullable: true
+        M:
+          type: string
+          nullable: true
+        S:
+          type: string
+          nullable: true
+        XS:
+          type: string
+          nullable: true
+    Pagination:
+      required:
+      - limit
+      - page
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+    CollectionsPaginatedResponse:
+      required:
+      - collections
+      - links
+      - pagination
+      type: object
+      properties:
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    Option:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - TEXT
+          - EXTERNAL_SPOTIFY
+    MoodResponseWithImages:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        images:
+          $ref: '#/components/schemas/MoodImagesResponse'
+        tracks:
+          $ref: '#/components/schemas/TracksResponse'
+    GenreResponseWithChildren:
+      required:
+      - children
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        parent:
+          $ref: '#/components/schemas/ParentGenreResponse'
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreResponse'
+        images:
+          $ref: '#/components/schemas/GenreImagesResponse'
+        tracks:
+          $ref: '#/components/schemas/TracksResponse'
+    GenresWithImagesPaginatedResponse:
+      required:
+      - genres
+      - links
+      - pagination
+      type: object
+      properties:
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreResponseWithImages'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SearchSuggestionsResponse:
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+    PaginationLinks:
+      type: object
+      properties:
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    ParentGenreResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the parent genre
+        name:
+          type: string
+          description: Name of the parent genre
+    MoodsPaginatedResponseWithImages:
+      required:
+      - links
+      - moods
+      - pagination
+      type: object
+      properties:
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/MoodResponseWithImages'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    CollectionResponse:
+      required:
+      - id
+      - images
+      - name
+      - tracks
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the track.
+          format: uuid
+        name:
+          type: string
+          description: Name of the collection
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackResponse'
+        availableTracks:
+          type: integer
+          description: Number of available tracks based on the partner's tier
+          format: int32
+          nullable: true
+        images:
+          $ref: '#/components/schemas/CollectionImagesPublicResponse'
+    GenreResponseWithImages:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        parent:
+          $ref: '#/components/schemas/ParentGenreResponseWithImages'
+        images:
+          $ref: '#/components/schemas/GenreImagesResponse'
+    CollectionImagesPublicResponse:
+      required:
+      - default
+      type: object
+      properties:
+        default:
+          type: string
+        L:
+          type: string
+          nullable: true
+        M:
+          type: string
+          nullable: true
+        S:
+          type: string
+          nullable: true
+        XS:
+          type: string
+          nullable: true
+    TaxonomyAggregation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        count:
+          type: integer
+          format: int32
+    MoodImagesResponse:
+      type: object
+      properties:
+        default:
+          type: string
+          nullable: true
+        L:
+          type: string
+          nullable: true
+        M:
+          type: string
+          nullable: true
+        S:
+          type: string
+          nullable: true
+        XS:
+          type: string
+          nullable: true
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    CollectionPaginatedResponse:
+      required:
+      - id
+      - images
+      - links
+      - name
+      - pagination
+      - tracks
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackResponse'
+        availableTracks:
+          type: integer
+          format: int32
+          nullable: true
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        images:
+          $ref: '#/components/schemas/CollectionImagesPublicResponse'
+    MoodResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the mood
+        name:
+          type: string
+          description: Name of the mood
+    ParentGenreResponseWithImages:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        images:
+          $ref: '#/components/schemas/GenreImagesResponse'
+  parameters:
+    genre:
+      name: genre
+      in: query
+      description: Id for genre
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    collectionId:
+      name: collectionId
+      in: path
+      description: Collection id
+      required: true
+      schema:
+        type: string
+    genreId:
+      name: genreId
+      in: path
+      description: Genre id
+      required: true
+      schema:
+        type: string
+    sort:
+      name: sort
+      in: query
+      description: 'Sorting options. Available values: alphabetic, relevance'
+      required: false
+      schema:
+        type: string
+        enum:
+        - alphabetic
+        - relevance
+        default: relevance
+    offset:
+      name: offset
+      in: query
+      description: Index of the entry track in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+    excludeField:
+      name: excludeField
+      in: query
+      description: Add parameter if tracks should be excluded in the response
+      required: false
+      schema:
+        type: string
+        enum:
+        - tracks
+    moodId:
+      name: moodId
+      in: path
+      description: Mood id
+      required: true
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Max number of entries returned in the response, default 50 and max 100
+      required: false
+      schema:
+        type: integer
+        format: int32
+    expand:
+      name: expand
+      in: query
+      description: Add parameter if tracks should be included in the response
+      required: false
+      schema:
+        type: string
+        enum:
+        - tracks
+    bpmMax:
+      name: bpmMax
+      in: query
+      description: BPM Max
+      required: false
+      schema:
+        type: integer
+        format: int32
+    type:
+      name: type
+      in: query
+      description: "Types to filter by:\n  * `all` - all the objects in the Epidemic Sound library\n  * `partner-tier` - objects available to the partner within their tier\n  * `featured` - only objects featured and curated by Epidemic Sound"
+      required: false
+      schema:
+        type: string
+        enum:
+        - all
+        - featured
+        - partner-tier
+        default: all
+    bpmMin:
+      name: bpmMin
+      in: query
+      description: BPM Min
+      required: false
+      schema:
+        type: integer
+        format: int32
+    term:
+      name: term
+      in: query
+      description: Term for search
+      required: false
+      schema:
+        type: string
+    order:
+      name: order
+      in: query
+      description: 'Order options. Available values: asc, desc'
+      required: false
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: asc
+    mood:
+      name: mood
+      in: query
+      description: Id for mood
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      description: 'API key authentication for server-to-server communication.
+
+        Pass your API key as a Bearer token in the Authorization header.
+
+        API keys are prefixed with `epidemic_live_`.
+
+
+        > **Example Header:** `Authorization: Bearer epidemic_live_your-api-key`'
+      scheme: bearer
+    PartnerAuth:
+      type: http
+      description: 'Partner authentication is handled with short lived partner access tokens.
+
+        Use your api credentials to request these tokens.
+
+        The access token is of JWT format and should be passed in a header with your API requests:
+
+
+        > **Example Header:** `Authorization: Bearer your-partner-token`'
+      scheme: Bearer
+    UserAuth:
+      type: http
+      description: "User authentication is handled with short lived user access tokens.\n Use a partner token to request these tokens.\n The access token is of JWT format and should be passed in a header with your API requests:\n\n > **Example Header:** `Authorization: Bearer a-user-token`"
+      scheme: Bearer
+    EpidemicSoundConnectAuth:
+      type: oauth2
+      description: 'For users signing in with an Epidemic Sound account, user authentication is
+
+        handled with OpenID Connect, which is a layer on top of OAuth 2.0.
+
+
+        > **Example Header:** `Authorization: Bearer es-connect-token`'
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/auth
+          tokenUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/token
+          scopes: {}

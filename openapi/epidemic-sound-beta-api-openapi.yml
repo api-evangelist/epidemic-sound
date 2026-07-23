@@ -1,0 +1,361 @@
+openapi: 3.0.1
+info:
+  title: Partner Content Assets Beta API
+  version: 0.1.17
+  description: These endpoints allows your application to upload assets such as images or audio.
+servers:
+- url: https://partner-content-api.epidemicsound.com
+  description: Epidemic Sound Content API
+tags:
+- name: Beta
+  description: These endpoints are in beta.
+paths:
+  /v0/tracks/{trackId}/beats:
+    get:
+      tags:
+      - Beta
+      summary: Beats
+      description: "The beats endpoint provides information about the timestamps of beats in a track. You can use this endpoint to simplify the process to cut the video in sync with the music.\n\nUnlike BPM which is a single number for the entire track, beats can change dynamically across a music piece. This is particularly valuable for capturing variations in tempo, such as a slower intro, a build-up with faster beats, or changes in rhythm throughout the composition.\n\nThe response includes two types of metadata:  `time` and `value`. \n\n`time` represents the timestamp of the beat in seconds. `value` indicates the beat's position in a bar (or measure in the US), where 1 corresponds to the first beat (downbeat).\n\nExamples:\n\nMost pop songs have four beats in a bar. For example, if we looked at the beats data for Coolio's `1, 2, 3, 4` it would look something like:  1-2-3-4, 1-2-3-4\n\nHowever, a waltz has three beats in a bar, and the data would look something like: 1-2-3, 1-2-3\n\nUsage Scenarios:\n\n* Automatically cut a video in sync with the beat\n\n* Adding snap markers aligned with beat timestamps in the UI."
+      operationId: GET_Track_Beats
+      parameters:
+      - $ref: '#/components/parameters/trackId'
+      responses:
+        '200':
+          description: Beats response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackBeatsResponse'
+              example:
+                beats:
+                - time: 0.0
+                  value: 1.0
+                - time: 0.62
+                  value: 2.0
+                - time: 1.2
+                  value: 3.0
+                - time: 1.8
+                  value: 4.0
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '404':
+          description: Track was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Track was not found
+        '403':
+          description: User does not have access to download the track.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: User does not have access to download the track
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/versions:
+    post:
+      tags:
+      - Beta
+      summary: Start a track versions generation job
+      description: "This endpoint allows you to start a job to generate edited versions of a track.\nThe job will be processed asynchronously and you can check the status using the\nGET /tracks/versions/{jobId} endpoint. Note that the url expires in 24 hours. \n\n**Duration limits:**\n- The duration must be between 1 second and 5 minutes. \n- Longer durations result in increased processing time, as latency scales with the desired duration."
+      operationId: POST_Track_Versions
+      requestBody:
+        description: Track edit request configuration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackEditsJobRequest'
+      responses:
+        '200':
+          description: Track edit job response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackEditsResponse'
+              example:
+                status: PENDING
+                results: []
+                message: Job is still processing
+                jobId: f854c9cf-bf6d-4345-b94c-c5a5c7d1979e
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+  /v0/tracks/versions/{jobId}:
+    get:
+      tags:
+      - Beta
+      summary: Get track versions job status
+      description: 'This endpoint allows you to check the status of a track versions job.
+
+        When the job is complete, it will return the URLs to the generated tracks.
+
+
+        **Waveform Data:**
+
+        - By default, waveform data is excluded to reduce payload size
+
+        - Use `expand=waveform` to include waveform data in the response'
+      operationId: GET_Track_Versions_Job
+      parameters:
+      - name: jobId
+        in: path
+        description: The ID of the job to check
+        required: true
+      - name: expand
+        in: query
+        description: Include additional data in response. Use 'waveform' to include waveform data.
+        required: false
+      responses:
+        '200':
+          description: Track edit job response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackEditsResponse'
+              example:
+                status: COMPLETED
+                results:
+                - previewUrl: https://cdn.epidemicsound.com/edited-tracks/12345.mp3
+                  highQualityUrl: https://cdn.epidemicsound.com/edited-tracks/12345.wav
+                message: Job completed successfully
+                jobId: 10887737-61a9-4a75-8ea1-cd0e4630670f
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+      - ApiKeyAuth: []
+components:
+  schemas:
+    TrackEditsJobRequest:
+      required:
+      - durationMs
+      - trackId
+      type: object
+      properties:
+        durationMs:
+          type: integer
+          format: int32
+        trackId:
+          type: string
+          format: uuid
+    TrackBeatsResponse:
+      type: object
+      properties:
+        beats:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackBeat'
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    TrackBeat:
+      type: object
+      properties:
+        time:
+          type: number
+          format: double
+        value:
+          type: number
+          format: double
+    TrackEditResultResponse:
+      type: object
+      properties:
+        previewUrl:
+          type: string
+        waveform:
+          $ref: '#/components/schemas/TrackEditWaveform'
+        highQualityUrl:
+          type: string
+    TrackEditWaveform:
+      type: object
+      properties:
+        version:
+          type: integer
+          format: int32
+        channels:
+          type: integer
+          format: int32
+        sampleRate:
+          type: integer
+          format: int32
+        samplesPerPixel:
+          type: integer
+          format: int32
+        bits:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+        data:
+          type: array
+          items:
+            type: integer
+            format: int32
+    TrackEditsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackEditResultResponse'
+        message:
+          type: string
+        jobId:
+          type: string
+          format: uuid
+  parameters:
+    trackId:
+      name: trackId
+      in: path
+      description: Track id
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      description: 'API key authentication for server-to-server communication.
+
+        Pass your API key as a Bearer token in the Authorization header.
+
+        API keys are prefixed with `epidemic_live_`.
+
+
+        > **Example Header:** `Authorization: Bearer epidemic_live_your-api-key`'
+      scheme: bearer
+    PartnerAuth:
+      type: http
+      description: 'Partner authentication is handled with short lived partner access tokens.
+
+        Use your api credentials to request these tokens.
+
+        The access token is of JWT format and should be passed in a header with your API requests:
+
+
+        > **Example Header:** `Authorization: Bearer your-partner-token`'
+      scheme: Bearer
+    UserAuth:
+      type: http
+      description: "User authentication is handled with short lived user access tokens.\n Use a partner token to request these tokens.\n The access token is of JWT format and should be passed in a header with your API requests:\n\n > **Example Header:** `Authorization: Bearer a-user-token`"
+      scheme: Bearer
+    EpidemicSoundConnectAuth:
+      type: oauth2
+      description: 'For users signing in with an Epidemic Sound account, user authentication is
+
+        handled with OpenID Connect, which is a layer on top of OAuth 2.0.
+
+
+        > **Example Header:** `Authorization: Bearer es-connect-token`'
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/auth
+          tokenUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/token
+          scopes: {}

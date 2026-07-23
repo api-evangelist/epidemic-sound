@@ -1,0 +1,465 @@
+openapi: 3.0.1
+info:
+  title: Partner Content Assets Users API
+  version: 0.1.17
+  description: These endpoints allows your application to upload assets such as images or audio.
+servers:
+- url: https://partner-content-api.epidemicsound.com
+  description: Epidemic Sound Content API
+tags:
+- name: Users
+  description: These endpoints allows your application to get user specific information such as liked sounds.
+paths:
+  /v0/users/me:
+    get:
+      tags:
+      - Users
+      summary: User details
+      description: Get user details of the authenticated user.
+      operationId: GET_End_User_Details
+      responses:
+        '200':
+          description: End user details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+              example:
+                userId: d8492175-8795-44e6-a1e6-e2198448ba33
+                esConnect: false
+                hasActiveSubscription: null
+                email: null
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - UserAuth: []
+      - EpidemicSoundConnectAuth: []
+  /v0/users/me/liked/tracks:
+    get:
+      tags:
+      - Users
+      summary: List users' liked tracks
+      description: 'The liked tracks endpoint lets you list the liked tracks of a connected user.
+
+        Users can add new tracks to their list on epidemicsound.com or via the Epidemic Sound app, giving them a smooth cross-device experience.'
+      operationId: GET_Users_Liked_Tracks
+      parameters:
+      - name: offset
+        in: query
+        description: Offset for the pagination. For this endpoint the number of results is fixed at 25, so the offset needs to be evenly divisible by 25.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Liked Tracks response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TracksResponse'
+              example:
+                tracks:
+                - id: 6rUPerw2po
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Happy Song
+                  bpm: 135
+                  length: 3123
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                - id: 0dZCtol3bs
+                  mainArtists:
+                  - Main Artist
+                  featuredArtists:
+                  - Featured Artist
+                  title: Sad Song
+                  bpm: 97
+                  length: 2976
+                  moods:
+                  - id: happy
+                    name: Happy
+                  - id: eccentric
+                    name: Eccentric
+                  genres:
+                  - id: beats
+                    name: Beats
+                    parent:
+                      id: parent
+                      name: Parent Beats
+                  - id: trap
+                    name: Trap
+                  images:
+                    default: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    L: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg
+                    M: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg
+                    S: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg
+                    XS: https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg
+                  waveformUrl: https://pdn.epidemicsound.com/waveforms/1600/394079.json
+                  hasVocals: true
+                  added: '2020-10-10'
+                  isExplicit: false
+                  isPreviewOnly: true
+                pagination:
+                  page: 2
+                  limit: 25
+                  offset: 25
+                links:
+                  next: /users/me/liked/tracks?limit=25&offset=50
+                  prev: /users/me/liked/tracks?limit=25&offset=0
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+      security:
+      - EpidemicSoundConnectAuth: []
+components:
+  schemas:
+    TrackResponse:
+      required:
+      - added
+      - bpm
+      - featuredArtists
+      - genres
+      - id
+      - length
+      - mainArtists
+      - moods
+      - title
+      - waveformUrl
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the track
+        mainArtists:
+          type: array
+          description: The main artist that created the track.
+          items:
+            type: string
+            description: The main artist that created the track.
+        featuredArtists:
+          type: array
+          description: Additional artists that contributed to the track.
+          items:
+            type: string
+            description: Additional artists that contributed to the track.
+        title:
+          type: string
+          description: Title of the track
+        bpm:
+          type: integer
+          description: Beats per minute for the track.
+          format: int32
+        length:
+          type: integer
+          description: Track length in seconds
+          format: int32
+        moods:
+          type: array
+          description: Lists the moods of the track.
+          items:
+            $ref: '#/components/schemas/MoodResponse'
+        genres:
+          type: array
+          description: Lists the genres of the track.
+          items:
+            $ref: '#/components/schemas/GenreResponse'
+        images:
+          $ref: '#/components/schemas/ImagesResponse'
+        waveformUrl:
+          type: string
+          description: Reference to the waveform as a json object.
+        hasVocals:
+          type: boolean
+          description: Set to true if the track has vocals. Set to false for instrumental tracks.
+          nullable: true
+        added:
+          type: string
+          description: The date the track was released in the format YYYY-mm-dd.
+        tierOption:
+          type: string
+          nullable: true
+          enum:
+          - PAID
+          - FREE
+        isExplicit:
+          type: boolean
+          nullable: true
+        isPreviewOnly:
+          type: boolean
+    TaxonomyAggregations:
+      type: object
+      properties:
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+    TaxonomyAggregation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        count:
+          type: integer
+          format: int32
+    TracksResponse:
+      required:
+      - links
+      - pagination
+      - tracks
+      type: object
+      properties:
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        aggregations:
+          $ref: '#/components/schemas/TaxonomyAggregations'
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    PaginationLinks:
+      type: object
+      properties:
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    GenreResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        parent:
+          $ref: '#/components/schemas/ParentGenreResponse'
+    ParentGenreResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the parent genre
+        name:
+          type: string
+          description: Name of the parent genre
+    MoodResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the mood
+        name:
+          type: string
+          description: Name of the mood
+    UserInfo:
+      required:
+      - esConnect
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+          description: 'is the userId given in the User Token if not ES Connect authenticated or
+
+            the ES Connect user id if user is authenticated against ES Connect.'
+        esConnect:
+          type: boolean
+          description: "is false for a not ES Connect authenticated user but \nis true for a ES Connect authenticated user."
+        hasActiveSubscription:
+          type: boolean
+          description: 'is true if the user has an active subscription but
+
+            is false if the user has no active subscription.
+
+            Returns null if the user is not ES Connect authenticated.'
+          nullable: true
+        email:
+          type: string
+          description: email value will present only for the Epidemic Sound users and will be null otherwise
+          nullable: true
+    ImagesResponse:
+      type: object
+      properties:
+        default:
+          type: string
+          nullable: true
+        L:
+          type: string
+          nullable: true
+        M:
+          type: string
+          nullable: true
+        S:
+          type: string
+          nullable: true
+        XS:
+          type: string
+          nullable: true
+    Pagination:
+      required:
+      - limit
+      - page
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      description: 'API key authentication for server-to-server communication.
+
+        Pass your API key as a Bearer token in the Authorization header.
+
+        API keys are prefixed with `epidemic_live_`.
+
+
+        > **Example Header:** `Authorization: Bearer epidemic_live_your-api-key`'
+      scheme: bearer
+    PartnerAuth:
+      type: http
+      description: 'Partner authentication is handled with short lived partner access tokens.
+
+        Use your api credentials to request these tokens.
+
+        The access token is of JWT format and should be passed in a header with your API requests:
+
+
+        > **Example Header:** `Authorization: Bearer your-partner-token`'
+      scheme: Bearer
+    UserAuth:
+      type: http
+      description: "User authentication is handled with short lived user access tokens.\n Use a partner token to request these tokens.\n The access token is of JWT format and should be passed in a header with your API requests:\n\n > **Example Header:** `Authorization: Bearer a-user-token`"
+      scheme: Bearer
+    EpidemicSoundConnectAuth:
+      type: oauth2
+      description: 'For users signing in with an Epidemic Sound account, user authentication is
+
+        handled with OpenID Connect, which is a layer on top of OAuth 2.0.
+
+
+        > **Example Header:** `Authorization: Bearer es-connect-token`'
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/auth
+          tokenUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/token
+          scopes: {}

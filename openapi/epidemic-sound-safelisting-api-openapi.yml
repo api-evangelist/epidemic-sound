@@ -1,0 +1,599 @@
+openapi: 3.0.1
+info:
+  title: Partner Content Assets Safelisting API
+  version: 0.1.17
+  description: These endpoints allows your application to upload assets such as images or audio.
+servers:
+- url: https://partner-content-api.epidemicsound.com
+  description: Epidemic Sound Content API
+tags:
+- name: Safelisting
+  description: Endpoints for managing safelisting licenses. Allows partners to create, list, update, and delete licenses for channels and videos on behalf of their end users.
+paths:
+  /v0/safelisting/licenses:
+    get:
+      tags:
+      - Safelisting
+      summary: List safelisting licenses
+      description: List safelisting licenses for the specified end user. Supports filtering by asset type, platform, and status, with pagination and sorting.
+      operationId: GET_Safelisting_Licenses
+      parameters:
+      - name: X-Partner-User-Id
+        in: header
+        description: The partner's end user identifier. Used to scope licenses per end user.
+        required: true
+      - name: assetType
+        in: query
+        description: Filter by asset type
+        required: true
+        schema:
+          type: string
+          enum:
+          - channel
+          - video
+      - name: platform
+        in: query
+        description: Filter by platform
+        required: false
+        schema:
+          type: string
+          enum:
+          - youtube
+          - instagram
+          - facebook
+          - twitch
+          - tiktok
+          - podcast
+          - website
+      - name: status
+        in: query
+        description: Filter by status. Currently only `active` licenses are returned.
+        required: false
+        schema:
+          type: string
+          enum:
+          - active
+      - name: sortBy
+        in: query
+        description: Field to sort results by
+        required: false
+        schema:
+          type: string
+          enum:
+          - createdAt
+          - expiresAt
+          default: expiresAt
+      - name: sortOrder
+        in: query
+        description: Sort direction
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+      - name: page
+        in: query
+        description: Page number (1-based)
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: Number of results per page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 25
+      responses:
+        '200':
+          description: License list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SafelistingLicenseListResponse'
+              example:
+                page: 1
+                pageSize: 25
+                totalItems: 1
+                data:
+                - id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                  createdAt: '2024-06-01T10:00:00Z'
+                  expiresAt: '2026-12-31T23:59:59Z'
+                  asset:
+                    id: UCxxxxxxxxxxxxxxxxxx
+                    type: channel
+                    platform: youtube
+                    url: https://www.youtube.com/@somechannel
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Safelisting
+      summary: Create a safelisting license
+      description: Create a new safelisting license for a channel or video. The `X-Partner-User-Id` header is required to scope the license to a specific end user.
+      operationId: POST_Safelisting_License
+      parameters:
+      - name: X-Partner-User-Id
+        in: header
+        description: The partner's end user identifier. Used to scope licenses per end user.
+        required: true
+      requestBody:
+        description: License creation request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSafelistingLicenseRequest'
+            example:
+              asset:
+                type: channel
+                platform: youtube
+                url: https://www.youtube.com/@somechannel
+              expiresAt: '2026-12-31T23:59:59Z'
+        required: true
+      responses:
+        '201':
+          description: Created license
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SafelistingLicenseResponse'
+              example:
+                id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                createdAt: '2024-06-01T10:00:00Z'
+                expiresAt: '2026-12-31T23:59:59Z'
+                asset:
+                  id: UCxxxxxxxxxxxxxxxxxx
+                  type: channel
+                  platform: youtube
+                  url: https://www.youtube.com/@somechannel
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '409':
+          description: Asset already safelisted by another user in this workspace
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Conflict
+        '403':
+          description: Workspace does not have safelisting entitlement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Forbidden
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Safelisting
+      summary: Delete all licenses for an end user
+      description: Expires all active licenses for the specified end user within the workspace. Intended for end-user churn scenarios (e.g. when a user cancels their subscription). Returns 204 regardless of whether the user had any active licenses.
+      operationId: DELETE_Safelisting_Licenses
+      parameters:
+      - name: X-Partner-User-Id
+        in: header
+        description: The partner's end user identifier. Used to scope licenses per end user.
+        required: true
+      responses:
+        '204':
+          description: All licenses expired successfully
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+      security:
+      - ApiKeyAuth: []
+  /v0/safelisting/licenses/{licenseId}:
+    get:
+      tags:
+      - Safelisting
+      summary: Get a safelisting license
+      description: Retrieve a single safelisting license by ID. Returns 404 if the license does not exist or does not belong to the specified end user.
+      operationId: GET_Safelisting_License
+      parameters:
+      - name: licenseId
+        in: path
+        description: License ID
+        required: true
+      - name: X-Partner-User-Id
+        in: header
+        description: The partner's end user identifier. Used to scope licenses per end user.
+        required: true
+      responses:
+        '200':
+          description: License
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SafelistingLicenseResponse'
+              example:
+                id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                createdAt: '2024-06-01T10:00:00Z'
+                expiresAt: '2026-12-31T23:59:59Z'
+                asset:
+                  id: UCxxxxxxxxxxxxxxxxxx
+                  type: channel
+                  platform: youtube
+                  url: https://www.youtube.com/@somechannel
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '404':
+          description: License not found or does not belong to this end user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Safelisting license was not found
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Safelisting
+      summary: Delete a safelisting license
+      description: Expire a safelisting license by ID. The license is soft-deleted and will no longer appear in active license listings.
+      operationId: DELETE_Safelisting_License
+      parameters:
+      - name: licenseId
+        in: path
+        description: License ID
+        required: true
+      - name: X-Partner-User-Id
+        in: header
+        description: The partner's end user identifier. Used to scope licenses per end user.
+        required: true
+      responses:
+        '204':
+          description: License expired successfully
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '404':
+          description: License not found or does not belong to this end user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Safelisting license was not found
+      security:
+      - ApiKeyAuth: []
+    patch:
+      tags:
+      - Safelisting
+      summary: Update a safelisting license
+      description: Update a safelisting license. Currently only the expiration date can be modified.
+      operationId: PATCH_Safelisting_License
+      parameters:
+      - name: licenseId
+        in: path
+        description: License ID
+        required: true
+      - name: X-Partner-User-Id
+        in: header
+        description: The partner's end user identifier. Used to scope licenses per end user.
+        required: true
+      requestBody:
+        description: License update request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSafelistingLicenseRequest'
+            example:
+              expiresAt: '2027-12-31T23:59:59Z'
+        required: true
+      responses:
+        '200':
+          description: Updated license
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SafelistingLicenseResponse'
+              example:
+                id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                createdAt: '2024-06-01T10:00:00Z'
+                expiresAt: '2027-12-31T23:59:59Z'
+                asset:
+                  id: UCxxxxxxxxxxxxxxxxxx
+                  type: channel
+                  platform: youtube
+                  url: https://www.youtube.com/@somechannel
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Bad request
+        '401':
+          description: Unauthorized. Most likely your access token has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Invalid credentials
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Rate limit exceeded
+        '404':
+          description: License not found or does not belong to this end user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: Safelisting license was not found
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    SafelistingAssetRequest:
+      required:
+      - platform
+      - type
+      - url
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - channel
+          - video
+        platform:
+          type: string
+          enum:
+          - youtube
+          - instagram
+          - facebook
+          - twitch
+          - tiktok
+          - podcast
+          - website
+        url:
+          type: string
+    SafelistingLicenseListResponse:
+      required:
+      - data
+      - page
+      - pageSize
+      - totalItems
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalItems:
+          type: integer
+          format: int32
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SafelistingLicenseResponse'
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    UpdateSafelistingLicenseRequest:
+      required:
+      - expiresAt
+      type: object
+      properties:
+        expiresAt:
+          type: string
+    CreateSafelistingLicenseRequest:
+      required:
+      - asset
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/SafelistingAssetRequest'
+        expiresAt:
+          type: string
+    SafelistingAssetResponse:
+      required:
+      - id
+      - platform
+      - type
+      - url
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - channel
+          - video
+        platform:
+          type: string
+          enum:
+          - youtube
+          - instagram
+          - facebook
+          - twitch
+          - tiktok
+          - podcast
+          - website
+        url:
+          type: string
+    SafelistingLicenseResponse:
+      required:
+      - asset
+      - createdAt
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+        expiresAt:
+          type: string
+        asset:
+          $ref: '#/components/schemas/SafelistingAssetResponse'
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      description: 'API key authentication for server-to-server communication.
+
+        Pass your API key as a Bearer token in the Authorization header.
+
+        API keys are prefixed with `epidemic_live_`.
+
+
+        > **Example Header:** `Authorization: Bearer epidemic_live_your-api-key`'
+      scheme: bearer
+    PartnerAuth:
+      type: http
+      description: 'Partner authentication is handled with short lived partner access tokens.
+
+        Use your api credentials to request these tokens.
+
+        The access token is of JWT format and should be passed in a header with your API requests:
+
+
+        > **Example Header:** `Authorization: Bearer your-partner-token`'
+      scheme: Bearer
+    UserAuth:
+      type: http
+      description: "User authentication is handled with short lived user access tokens.\n Use a partner token to request these tokens.\n The access token is of JWT format and should be passed in a header with your API requests:\n\n > **Example Header:** `Authorization: Bearer a-user-token`"
+      scheme: Bearer
+    EpidemicSoundConnectAuth:
+      type: oauth2
+      description: 'For users signing in with an Epidemic Sound account, user authentication is
+
+        handled with OpenID Connect, which is a layer on top of OAuth 2.0.
+
+
+        > **Example Header:** `Authorization: Bearer es-connect-token`'
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/auth
+          tokenUrl: https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/token
+          scopes: {}
