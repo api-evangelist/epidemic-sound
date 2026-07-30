@@ -13,9 +13,22 @@ description: >-
   once signed, partner engineers receive credentials via the Developer Portal and authenticate using API Key, Partner
   Token, or Epidemic Sound Connect (OAuth 2.0).
 type: Index
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Provider
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/epidemic-sound.png
 tags:
   - Music
   - Sound Effects
@@ -34,36 +47,175 @@ created: '2026-05-25'
 modified: '2026-05-25'
 specificationVersion: '0.20'
 apis:
-  - aid: epidemic-sound:epidemic-sound-partner-content-api
-    name: Epidemic Sound Partner Content API
-    description: >-
-      Single REST API exposing the entire Epidemic Sound catalog — tracks, collections, moods, genres, sound effects,
-      stems, beats, HLS previews, similar-track/section search, image-based and video-based matching, track-versions
-      generation (beta), AI voiceovers (via the MCP tools), partner audio/image uploads, usage reporting, and
-      safelisting licenses for end-user channels. Authenticates with ApiKey (`x-api-key`), Partner Token (bearer), or
-      Epidemic Sound Connect OAuth (user-scoped). Versioned with `/v0/` path prefix. Hosted in Europe; audio delivered
-      via Fastly's global CDN. No local caching of metadata or collections is permitted by the partner terms.
-    humanURL: https://developers.epidemicsound.com/docs/
-    baseURL: https://partner-content-api.epidemicsound.com
-    tags:
-      - Music
-      - Sound Effects
-      - Tracks
-      - Search
-      - Soundtracking
-      - Voiceover
-      - Licensing
-    properties:
-      - type: Documentation
-        url: https://developers.epidemicsound.com/docs/
-      - type: Documentation
-        url: https://developers.epidemicsound.com/docs/api-reference/
-      - type: Documentation
-        url: https://developers.epidemicsound.com/docs/guides
-      - type: SwaggerUI
-        url: https://partner-content-api.epidemicsound.com/swagger
-      - type: OpenAPI
-        url: openapi/epidemic-sound-partner-content-api-openapi.yml
+- aid: epidemic-sound:epidemic-sound-assets-api
+  name: Epidemic Sound Assets API
+  description: These endpoints allows your application to upload assets such as images or audio.
+  humanURL: https://developers.epidemicsound.com/docs/
+  baseURL: https://partner-content-api.epidemicsound.com
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/epidemic-sound-assets-api-openapi.yml
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/api-reference/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/guides
+  - type: SwaggerUI
+    url: https://partner-content-api.epidemicsound.com/swagger
+- aid: epidemic-sound:epidemic-sound-authentication-api
+  name: Epidemic Sound Authentication API
+  description: Endpoints for user authentication.
+  humanURL: https://developers.epidemicsound.com/docs/
+  baseURL: https://partner-content-api.epidemicsound.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/epidemic-sound-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/api-reference/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/guides
+  - type: SwaggerUI
+    url: https://partner-content-api.epidemicsound.com/swagger
+- aid: epidemic-sound:epidemic-sound-beta-api
+  name: Epidemic Sound Beta API
+  description: These endpoints are in beta.
+  humanURL: https://developers.epidemicsound.com/docs/
+  baseURL: https://partner-content-api.epidemicsound.com
+  tags:
+  - Beta
+  properties:
+  - type: OpenAPI
+    url: openapi/epidemic-sound-beta-api-openapi.yml
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/api-reference/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/guides
+  - type: SwaggerUI
+    url: https://partner-content-api.epidemicsound.com/swagger
+- aid: epidemic-sound:epidemic-sound-browse-search-api
+  name: Epidemic Sound Browse & search API
+  description: >-
+    These endpoints will allow you to explore the Epidemic Sound library. You can display tracks grouped
+    in curated playlists, moods or genres or use search to get tracks by any term.
+  humanURL: https://developers.epidemicsound.com/docs/
+  baseURL: https://partner-content-api.epidemicsound.com
+  tags:
+  - Browse & search
+  properties:
+  - type: OpenAPI
+    url: openapi/epidemic-sound-browse-search-api-openapi.yml
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/api-reference/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/guides
+  - type: SwaggerUI
+    url: https://partner-content-api.epidemicsound.com/swagger
+- aid: epidemic-sound:epidemic-sound-reporting-api
+  name: Epidemic Sound Reporting API
+  description: These endpoints will allow you to report how tracks are used in your application.
+  humanURL: https://developers.epidemicsound.com/docs/
+  baseURL: https://partner-content-api.epidemicsound.com
+  tags:
+  - Reporting
+  properties:
+  - type: OpenAPI
+    url: openapi/epidemic-sound-reporting-api-openapi.yml
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/api-reference/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/guides
+  - type: SwaggerUI
+    url: https://partner-content-api.epidemicsound.com/swagger
+- aid: epidemic-sound:epidemic-sound-safelisting-api
+  name: Epidemic Sound Safelisting API
+  description: >-
+    Endpoints for managing safelisting licenses. Allows partners to create, list, update, and delete licenses
+    for channels and videos on behalf of their end users.
+  humanURL: https://developers.epidemicsound.com/docs/
+  baseURL: https://partner-content-api.epidemicsound.com
+  tags:
+  - Safelisting
+  properties:
+  - type: OpenAPI
+    url: openapi/epidemic-sound-safelisting-api-openapi.yml
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/api-reference/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/guides
+  - type: SwaggerUI
+    url: https://partner-content-api.epidemicsound.com/swagger
+- aid: epidemic-sound:epidemic-sound-sound-effects-api
+  name: Epidemic Sound Sound effects API
+  description: >-
+    Endpoints to get sound effect specific information. These endpoints allow you to build a UI to browse
+    and search for sound effects.
+  humanURL: https://developers.epidemicsound.com/docs/
+  baseURL: https://partner-content-api.epidemicsound.com
+  tags:
+  - Sound effects
+  properties:
+  - type: OpenAPI
+    url: openapi/epidemic-sound-sound-effects-api-openapi.yml
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/api-reference/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/guides
+  - type: SwaggerUI
+    url: https://partner-content-api.epidemicsound.com/swagger
+- aid: epidemic-sound:epidemic-sound-tracks-api
+  name: Epidemic Sound Tracks API
+  description: Endpoints to get track specific information.
+  humanURL: https://developers.epidemicsound.com/docs/
+  baseURL: https://partner-content-api.epidemicsound.com
+  tags:
+  - Tracks
+  properties:
+  - type: OpenAPI
+    url: openapi/epidemic-sound-tracks-api-openapi.yml
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/api-reference/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/guides
+  - type: SwaggerUI
+    url: https://partner-content-api.epidemicsound.com/swagger
+- aid: epidemic-sound:epidemic-sound-users-api
+  name: Epidemic Sound Users API
+  description: >-
+    These endpoints allows your application to get user specific information such as liked sounds.
+  humanURL: https://developers.epidemicsound.com/docs/
+  baseURL: https://partner-content-api.epidemicsound.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/epidemic-sound-users-api-openapi.yml
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/api-reference/
+  - type: Documentation
+    url: https://developers.epidemicsound.com/docs/guides
+  - type: SwaggerUI
+    url: https://partner-content-api.epidemicsound.com/swagger
 common:
   - type: AgenticAccess
     url: agentic-access/epidemic-sound-agentic-access.yml
