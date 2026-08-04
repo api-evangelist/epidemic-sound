@@ -1,0 +1,30 @@
+{
+  "provider": "epidemic-sound",
+  "sources": [
+    "epidemic-sound-assets-api-openapi.yml",
+    "epidemic-sound-authentication-api-openapi.yml",
+    "epidemic-sound-beta-api-openapi.yml",
+    "epidemic-sound-browse-search-api-openapi.yml",
+    "epidemic-sound-reporting-api-openapi.yml",
+    "epidemic-sound-safelisting-api-openapi.yml",
+    "epidemic-sound-sound-effects-api-openapi.yml",
+    "epidemic-sound-tracks-api-openapi.yml",
+    "epidemic-sound-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "epidemic-sound-assets-api-openapi.yml",
+    "epidemic-sound-authentication-api-openapi.yml",
+    "epidemic-sound-beta-api-openapi.yml",
+    "epidemic-sound-browse-search-api-openapi.yml",
+    "epidemic-sound-reporting-api-openapi.yml",
+    "epidemic-sound-safelisting-api-openapi.yml",
+    "epidemic-sound-sound-effects-api-openapi.yml",
+    "epidemic-sound-tracks-api-openapi.yml",
+    "epidemic-sound-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
