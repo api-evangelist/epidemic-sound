@@ -249,7 +249,7 @@ common:
     url: https://partner-content-api.epidemicsound.com/swagger
   - type: OpenAPI
     url: https://partner-content-api.epidemicsound.com/docs/spec.json
-  - type: MCP
+  - type: Documentation
     url: https://developers.epidemicsound.com/docs/mcp/
     name: Epidemic Sound MCP Server (Beta)
   - type: Pricing
