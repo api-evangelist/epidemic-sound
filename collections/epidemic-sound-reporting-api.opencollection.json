@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Partner Content Assets Reporting API",
+    "version": "0.1.17"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Report usage in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/analytics/report",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint should be used when you want to bulk report events to Epidemic Sound. We currently support the following events:\ntrackPreviewed, trackDownloaded and tracksExported. Note that the limit for number of events per request is limited to 100.\n Also note that for events containing the field trackIds, the limit for number of trackIds per event is 50. \n Events may not contain a timestamp older than 7 days ago."
+        },
+        {
+          "info": {
+            "name": "Report usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/usage",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The usage endpoint lets you report when a user exports their content to social media or downloads the content file to their device.\nYou can specify which platform (YouTube, Twitch, Instagram, Facebook, TikTok, Twitter or Other) they export the file to. Use the platform `local` if the user downloads the content to their device.\nThis data is used for attribution and analytics purposes as well as to improve personalization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

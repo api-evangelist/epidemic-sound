@@ -1,0 +1,351 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Partner Content Assets Tracks API",
+    "version": "0.1.17"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tracks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List tracks based on mood, genre or BPM",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks",
+            "params": [
+              {
+                "name": "genre",
+                "value": "",
+                "type": "query",
+                "description": "Id for genre"
+              },
+              {
+                "name": "mood",
+                "value": "",
+                "type": "query",
+                "description": "Id for mood"
+              },
+              {
+                "name": "bpmMin",
+                "value": "",
+                "type": "query",
+                "description": "BPM Min"
+              },
+              {
+                "name": "bpmMax",
+                "value": "",
+                "type": "query",
+                "description": "BPM Max"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "The tracks endpoint allows you to list all tracks based on a specified mood, genre or BPM."
+        },
+        {
+          "info": {
+            "name": "Tracks metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/metadata",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "query",
+                "description": "List of track ids"
+              }
+            ]
+          },
+          "docs": "The metadata endpoint allows you to get metadata for a list of tracks."
+        },
+        {
+          "info": {
+            "name": "List track parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/parameters"
+          },
+          "docs": "Get a list of possible track query parameters"
+        },
+        {
+          "info": {
+            "name": "Download track",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/download",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Track format"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query",
+                "description": "Track quality, normal is used as the default if not specified"
+              }
+            ]
+          },
+          "docs": "The download endpoint allows you to download an MP3 file of the track. \n\nWe offer MP3 files in two qualities; normal (128kbps) and high (320kbps).\n\nThe high quality files can be used in content when needed, but normal quality is sufficient for most use cases. \n\nThe download links expire after 24 hours (normal quality) or 1 hour (high quality files). The expiration time is stated in the response. \n\nAll users can download the tracks that are part of the free tier. Only connected users with an acti"
+        },
+        {
+          "info": {
+            "name": "Preview track using cookies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/hls",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              }
+            ]
+          },
+          "docs": "We recommend using HLS to allow users to play/preview a track. The main benefits of this compared to MP3 are smaller file transfers and alternate qualities, allowing the HLS client library to switch to a lower quality when necessary. \n\nThe audio is encoded using the AAC coding standard, which results in a smaller footprint for a similar quality compared to MP3. The primary manifest refers to two variant quality streams. HLS client libraries typically choose the optimal quality automatically, bas"
+        },
+        {
+          "info": {
+            "name": "Similar tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/similar",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 60"
+              }
+            ]
+          },
+          "docs": "The similar tracks endpoint allows developers to retrieve a list of tracks that are similar to a given reference track. This feature is designed to help users discover tracks that share similar characteristics, such as genre, mood, tempo, and more.\nThis endpoint helps your users replace tracks that don't fit perfectly or discover multiple alternatives to a track they enjoy."
+        },
+        {
+          "info": {
+            "name": "Similar track segment based on audio file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/similar-sections",
+            "params": [
+              {
+                "name": "audioUploadId",
+                "value": "",
+                "type": "query",
+                "description": "Reference to the uploaded audio file"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start of the section in milliseconds"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End of the section in milliseconds"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              }
+            ]
+          },
+          "docs": "Returns a list of track sections that are matched to the provided audio file id."
+        },
+        {
+          "info": {
+            "name": "Similar track segment based on trackID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/similar-sections",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start of the section in milliseconds"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End of the section in milliseconds"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              }
+            ]
+          },
+          "docs": "The similar segments endpoint allows developers to use part of a track as a reference to search for music segments in the Epidemic Sound catalog that sound similar.\n\nThe feature utilizes the Epidemic Audio Reference (EAR) technology to provide users with the ability to quickly find alternative segments of music.\n\nUsage Scenarios:\n\n  * Video Editing Templates: Replace default tracks in video templates with segments that fit better.\n  * Quick Swaps: Swap out a segment of music in a video where the"
+        },
+        {
+          "info": {
+            "name": "Preview track",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/stream",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              }
+            ]
+          },
+          "docs": "We recommend using HLS to allow users to play/preview a track. The main benefits of this compared to MP3 are smaller file transfers and alternate qualities, allowing the HLS client library to switch to a lower quality when necessary. \n\nThe audio is encoded using the AAC coding standard, which results in a smaller footprint for a similar quality compared to MP3. The primary manifest refers to two variant quality streams. HLS client libraries typically choose the optimal quality automatically, bas"
+        },
+        {
+          "info": {
+            "name": "Popular segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/highlights",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "The highlight duration in seconds"
+              }
+            ]
+          },
+          "docs": "Powered by our 2 billion daily streams on YouTube, the popular segments endpoint uses machine learning to recommend the best time section.\n\nYou can use popular segments to start playing the track from the right millisecond, or recommend the right part of the track for shorter content.\n\nThe popular segments endpoint provides start and stop timestamps in milliseconds. The default duration is 30 seconds.\n\nThe endpoint accepts up to 5 different durations per request where each duration must be at le"
+        },
+        {
+          "info": {
+            "name": "Tracks based on image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/matching-image/:imageId",
+            "params": [
+              {
+                "name": "imageId",
+                "value": "",
+                "type": "path",
+                "description": "Image id"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "genre",
+                "value": "",
+                "type": "query",
+                "description": "Id for genre"
+              },
+              {
+                "name": "mood",
+                "value": "",
+                "type": "query",
+                "description": "Id for mood"
+              }
+            ]
+          },
+          "docs": "Upload an image from the user's video to get recommendations of tracks in the Epidemic Sound library that would work for the video. Use ImageID retrieved from the Upload Image endpoint to fetch the recommended tracks.\n "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

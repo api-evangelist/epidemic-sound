@@ -1,0 +1,259 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Partner Content Assets Sound effects API",
+    "version": "0.1.17"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sound effects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sound-effect collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/collections",
+            "params": [
+              {
+                "name": "excludeField",
+                "value": "",
+                "type": "query",
+                "description": "Pass `soundEffects` to omit sound-effect data from the response and return only collection metadata."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of collections returned in the response, default 10 and max 20"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "Returns the sound-effect collections active for your application.\n\nSound-effect collections are managed via the developer portal: an admin imports an EMS\nplaylist into a collection, and end users see only Active collections through this endpoint.\n\nEvery application has access to every sound effect, so there is no per-tier cap and no\npaid/free distinction. Up to 20 sound effects per collection are included by default;\npass `excludeField=soundEffects` to omit them, or paginate the full set via\n`/s"
+        },
+        {
+          "info": {
+            "name": "Sound-effect collection details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/collections/:collectionId",
+            "params": [
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "Collection id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "Returns a single sound-effect collection along with a paginated set of its sound effects. Use `limit` and `offset` to page through the collection."
+        },
+        {
+          "info": {
+            "name": "List SFX categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/categories",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Category type"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50"
+              }
+            ]
+          },
+          "docs": "The sound effects categories endpoint allows you to get a list of all sound effects categories.\n\nYou can then browse the sound effects catalog based on categories like \"Applause\" or \"Crowds\".\n\nSome sound effect categories have cover art that you can use in your interface. You can choose to display all categories, or choose type \"featured\" to only show the categories that are chosen by our curation team."
+        },
+        {
+          "info": {
+            "name": "SFX category details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/categories/:categoryId",
+            "params": [
+              {
+                "name": "categoryId",
+                "value": "",
+                "type": "path",
+                "description": "Category id"
+              }
+            ]
+          },
+          "docs": "The category details endpoint contains info on the requested sound effects category.\n\nThe purpose of this endpoint is to be able to validate that an individual object exists in the API if it was cached by the client."
+        },
+        {
+          "info": {
+            "name": "List SFX by category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/categories/:categoryId/tracks",
+            "params": [
+              {
+                "name": "categoryId",
+                "value": "",
+                "type": "path",
+                "description": "Category id"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order"
+              },
+              {
+                "name": "includeExplicit",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include sound effects tagged as explicit in the results. Defaults to false, meaning explicit content is excluded by default."
+              }
+            ]
+          },
+          "docs": "Use the sound effects details endpoint to display all sound effects for a given category."
+        },
+        {
+          "info": {
+            "name": "Download sound effect",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/:trackId/download",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Track format"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query",
+                "description": "Track quality, normal is used as the default if not specified"
+              }
+            ]
+          },
+          "docs": "The download endpoint allows you to download an MP3 file of the sound effect.\n\nWe offer MP3 files in two qualities; normal (128kbps) and high (320kbps).\n\nThe high quality files can be used in content when needed, but normal quality is sufficient for most use cases.\n\nThe download links expire after 24 hours (normal quality) or 1 hour (high quality files). The expiration time is stated in the response."
+        },
+        {
+          "info": {
+            "name": "Search SFX",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/sound-effects/search",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 60"
+              },
+              {
+                "name": "term",
+                "value": "",
+                "type": "query",
+                "description": "Term for search"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort for search"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order"
+              },
+              {
+                "name": "includeExplicit",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include sound effects tagged as explicit in the results. Defaults to false, meaning explicit content is excluded by default."
+              }
+            ]
+          },
+          "docs": "Use the sound effects search endpoint to allow users to search within the sound effects library.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

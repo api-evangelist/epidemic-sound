@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Partner Content Assets Authentication API",
+    "version": "0.1.17"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request a partner token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/partner-token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request a Partner Token"
+        },
+        {
+          "info": {
+            "name": "Request a user token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request a User Token. This endpoint requires a Partner Token for authentication. "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

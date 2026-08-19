@@ -1,0 +1,220 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Partner Content Assets Safelisting API",
+    "version": "0.1.17"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Safelisting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List safelisting licenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/safelisting/licenses",
+            "headers": [
+              {
+                "name": "X-Partner-User-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "assetType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by asset type"
+              },
+              {
+                "name": "platform",
+                "value": "",
+                "type": "query",
+                "description": "Filter by platform"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status. Currently only `active` licenses are returned."
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort results by"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List safelisting licenses for the specified end user. Supports filtering by asset type, platform, and status, with pagination and sorting."
+        },
+        {
+          "info": {
+            "name": "Create a safelisting license",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/safelisting/licenses",
+            "headers": [
+              {
+                "name": "X-Partner-User-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new safelisting license for a channel or video. The `X-Partner-User-Id` header is required to scope the license to a specific end user."
+        },
+        {
+          "info": {
+            "name": "Delete all licenses for an end user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://partner-content-api.epidemicsound.com/v0/safelisting/licenses",
+            "headers": [
+              {
+                "name": "X-Partner-User-Id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Expires all active licenses for the specified end user within the workspace. Intended for end-user churn scenarios (e.g. when a user cancels their subscription). Returns 204 regardless of whether the user had any active licenses."
+        },
+        {
+          "info": {
+            "name": "Get a safelisting license",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/safelisting/licenses/:licenseId",
+            "headers": [
+              {
+                "name": "X-Partner-User-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "licenseId",
+                "value": "",
+                "type": "path",
+                "description": "License ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a single safelisting license by ID. Returns 404 if the license does not exist or does not belong to the specified end user."
+        },
+        {
+          "info": {
+            "name": "Update a safelisting license",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://partner-content-api.epidemicsound.com/v0/safelisting/licenses/:licenseId",
+            "headers": [
+              {
+                "name": "X-Partner-User-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "licenseId",
+                "value": "",
+                "type": "path",
+                "description": "License ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a safelisting license. Currently only the expiration date can be modified."
+        },
+        {
+          "info": {
+            "name": "Delete a safelisting license",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://partner-content-api.epidemicsound.com/v0/safelisting/licenses/:licenseId",
+            "headers": [
+              {
+                "name": "X-Partner-User-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "licenseId",
+                "value": "",
+                "type": "path",
+                "description": "License ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Expire a safelisting license by ID. The license is soft-deleted and will no longer appear in active license listings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Partner Content Assets API",
+    "version": "0.1.17"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get audio by checksum",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/uploads/audio/:checksum",
+            "params": [
+              {
+                "name": "checksum",
+                "value": "",
+                "type": "path",
+                "description": "File checksum"
+              }
+            ]
+          },
+          "docs": "Will return the audio id of an audio file uploaded by the partner, matched by checksum. Should be used to avoid duplicate uploads"
+        },
+        {
+          "info": {
+            "name": "Delete audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://partner-content-api.epidemicsound.com/v0/uploads/audio/:audioIdOrChecksum",
+            "params": [
+              {
+                "name": "audioIdOrChecksum",
+                "value": "",
+                "type": "path",
+                "description": "Audio upload id or checksum of audio file"
+              }
+            ]
+          },
+          "docs": "Use the delete audio endpoint to delete an audio file."
+        },
+        {
+          "info": {
+            "name": "Upload audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/uploads/audio",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload an audio file to get recommendations of similar tracks in the Epidemic Sound library. When you post the audio file to this endpoint, you will receive an AudioID in return. Use this AudioID in a request to the similar tracks endpoint to get track recommendations.\n \n We currently support the formats: mp3, mpeg, ogg and vorbis. Maximum file size is 3.5MB. You can only upload music with the partner token, since we currently do not allow end users to use this feature."
+        },
+        {
+          "info": {
+            "name": "Delete single image",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://partner-content-api.epidemicsound.com/v0/uploads/images/:imageId",
+            "params": [
+              {
+                "name": "imageId",
+                "value": "",
+                "type": "path",
+                "description": "Image id"
+              }
+            ]
+          },
+          "docs": "Use the delete image endpoint to delete a single image uploaded by a user"
+        },
+        {
+          "info": {
+            "name": "Upload image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/uploads/images",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload an image from the user's video to get recommendations of tracks in the Epidemic Sound library that would work for the video. When you post the image to this endpoint, you will receive an ImageID in return. Use this ImageID in a request to the matching image endpoint to get track recommendations.\n \n We currently support jpeg format and maximum file size is 2MB."
+        },
+        {
+          "info": {
+            "name": "Delete all the uploaded images by the user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://partner-content-api.epidemicsound.com/v0/uploads/images"
+          },
+          "docs": "Deletes all images uploaded by the user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

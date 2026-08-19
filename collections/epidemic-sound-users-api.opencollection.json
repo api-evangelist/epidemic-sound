@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Partner Content Assets Users API",
+    "version": "0.1.17"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "User details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/users/me"
+          },
+          "docs": "Get user details of the authenticated user."
+        },
+        {
+          "info": {
+            "name": "List users' liked tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/users/me/liked/tracks",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for the pagination. For this endpoint the number of results is fixed at 25, so the offset needs to be evenly divisible by 25."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/auth",
+              "accessTokenUrl": "https://login.epidemicsound.com/auth/realms/accounts/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "The liked tracks endpoint lets you list the liked tracks of a connected user.\nUsers can add new tracks to their list on epidemicsound.com or via the Epidemic Sound app, giving them a smooth cross-device experience."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

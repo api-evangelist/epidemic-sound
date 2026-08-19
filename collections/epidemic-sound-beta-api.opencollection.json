@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Partner Content Assets Beta API",
+    "version": "0.1.17"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Beta",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Beats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/:trackId/beats",
+            "params": [
+              {
+                "name": "trackId",
+                "value": "",
+                "type": "path",
+                "description": "Track id"
+              }
+            ]
+          },
+          "docs": "The beats endpoint provides information about the timestamps of beats in a track. You can use this endpoint to simplify the process to cut the video in sync with the music.\n\nUnlike BPM which is a single number for the entire track, beats can change dynamically across a music piece. This is particularly valuable for capturing variations in tempo, such as a slower intro, a build-up with faster beats, or changes in rhythm throughout the composition.\n\nThe response includes two types of metadata:  `t"
+        },
+        {
+          "info": {
+            "name": "Start a track versions generation job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/versions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to start a job to generate edited versions of a track.\nThe job will be processed asynchronously and you can check the status using the\nGET /tracks/versions/{jobId} endpoint. Note that the url expires in 24 hours. \n\n**Duration limits:**\n- The duration must be between 1 second and 5 minutes. \n- Longer durations result in increased processing time, as latency scales with the desired duration."
+        },
+        {
+          "info": {
+            "name": "Get track versions job status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/versions/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the job to check"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Include additional data in response. Use 'waveform' to include waveform data."
+              }
+            ]
+          },
+          "docs": "This endpoint allows you to check the status of a track versions job.\nWhen the job is complete, it will return the URLs to the generated tracks.\n\n**Waveform Data:**\n- By default, waveform data is excluded to reduce payload size\n- Use `expand=waveform` to include waveform data in the response"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

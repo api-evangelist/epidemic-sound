@@ -1,0 +1,326 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Partner Content Assets Browse & search API",
+    "version": "0.1.17"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Browse & search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/collections",
+            "params": [
+              {
+                "name": "excludeField",
+                "value": "",
+                "type": "query",
+                "description": "Add parameter if tracks should be excluded in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 10 and max 20"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "The collections endpoint returns playlists curated by our team of in-house experts.\n\nWe offer collections for any occasion: from holidays like \"Día de Muertos\" to content types like \"Real Estate\" or \"Badass ads\".\n\nYou can manage the order and which collections are part or your applications' free tier via the developer portal. As default, we return the collections included in your free tier first, followed by all collections in the Epidemic Sound library.\n\nCollections have attributes like title a"
+        },
+        {
+          "info": {
+            "name": "Collection details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/collections/:collectionId",
+            "params": [
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "Collection id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "The collections endpoint allows you to list all the tracks in a specific collection."
+        },
+        {
+          "info": {
+            "name": "Search music",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/search",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 60"
+              },
+              {
+                "name": "term",
+                "value": "",
+                "type": "query",
+                "description": "Term for search"
+              },
+              {
+                "name": "genre",
+                "value": "",
+                "type": "query",
+                "description": "Id for genre"
+              },
+              {
+                "name": "mood",
+                "value": "",
+                "type": "query",
+                "description": "Id for mood"
+              },
+              {
+                "name": "bpmMin",
+                "value": "",
+                "type": "query",
+                "description": "BPM Min"
+              },
+              {
+                "name": "bpmMax",
+                "value": "",
+                "type": "query",
+                "description": "BPM Max"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort for search"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order"
+              }
+            ]
+          },
+          "docs": "The search endpoint allows your users to search the entire Epidemic Sound library. Search indexes track attributes such as moods, genres, artist, song title and bpm."
+        },
+        {
+          "info": {
+            "name": "Search autosuggest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/tracks/search/suggestions",
+            "params": [
+              {
+                "name": "term",
+                "value": "",
+                "type": "query",
+                "description": "Term for search"
+              }
+            ]
+          },
+          "docs": "The search suggestions endpoint allows your users to get autocomplete suggestions for Epidemic Sound music or external provider music search.\n\nReturns:\n- value: The exact search term to pass to the /tracks/search endpoint.\n- title: Display text to show users in the autocomplete UI.\n- type - Indicates whether this is a search term of type text or external reference URI (e.g., Spotify track).\n\nUsage: When a user selects a suggestion, use the 'value' field as the 'term' parameter when calling /trac"
+        },
+        {
+          "info": {
+            "name": "List moods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/moods",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorting options. Available values: alphabetic, relevance"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order options. Available values: asc, desc"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Types to filter by:\n  * `all` - all the objects in the Epidemic Sound library\n  * `partner-tier` - objects available to the partner within their tier\n  * `featured` - only objects featured and curated by Epidemic Sound"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 20 and max 20"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "The moods endpoint allows your users to browse the music catalog based on moods like happy, epic or relaxing. Moods have cover art that you can show in your interface.\n\nBy specifying the \"type\" of moods you want to display, you can choose to show all moods in the Epidemic Sound library, only the moods that are featured on epidemicsound.com or only the moods that are available for your free tier tracks."
+        },
+        {
+          "info": {
+            "name": "Mood details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/moods/:moodId",
+            "params": [
+              {
+                "name": "moodId",
+                "value": "",
+                "type": "path",
+                "description": "Mood id"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Add parameter if tracks should be included in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "Get mood details"
+        },
+        {
+          "info": {
+            "name": "List genres",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/genres",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorting options. Available values: alphabetic, relevance"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order options. Available values: asc, desc"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Types to filter by:\n  * `all` - all the objects in the Epidemic Sound library\n  * `partner-tier` - objects available to the partner within their tier\n  * `featured` - only objects featured and curated by Epidemic Sound"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 20 and max 20"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "The genres endpoint allows your users to browse the music catalog based on genres like rock, hiphop or acoustic. \n\nGenres are nested and both parent and child genres are returned in the response. Parent genres have cover art that you can show in your interface.\n\nBy specifying the \"type\" of genres you want to display, you can choose to show all genres in the Epidemic Sound library, only the genres that are featured on epidemicsound.com or only the genres that are available for your free tier trac"
+        },
+        {
+          "info": {
+            "name": "Genre details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-content-api.epidemicsound.com/v0/genres/:genreId",
+            "params": [
+              {
+                "name": "genreId",
+                "value": "",
+                "type": "path",
+                "description": "Genre id"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Add parameter if tracks should be included in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of entries returned in the response, default 50 and max 100"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the entry track in the response"
+              }
+            ]
+          },
+          "docs": "This endpoint gives you the parent and child relationships of a specific genre as well as all tracks that belong to it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

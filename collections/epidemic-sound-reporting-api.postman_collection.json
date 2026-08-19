@@ -1,0 +1,567 @@
+{
+  "item": [
+    {
+      "id": "5898c6a3-7f09-47f7-9de5-905e4ffec42c",
+      "name": "Reporting",
+      "description": {
+        "content": "These endpoints will allow you to report how tracks are used in your application.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "75063fbc-547d-400a-b49d-337106d46ac3",
+          "name": "Report usage in bulk",
+          "request": {
+            "name": "Report usage in bulk",
+            "description": {
+              "content": "This endpoint should be used when you want to bulk report events to Epidemic Sound. We currently support the following events:\ntrackPreviewed, trackDownloaded and tracksExported. Note that the limit for number of events per request is limited to 100.\n Also note that for events containing the field trackIds, the limit for number of trackIds per event is 50. \n Events may not contain a timestamp older than 7 days ago.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "analytics",
+                "report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"events\": [\n    {\n      \"userId\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"userConnected\": \"<boolean>\",\n      \"analyticsEvent\": {\n        \"trackId\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    },\n    {\n      \"userId\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"userConnected\": \"<boolean>\",\n      \"analyticsEvent\": {\n        \"trackId\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "393ae889-6d83-4633-ab87-1cbbf7fa8bcd",
+              "name": "Usage report response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "analytics",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"userId\": \"123\",\n      \"timestamp\": \"2026-05-11T07:45:47.634091607Z\",\n      \"userConnected\": false,\n      \"analyticsEvent\": {\n        \"trackId\": \"12345\",\n        \"type\": \"trackPreviewed\"\n      }\n    },\n    {\n      \"userId\": \"456\",\n      \"timestamp\": \"2026-05-11T07:45:47.634810417Z\",\n      \"userConnected\": true,\n      \"analyticsEvent\": {\n        \"trackId\": \"12345\",\n        \"format\": \"mp3\",\n        \"quality\": \"normal\",\n        \"type\": \"trackDownloaded\"\n      }\n    },\n    {\n      \"userId\": \"456\",\n      \"timestamp\": \"2026-05-11T07:45:47.635468127Z\",\n      \"analyticsEvent\": {\n        \"trackIds\": [\n          \"12345\"\n        ],\n        \"platform\": \"YOUTUBE\",\n        \"type\": \"tracksExported\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchId\": \"12345\",\n  \"eventsCount\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38e62672-7f76-4f95-9619-98cca6fb44f1",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "analytics",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"userId\": \"123\",\n      \"timestamp\": \"2026-05-11T07:45:47.634091607Z\",\n      \"userConnected\": false,\n      \"analyticsEvent\": {\n        \"trackId\": \"12345\",\n        \"type\": \"trackPreviewed\"\n      }\n    },\n    {\n      \"userId\": \"456\",\n      \"timestamp\": \"2026-05-11T07:45:47.634810417Z\",\n      \"userConnected\": true,\n      \"analyticsEvent\": {\n        \"trackId\": \"12345\",\n        \"format\": \"mp3\",\n        \"quality\": \"normal\",\n        \"type\": \"trackDownloaded\"\n      }\n    },\n    {\n      \"userId\": \"456\",\n      \"timestamp\": \"2026-05-11T07:45:47.635468127Z\",\n      \"analyticsEvent\": {\n        \"trackIds\": [\n          \"12345\"\n        ],\n        \"platform\": \"YOUTUBE\",\n        \"type\": \"tracksExported\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4c3b1d9-7993-470d-9bb4-c73e1bf1a25a",
+              "name": "Unauthorized. Most likely your access token has expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "analytics",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"userId\": \"123\",\n      \"timestamp\": \"2026-05-11T07:45:47.634091607Z\",\n      \"userConnected\": false,\n      \"analyticsEvent\": {\n        \"trackId\": \"12345\",\n        \"type\": \"trackPreviewed\"\n      }\n    },\n    {\n      \"userId\": \"456\",\n      \"timestamp\": \"2026-05-11T07:45:47.634810417Z\",\n      \"userConnected\": true,\n      \"analyticsEvent\": {\n        \"trackId\": \"12345\",\n        \"format\": \"mp3\",\n        \"quality\": \"normal\",\n        \"type\": \"trackDownloaded\"\n      }\n    },\n    {\n      \"userId\": \"456\",\n      \"timestamp\": \"2026-05-11T07:45:47.635468127Z\",\n      \"analyticsEvent\": {\n        \"trackIds\": [\n          \"12345\"\n        ],\n        \"platform\": \"YOUTUBE\",\n        \"type\": \"tracksExported\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid credentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5dfe7027-1808-494e-919a-5545a5674abb",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "analytics",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"userId\": \"123\",\n      \"timestamp\": \"2026-05-11T07:45:47.634091607Z\",\n      \"userConnected\": false,\n      \"analyticsEvent\": {\n        \"trackId\": \"12345\",\n        \"type\": \"trackPreviewed\"\n      }\n    },\n    {\n      \"userId\": \"456\",\n      \"timestamp\": \"2026-05-11T07:45:47.634810417Z\",\n      \"userConnected\": true,\n      \"analyticsEvent\": {\n        \"trackId\": \"12345\",\n        \"format\": \"mp3\",\n        \"quality\": \"normal\",\n        \"type\": \"trackDownloaded\"\n      }\n    },\n    {\n      \"userId\": \"456\",\n      \"timestamp\": \"2026-05-11T07:45:47.635468127Z\",\n      \"analyticsEvent\": {\n        \"trackIds\": [\n          \"12345\"\n        ],\n        \"platform\": \"YOUTUBE\",\n        \"type\": \"tracksExported\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Rate limit exceeded\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41ae2b51-b8c1-44cf-bb06-a06635f50e23",
+          "name": "Report usage",
+          "request": {
+            "name": "Report usage",
+            "description": {
+              "content": "The usage endpoint lets you report when a user exports their content to social media or downloads the content file to their device.\nYou can specify which platform (YouTube, Twitch, Instagram, Facebook, TikTok, Twitter or Other) they export the file to. Use the platform `local` if the user downloads the content to their device.\nThis data is used for attribution and analytics purposes as well as to improve personalization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"platform\": \"<string>\",\n  \"trackIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"eventType\": \"<string>\",\n  \"other\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "96919c14-69fa-4335-bb2c-1378b008d11f",
+              "name": "Usage report response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventType\": \"EXPORTED\",\n  \"platform\": \"OTHER\",\n  \"trackIds\": [\n    \"trackid1\",\n    \"trackid2\"\n  ],\n  \"other\": \"OptionalValueForWhenNoMatchingPlatformEnum\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ccfd720-188e-4295-88d9-ac78d5cd970d",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventType\": \"EXPORTED\",\n  \"platform\": \"OTHER\",\n  \"trackIds\": [\n    \"trackid1\",\n    \"trackid2\"\n  ],\n  \"other\": \"OptionalValueForWhenNoMatchingPlatformEnum\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a24c131-991a-4629-878d-7f5fdaffa6cd",
+              "name": "Unauthorized. Most likely your access token has expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventType\": \"EXPORTED\",\n  \"platform\": \"OTHER\",\n  \"trackIds\": [\n    \"trackid1\",\n    \"trackid2\"\n  ],\n  \"other\": \"OptionalValueForWhenNoMatchingPlatformEnum\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid credentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "928b95c5-1a5c-4390-a0b4-cfcb12a3cbe6",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventType\": \"EXPORTED\",\n  \"platform\": \"OTHER\",\n  \"trackIds\": [\n    \"trackid1\",\n    \"trackid2\"\n  ],\n  \"other\": \"OptionalValueForWhenNoMatchingPlatformEnum\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Rate limit exceeded\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://partner-content-api.epidemicsound.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ba74ed13-10f8-42d9-baf5-69f35234294a",
+    "name": "Partner Content Assets Reporting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "These endpoints allows your application to upload assets such as images or audio.",
+      "type": "text/plain"
+    }
+  }
+}

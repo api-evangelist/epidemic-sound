@@ -1,0 +1,2867 @@
+{
+  "item": [
+    {
+      "id": "491d6245-b05a-4794-b593-d4f3d976bbca",
+      "name": "Browse & search",
+      "description": {
+        "content": "These endpoints will allow you to explore the Epidemic Sound library. You can display tracks grouped in curated playlists, moods or genres or use search to get tracks by any term.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c86f9a7c-2b5f-4bac-87ca-eade86ee5822",
+          "name": "List collections",
+          "request": {
+            "name": "List collections",
+            "description": {
+              "content": "The collections endpoint returns playlists curated by our team of in-house experts.\n\nWe offer collections for any occasion: from holidays like \"Día de Muertos\" to content types like \"Real Estate\" or \"Badass ads\".\n\nYou can manage the order and which collections are part or your applications' free tier via the developer portal. As default, we return the collections included in your free tier first, followed by all collections in the Epidemic Sound library.\n\nCollections have attributes like title and cover art. In the few cases where we do not have cover art for a collection we return a default image.\n\nYou can choose to return collections with or without tracks. The response will include a maximum of 20 tracks per collection. If a collection contains more than 20 tracks use endpoint '/collections/{collectionId}' to get all tracks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "collections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "excludeField",
+                  "value": "<string>",
+                  "description": "Add parameter if tracks should be excluded in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max number of entries returned in the response, default 10 and max 20"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Index of the entry track in the response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2c4cd4be-0b88-46fd-81fd-61aa721dfd65",
+              "name": "Collection response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "excludeField",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"collections\": [\n    {\n      \"id\": \"4caef099-43bd-4653-8203-3086fa01d3b7\",\n      \"name\": \"Happy\",\n      \"tracks\": [\n        {\n          \"id\": \"6rUPerw2po\",\n          \"mainArtists\": [\n            \"Main Artist\"\n          ],\n          \"featuredArtists\": [\n            \"Featured Artist\"\n          ],\n          \"title\": \"Happy Song\",\n          \"bpm\": 135,\n          \"length\": 3123,\n          \"moods\": [\n            {\n              \"id\": \"happy\",\n              \"name\": \"Happy\"\n            },\n            {\n              \"id\": \"eccentric\",\n              \"name\": \"Eccentric\"\n            }\n          ],\n          \"genres\": [\n            {\n              \"id\": \"beats\",\n              \"name\": \"Beats\",\n              \"parent\": {\n                \"id\": \"parent\",\n                \"name\": \"Parent Beats\"\n              }\n            },\n            {\n              \"id\": \"trap\",\n              \"name\": \"Trap\"\n            }\n          ],\n          \"images\": {\n            \"default\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg\",\n            \"L\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg\",\n            \"M\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg\",\n            \"S\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg\",\n            \"XS\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg\"\n          },\n          \"waveformUrl\": \"https://pdn.epidemicsound.com/waveforms/1600/394079.json\",\n          \"hasVocals\": true,\n          \"added\": \"2020-10-10\",\n          \"isExplicit\": false,\n          \"isPreviewOnly\": true\n        }\n      ],\n      \"availableTracks\": 1,\n      \"images\": {\n        \"default\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg\",\n        \"L\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/1050x1050.jpg\",\n        \"M\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/600x600.jpg\",\n        \"S\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg\",\n        \"XS\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/128x128.jpg\"\n      }\n    },\n    {\n      \"id\": \"9917d694-511b-4b66-ab8a-c553660399e4\",\n      \"name\": \"Sad\",\n      \"tracks\": [\n        {\n          \"id\": \"0dZCtol3bs\",\n          \"mainArtists\": [\n            \"Main Artist\"\n          ],\n          \"featuredArtists\": [\n            \"Featured Artist\"\n          ],\n          \"title\": \"Sad Song\",\n          \"bpm\": 97,\n          \"length\": 2976,\n          \"moods\": [\n            {\n              \"id\": \"happy\",\n              \"name\": \"Happy\"\n            },\n            {\n              \"id\": \"eccentric\",\n              \"name\": \"Eccentric\"\n            }\n          ],\n          \"genres\": [\n            {\n              \"id\": \"beats\",\n              \"name\": \"Beats\",\n              \"parent\": {\n                \"id\": \"parent\",\n                \"name\": \"Parent Beats\"\n              }\n            },\n            {\n              \"id\": \"trap\",\n              \"name\": \"Trap\"\n            }\n          ],\n          \"images\": {\n            \"default\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg\",\n            \"L\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg\",\n            \"M\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg\",\n            \"S\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg\",\n            \"XS\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg\"\n          },\n          \"waveformUrl\": \"https://pdn.epidemicsound.com/waveforms/1600/394079.json\",\n          \"hasVocals\": true,\n          \"added\": \"2020-10-10\",\n          \"isExplicit\": false,\n          \"isPreviewOnly\": true\n        }\n      ],\n      \"availableTracks\": 1,\n      \"images\": {\n        \"default\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg\",\n        \"L\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/1050x1050.jpg\",\n        \"M\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/600x600.jpg\",\n        \"S\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg\",\n        \"XS\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/128x128.jpg\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"page\": 3,\n    \"limit\": 20,\n    \"offset\": 40\n  },\n  \"links\": {\n    \"next\": \"/v0/collections?limit=20&offset=60\",\n    \"prev\": \"/v0/collections?limit=20&offset=20\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af4a754a-a4eb-4d26-b5aa-b788564881c2",
+              "name": "Unauthorized. Most likely your access token has expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "excludeField",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid credentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4dc5ab78-89a4-4b11-9373-b6946ea6a33d",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "excludeField",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Rate limit exceeded\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9824a86-cc0b-4e54-898c-1b06b59af493",
+          "name": "Collection details",
+          "request": {
+            "name": "Collection details",
+            "description": {
+              "content": "The collections endpoint allows you to list all the tracks in a specific collection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "collections",
+                ":collectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max number of entries returned in the response, default 50 and max 100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Index of the entry track in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "collectionId",
+                  "description": "(Required) Collection id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f7f4e2df-ce39-41ba-acfd-be0f1ba95813",
+              "name": "Collection response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "collections",
+                    ":collectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionId",
+                      "description": "(Required) Collection id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"f10e65eb-9998-4c41-9777-ac9183ab85dd\",\n  \"name\": \"Happy\",\n  \"tracks\": [\n    {\n      \"id\": \"6rUPerw2po\",\n      \"mainArtists\": [\n        \"Main Artist\"\n      ],\n      \"featuredArtists\": [\n        \"Featured Artist\"\n      ],\n      \"title\": \"Happy Song\",\n      \"bpm\": 135,\n      \"length\": 3123,\n      \"moods\": [\n        {\n          \"id\": \"happy\",\n          \"name\": \"Happy\"\n        },\n        {\n          \"id\": \"eccentric\",\n          \"name\": \"Eccentric\"\n        }\n      ],\n      \"genres\": [\n        {\n          \"id\": \"beats\",\n          \"name\": \"Beats\",\n          \"parent\": {\n            \"id\": \"parent\",\n            \"name\": \"Parent Beats\"\n          }\n        },\n        {\n          \"id\": \"trap\",\n          \"name\": \"Trap\"\n        }\n      ],\n      \"images\": {\n        \"default\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg\",\n        \"L\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg\",\n        \"M\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg\",\n        \"S\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg\",\n        \"XS\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg\"\n      },\n      \"waveformUrl\": \"https://pdn.epidemicsound.com/waveforms/1600/394079.json\",\n      \"hasVocals\": true,\n      \"added\": \"2020-10-10\",\n      \"isExplicit\": false,\n      \"isPreviewOnly\": true\n    }\n  ],\n  \"availableTracks\": 1,\n  \"pagination\": {\n    \"page\": 4,\n    \"limit\": 20,\n    \"offset\": 60\n  },\n  \"links\": {\n    \"next\": \"/v0/collections/f10e65eb-9998-4c41-9777-ac9183ab85dd?limit=20&offset=80\",\n    \"prev\": \"/v0/collections/f10e65eb-9998-4c41-9777-ac9183ab85dd?limit=20&offset=40\"\n  },\n  \"images\": {\n    \"default\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg\",\n    \"L\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/1050x1050.jpg\",\n    \"M\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/600x600.jpg\",\n    \"S\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/300x300.jpg\",\n    \"XS\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/default/128x128.jpg\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcceabdd-45c3-42c5-a510-6b71e32d1a07",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "collections",
+                    ":collectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionId",
+                      "description": "(Required) Collection id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "349820a4-efd2-4d67-bc23-2074d1670cf0",
+              "name": "Unauthorized. Most likely your access token has expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "collections",
+                    ":collectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionId",
+                      "description": "(Required) Collection id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid credentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0653da2-df83-4336-b7dc-46e9f475d807",
+              "name": "Collection was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "collections",
+                    ":collectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionId",
+                      "description": "(Required) Collection id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Collection was not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "038b2427-95f8-4e90-a152-e917b828c114",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "collections",
+                    ":collectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionId",
+                      "description": "(Required) Collection id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Rate limit exceeded\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "96721d34-05f0-47c3-9e13-ed9faa20c648",
+          "name": "Search music",
+          "request": {
+            "name": "Search music",
+            "description": {
+              "content": "The search endpoint allows your users to search the entire Epidemic Sound library. Search indexes track attributes such as moods, genres, artist, song title and bpm.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tracks",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Index of the entry track in the response"
+                },
+                {
+                  "description": {
+                    "content": "Max number of entries returned in the response, default 50 and max 60",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "term",
+                  "value": "<string>",
+                  "description": "Term for search"
+                },
+                {
+                  "disabled": false,
+                  "key": "genre",
+                  "value": "<string>",
+                  "description": "Id for genre"
+                },
+                {
+                  "disabled": false,
+                  "key": "genre",
+                  "value": "<string>",
+                  "description": "Id for genre"
+                },
+                {
+                  "disabled": false,
+                  "key": "mood",
+                  "value": "<string>",
+                  "description": "Id for mood"
+                },
+                {
+                  "disabled": false,
+                  "key": "mood",
+                  "value": "<string>",
+                  "description": "Id for mood"
+                },
+                {
+                  "disabled": false,
+                  "key": "bpmMin",
+                  "value": "<integer>",
+                  "description": "BPM Min"
+                },
+                {
+                  "disabled": false,
+                  "key": "bpmMax",
+                  "value": "<integer>",
+                  "description": "BPM Max"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "Relevance",
+                  "description": "Sort for search"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "asc",
+                  "description": "Order"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b332e372-3468-41d4-a3fc-1213c18c29e0",
+              "name": "Tracks response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tracks",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "genre",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "genre",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mood",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mood",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bpmMin",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "bpmMax",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "Relevance"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tracks\": [\n    {\n      \"id\": \"6rUPerw2po\",\n      \"mainArtists\": [\n        \"Main Artist\"\n      ],\n      \"featuredArtists\": [\n        \"Featured Artist\"\n      ],\n      \"title\": \"Happy Song\",\n      \"bpm\": 135,\n      \"length\": 3123,\n      \"moods\": [\n        {\n          \"id\": \"happy\",\n          \"name\": \"Happy\"\n        },\n        {\n          \"id\": \"eccentric\",\n          \"name\": \"Eccentric\"\n        }\n      ],\n      \"genres\": [\n        {\n          \"id\": \"beats\",\n          \"name\": \"Beats\",\n          \"parent\": {\n            \"id\": \"parent\",\n            \"name\": \"Parent Beats\"\n          }\n        },\n        {\n          \"id\": \"trap\",\n          \"name\": \"Trap\"\n        }\n      ],\n      \"images\": {\n        \"default\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg\",\n        \"L\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg\",\n        \"M\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg\",\n        \"S\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg\",\n        \"XS\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg\"\n      },\n      \"waveformUrl\": \"https://pdn.epidemicsound.com/waveforms/1600/394079.json\",\n      \"hasVocals\": true,\n      \"added\": \"2020-10-10\",\n      \"isExplicit\": false,\n      \"isPreviewOnly\": true\n    },\n    {\n      \"id\": \"0dZCtol3bs\",\n      \"mainArtists\": [\n        \"Main Artist\"\n      ],\n      \"featuredArtists\": [\n        \"Featured Artist\"\n      ],\n      \"title\": \"Sad Song\",\n      \"bpm\": 97,\n      \"length\": 2976,\n      \"moods\": [\n        {\n          \"id\": \"happy\",\n          \"name\": \"Happy\"\n        },\n        {\n          \"id\": \"eccentric\",\n          \"name\": \"Eccentric\"\n        }\n      ],\n      \"genres\": [\n        {\n          \"id\": \"beats\",\n          \"name\": \"Beats\",\n          \"parent\": {\n            \"id\": \"parent\",\n            \"name\": \"Parent Beats\"\n          }\n        },\n        {\n          \"id\": \"trap\",\n          \"name\": \"Trap\"\n        }\n      ],\n      \"images\": {\n        \"default\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg\",\n        \"L\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg\",\n        \"M\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg\",\n        \"S\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg\",\n        \"XS\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg\"\n      },\n      \"waveformUrl\": \"https://pdn.epidemicsound.com/waveforms/1600/394079.json\",\n      \"hasVocals\": true,\n      \"added\": \"2020-10-10\",\n      \"isExplicit\": false,\n      \"isPreviewOnly\": true\n    }\n  ],\n  \"pagination\": {\n    \"page\": 2,\n    \"limit\": 25,\n    \"offset\": 25\n  },\n  \"links\": {\n    \"next\": \"/tracks/search?limit=25&offset=50\",\n    \"prev\": \"/tracks/search?limit=25&offset=0\"\n  },\n  \"aggregations\": {\n    \"moods\": [\n      {\n        \"id\": \"energetic\",\n        \"name\": \"Energetic\",\n        \"count\": 1\n      }\n    ],\n    \"genres\": [\n      {\n        \"id\": \"rock\",\n        \"name\": \"Rock\",\n        \"count\": 1\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67f4c41a-9080-473a-ab15-c824a8f54dd8",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tracks",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "genre",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "genre",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mood",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mood",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bpmMin",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "bpmMax",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "Relevance"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d0823f5-52d6-4f20-a6b6-93e37f7b0f8b",
+              "name": "Unauthorized. Most likely your access token has expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tracks",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "genre",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "genre",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mood",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mood",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bpmMin",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "bpmMax",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "Relevance"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid credentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b36f85b-8eda-4096-87f6-613be31eb1d2",
+              "name": "Forbidden. Only available for ES Connect tokens or User tokens when the app allows to preview tracks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tracks",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "genre",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "genre",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mood",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mood",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bpmMin",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "bpmMax",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "Relevance"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Forbidden\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65da10b0-1c8d-4706-a900-135858249106",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tracks",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "genre",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "genre",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mood",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mood",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bpmMin",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "bpmMax",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "Relevance"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Rate limit exceeded\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87ebabc6-1099-4ff1-ab6d-24f02893f1c5",
+              "name": "Service unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tracks",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "genre",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "genre",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mood",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mood",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bpmMin",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "bpmMax",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "Relevance"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bdae844b-8dbc-4a63-b8e9-753ddad17117",
+          "name": "Search autosuggest",
+          "request": {
+            "name": "Search autosuggest",
+            "description": {
+              "content": "The search suggestions endpoint allows your users to get autocomplete suggestions for Epidemic Sound music or external provider music search.\n\nReturns:\n- value: The exact search term to pass to the /tracks/search endpoint.\n- title: Display text to show users in the autocomplete UI.\n- type - Indicates whether this is a search term of type text or external reference URI (e.g., Spotify track).\n\nUsage: When a user selects a suggestion, use the 'value' field as the 'term' parameter when calling /tracks/search to get matching tracks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tracks",
+                "search",
+                "suggestions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "term",
+                  "value": "<string>",
+                  "description": "Term for search"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a3059544-bd92-43e0-ad98-534fafa1b853",
+              "name": "Tracks Search Suggestions response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tracks",
+                    "search",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"suggestions\": [\n    {\n      \"value\": \"rock\",\n      \"title\": \"rock\",\n      \"type\": \"TEXT\"\n    },\n    {\n      \"value\": \"rocker\",\n      \"title\": \"rocker\",\n      \"type\": \"TEXT\"\n    },\n    {\n      \"value\": \"https://open.spotify.com/track/12345\",\n      \"title\": \"rocker\",\n      \"type\": \"EXTERNAL_SPOTIFY\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b84b6d66-38b2-48bc-bcaf-2838d248c58b",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tracks",
+                    "search",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d434b638-e0a7-4cd2-8b95-e63db668c212",
+              "name": "Unauthorized. Most likely your access token has expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tracks",
+                    "search",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid credentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "760c267f-6e0a-4328-9099-744553cfed40",
+              "name": "Forbidden. Only available for ES Connect tokens or User tokens when the app allows to preview tracks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tracks",
+                    "search",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Forbidden\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73dc6e07-a5d3-45b8-a7fc-45cd89bdb3f8",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tracks",
+                    "search",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Rate limit exceeded\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce8e791a-5c91-499c-8c86-de23b5fdc8ee",
+              "name": "Service unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tracks",
+                    "search",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Service unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d936c804-5ecf-4b83-814c-dec714a4e5b3",
+          "name": "List moods",
+          "request": {
+            "name": "List moods",
+            "description": {
+              "content": "The moods endpoint allows your users to browse the music catalog based on moods like happy, epic or relaxing. Moods have cover art that you can show in your interface.\n\nBy specifying the \"type\" of moods you want to display, you can choose to show all moods in the Epidemic Sound library, only the moods that are featured on epidemicsound.com or only the moods that are available for your free tier tracks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "moods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "relevance",
+                  "description": "Sorting options. Available values: alphabetic, relevance"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "asc",
+                  "description": "Order options. Available values: asc, desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "all",
+                  "description": "Types to filter by:\n  * `all` - all the objects in the Epidemic Sound library\n  * `partner-tier` - objects available to the partner within their tier\n  * `featured` - only objects featured and curated by Epidemic Sound"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max number of entries returned in the response, default 20 and max 20"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Index of the entry track in the response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "385bf905-208b-4579-8a4f-309a60270ab5",
+              "name": "Track moods response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "moods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "type",
+                      "value": "all"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"moods\": [\n    {\n      \"id\": \"energetic\",\n      \"name\": \"Epic\",\n      \"images\": {\n        \"default\": \"https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=300&h=300&fit=fill&q=90&fm=jpg\",\n        \"L\": \"https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=1050&h=1050&fit=fill&q=90&fm=jpg\",\n        \"M\": \"https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=600&h=600&fit=fill&q=90&fm=jpg\",\n        \"S\": \"https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=300&h=300&fit=fill&q=90&fm=jpg\",\n        \"XS\": \"https://images.ctfassets.net/ojtnytzl1djm/3IWOMuMQtqXI01euQ43r6d/19761430ed16d9d35b94b71cb4693c80/Epic.jpg?w=128&h=128&fit=fill&q=90&fm=jpg\"\n      }\n    },\n    {\n      \"id\": \"happy\",\n      \"name\": \"Happy\",\n      \"images\": {\n        \"default\": \"https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=300&h=300&fit=fill&q=90&fm=jpg\",\n        \"L\": \"https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=1050&h=1050&fit=fill&q=90&fm=jpg\",\n        \"M\": \"https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=600&h=600&fit=fill&q=90&fm=jpg\",\n        \"S\": \"https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=300&h=300&fit=fill&q=90&fm=jpg\",\n        \"XS\": \"https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=128&h=128&fit=fill&q=90&fm=jpg\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"limit\": 20,\n    \"offset\": 0\n  },\n  \"links\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ed98694-d9c4-4163-a637-9ace940f5e9e",
+              "name": "Unauthorized. Most likely your access token has expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "moods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "type",
+                      "value": "all"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid credentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "160abe96-8fe0-44a4-9fb0-cf697ed68157",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "moods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "type",
+                      "value": "all"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Rate limit exceeded\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26f9e7ef-efc4-4614-aedb-8813108917ae",
+          "name": "Mood details",
+          "request": {
+            "name": "Mood details",
+            "description": {
+              "content": "Get mood details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "moods",
+                ":moodId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>",
+                  "description": "Add parameter if tracks should be included in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max number of entries returned in the response, default 50 and max 100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Index of the entry track in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "moodId",
+                  "description": "(Required) Mood id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aaed1d8b-0125-4342-8556-7b2c537988bc",
+              "name": "Track mood response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "moods",
+                    ":moodId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "moodId",
+                      "description": "(Required) Mood id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"happy\",\n  \"name\": \"Happy\",\n  \"images\": {\n    \"default\": \"https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=300&h=300&fit=fill&q=90&fm=jpg\",\n    \"L\": \"https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=1050&h=1050&fit=fill&q=90&fm=jpg\",\n    \"M\": \"https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=600&h=600&fit=fill&q=90&fm=jpg\",\n    \"S\": \"https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=300&h=300&fit=fill&q=90&fm=jpg\",\n    \"XS\": \"https://images.ctfassets.net/ojtnytzl1djm/2u0eIu3GfevvONKEVc0NEi/f0db82add464ad37ec90406c8ab7cab1/Happy.png?w=128&h=128&fit=fill&q=90&fm=jpg\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7399e3d-d3ee-4a6d-a95f-cc87d173a09a",
+              "name": "Unauthorized. Most likely your access token has expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "moods",
+                    ":moodId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "moodId",
+                      "description": "(Required) Mood id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid credentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abdaff2b-73e6-4900-8a52-54bc8b2f1cdc",
+              "name": "Mood was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "moods",
+                    ":moodId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "moodId",
+                      "description": "(Required) Mood id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Mood was not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae890bc0-cf18-4c5f-abfc-75909c5bd31f",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "moods",
+                    ":moodId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "moodId",
+                      "description": "(Required) Mood id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Rate limit exceeded\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "560f721e-b232-41d8-bd7b-23e9d152a24f",
+          "name": "List genres",
+          "request": {
+            "name": "List genres",
+            "description": {
+              "content": "The genres endpoint allows your users to browse the music catalog based on genres like rock, hiphop or acoustic. \n\nGenres are nested and both parent and child genres are returned in the response. Parent genres have cover art that you can show in your interface.\n\nBy specifying the \"type\" of genres you want to display, you can choose to show all genres in the Epidemic Sound library, only the genres that are featured on epidemicsound.com or only the genres that are available for your free tier tracks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "genres"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "relevance",
+                  "description": "Sorting options. Available values: alphabetic, relevance"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "asc",
+                  "description": "Order options. Available values: asc, desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "all",
+                  "description": "Types to filter by:\n  * `all` - all the objects in the Epidemic Sound library\n  * `partner-tier` - objects available to the partner within their tier\n  * `featured` - only objects featured and curated by Epidemic Sound"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max number of entries returned in the response, default 20 and max 20"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Index of the entry track in the response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "32b3945c-c08e-4e49-92e9-ef5193c19489",
+              "name": "Track genres response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "genres"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "type",
+                      "value": "all"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"genres\": [\n    {\n      \"id\": \"beats\",\n      \"name\": \"Beats\",\n      \"images\": {\n        \"default\": \"https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=300&h=300&fit=fill&q=90&fm=jpg\",\n        \"L\": \"https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=1050&h=1050&fit=fill&q=90&fm=jpg\",\n        \"M\": \"https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=600&h=600&fit=fill&q=90&fm=jpg\",\n        \"S\": \"https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=300&h=300&fit=fill&q=90&fm=jpg\",\n        \"XS\": \"https://images.ctfassets.net/ojtnytzl1djm/4Mm4kJ9nwasLwZpQ54472a/90f35901413025d5a627fa132f6c2b56/Beats.jpg?w=128&h=128&fit=fill&q=90&fm=jpg\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"limit\": 20,\n    \"offset\": 0\n  },\n  \"links\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eab24aeb-cf75-4b9b-8073-1e0025adddb1",
+              "name": "Unauthorized. Most likely your access token has expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "genres"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "type",
+                      "value": "all"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid credentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58913948-cbd1-406e-8a5e-cbaa90ed2d01",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "genres"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "type",
+                      "value": "all"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Rate limit exceeded\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "224b36d2-78c7-4261-86bc-a4cc6d5531f3",
+          "name": "Genre details",
+          "request": {
+            "name": "Genre details",
+            "description": {
+              "content": "This endpoint gives you the parent and child relationships of a specific genre as well as all tracks that belong to it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "genres",
+                ":genreId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>",
+                  "description": "Add parameter if tracks should be included in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max number of entries returned in the response, default 50 and max 100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Index of the entry track in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "genreId",
+                  "description": "(Required) Genre id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ff8422c8-e5c3-4e12-860b-8aff7b422e50",
+              "name": "Track genre response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "genres",
+                    ":genreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "genreId",
+                      "description": "(Required) Genre id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"parent-beats\",\n  \"name\": \"Parent Beats\",\n  \"children\": [\n    {\n      \"id\": \"true-beats\",\n      \"name\": \"True Beats\",\n      \"parent\": {\n        \"id\": \"parent-beats\",\n        \"name\": \"Parent Beats\"\n      }\n    }\n  ],\n  \"tracks\": {\n    \"tracks\": [\n      {\n        \"id\": \"6rUPerw2po\",\n        \"mainArtists\": [\n          \"Main Artist\"\n        ],\n        \"featuredArtists\": [\n          \"Featured Artist\"\n        ],\n        \"title\": \"Happy Song\",\n        \"bpm\": 135,\n        \"length\": 3123,\n        \"moods\": [\n          {\n            \"id\": \"happy\",\n            \"name\": \"Happy\"\n          },\n          {\n            \"id\": \"eccentric\",\n            \"name\": \"Eccentric\"\n          }\n        ],\n        \"genres\": [\n          {\n            \"id\": \"parent-beats\",\n            \"name\": \"Beats\",\n            \"parent\": {\n              \"id\": \"parent\",\n              \"name\": \"Parent Beats\"\n            }\n          },\n          {\n            \"id\": \"trap\",\n            \"name\": \"Trap\"\n          }\n        ],\n        \"images\": {\n          \"default\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg\",\n          \"L\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/1050x1050.jpg\",\n          \"M\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/600x600.jpg\",\n          \"S\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/300x300.jpg\",\n          \"XS\": \"https://cdn.epidemicsound.com/curation-assets/commercial-release-cover-images/123456/128x128.jpg\"\n        },\n        \"waveformUrl\": \"https://pdn.epidemicsound.com/waveforms/1600/394079.json\",\n        \"hasVocals\": true,\n        \"added\": \"2020-10-10\",\n        \"isExplicit\": false,\n        \"isPreviewOnly\": true\n      }\n    ],\n    \"pagination\": {\n      \"page\": 2,\n      \"limit\": 25,\n      \"offset\": 25\n    },\n    \"links\": {\n      \"next\": \"v0/genres/{genreId}?limit=25&offset=50\",\n      \"prev\": \"v0/genres/{genreId}?limit=25&offset=0\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f580473-8b09-4845-bc53-fec2abec26c0",
+              "name": "Unauthorized. Most likely your access token has expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "genres",
+                    ":genreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "genreId",
+                      "description": "(Required) Genre id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid credentials\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72538adc-6504-42ce-a6e6-649e9af31824",
+              "name": "Genre was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "genres",
+                    ":genreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "genreId",
+                      "description": "(Required) Genre id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Genre was not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a436d71e-9ffb-4845-9dea-0db4b1bf81c3",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "genres",
+                    ":genreId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "genreId",
+                      "description": "(Required) Genre id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Rate limit exceeded\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://partner-content-api.epidemicsound.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2fec477f-ec7b-4a19-92f9-2b15e02e2f83",
+    "name": "Partner Content Assets Browse & search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "These endpoints allows your application to upload assets such as images or audio.",
+      "type": "text/plain"
+    }
+  }
+}
