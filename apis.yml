@@ -167,6 +167,8 @@ apis:
   humanURL: https://developers.epidemicsound.com/docs/
   baseURL: https://partner-content-api.epidemicsound.com
   tags:
+  - Sound Effects
+  tags_raw:
   - Sound effects
   properties:
   - type: OpenAPI
@@ -204,6 +206,8 @@ apis:
   humanURL: https://developers.epidemicsound.com/docs/
   baseURL: https://partner-content-api.epidemicsound.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
