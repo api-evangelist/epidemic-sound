@@ -13,6 +13,18 @@ description: >-
   once signed, partner engineers receive credentials via the Developer Portal and authenticate using API Key, Partner
   Token, or Epidemic Sound Connect (OAuth 2.0).
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
