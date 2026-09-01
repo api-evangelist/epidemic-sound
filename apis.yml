@@ -179,7 +179,7 @@ apis:
   humanURL: https://developers.epidemicsound.com/docs/
   baseURL: https://partner-content-api.epidemicsound.com
   tags:
-  - Sound effects
+  - Sound Effects
   tags_raw:
   - Sound effects
   properties:
