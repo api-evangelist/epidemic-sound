@@ -1,8 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Partner Content Assets Reporting API
+  title: Partner Content Reporting API
   version: 0.1.17
-  description: These endpoints allows your application to upload assets such as images or audio.
+  description: These endpoints will allow you to report how tracks are used in your application.
 servers:
 - url: https://partner-content-api.epidemicsound.com
   description: Epidemic Sound Content API
@@ -15,7 +15,13 @@ paths:
       tags:
       - Reporting
       summary: Report usage in bulk
-      description: "This endpoint should be used when you want to bulk report events to Epidemic Sound. We currently support the following events:\ntrackPreviewed, trackDownloaded and tracksExported. Note that the limit for number of events per request is limited to 100.\n Also note that for events containing the field trackIds, the limit for number of trackIds per event is 50. \n Events may not contain a timestamp older than 7 days ago."
+      description: 'This endpoint should be used when you want to bulk report events to Epidemic Sound. We currently support the following events:
+
+        trackPreviewed, trackDownloaded and tracksExported. Note that the limit for number of events per request is limited to 100.
+
+        Also note that for events containing the field trackIds, the limit for number of trackIds per event is 50.
+
+        Events may not contain a timestamp older than 7 days ago.'
       operationId: POST_Analytics_Report
       requestBody:
         description: Analytics report
@@ -146,6 +152,58 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
+    TrackDownloadedEvent:
+      type: object
+      properties:
+        trackId:
+          type: string
+        format:
+          type: string
+          enum:
+          - mp3
+          - hls
+          - hls_with_cookie
+        quality:
+          type: string
+          enum:
+          - normal
+          - high
+        type:
+          type: string
+          enum:
+          - trackDownloaded
+    AnalyticsReportEvent:
+      type: object
+      properties:
+        userId:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        userConnected:
+          type:
+          - boolean
+          - 'null'
+        analyticsEvent:
+          $ref: '#/components/schemas/AnalyticsEvent'
+    TrackPreviewedEvent:
+      type: object
+      properties:
+        trackId:
+          type: string
+        type:
+          type: string
+          enum:
+          - trackPreviewed
+    AnalyticsReportRequest:
+      required:
+      - events
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyticsReportEvent'
     TracksExportedEvent:
       type: object
       properties:
@@ -179,34 +237,6 @@ components:
         eventsCount:
           type: integer
           format: int32
-    AnalyticsReportEvent:
-      type: object
-      properties:
-        userId:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        userConnected:
-          type: boolean
-          nullable: true
-        analyticsEvent:
-          $ref: '#/components/schemas/AnalyticsEvent'
-    Error:
-      required:
-      - key
-      - messages
-      type: object
-      properties:
-        key:
-          type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
     MessageResponse:
       required:
       - message
@@ -219,12 +249,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
-    AnalyticsEvent:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/TrackPreviewedEvent'
-      - $ref: '#/components/schemas/TrackDownloadedEvent'
-      - $ref: '#/components/schemas/TracksExportedEvent'
     TrackUsageRequest:
       required:
       - platform
@@ -251,46 +275,30 @@ components:
           items:
             type: string
         other:
-          type: string
-          nullable: true
-    TrackDownloadedEvent:
-      type: object
-      properties:
-        trackId:
-          type: string
-        format:
-          type: string
-          enum:
-          - mp3
-          - hls
-          - hls_with_cookie
-        quality:
-          type: string
-          enum:
-          - normal
-          - high
-        type:
-          type: string
-          enum:
-          - trackDownloaded
-    TrackPreviewedEvent:
-      type: object
-      properties:
-        trackId:
-          type: string
-        type:
-          type: string
-          enum:
-          - trackPreviewed
-    AnalyticsReportRequest:
+          type:
+          - string
+          - 'null'
+    Error:
       required:
-      - events
+      - key
+      - messages
       type: object
       properties:
-        events:
+        key:
+          type: string
+          description: Error key
+        messages:
           type: array
+          description: Error messages
           items:
-            $ref: '#/components/schemas/AnalyticsReportEvent'
+            type: string
+            description: Error messages
+    AnalyticsEvent:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/TrackPreviewedEvent'
+      - $ref: '#/components/schemas/TrackDownloadedEvent'
+      - $ref: '#/components/schemas/TracksExportedEvent'
   securitySchemes:
     ApiKeyAuth:
       type: http

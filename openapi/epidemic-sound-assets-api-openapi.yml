@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Partner Content Assets API
   version: 0.1.17
@@ -119,7 +119,10 @@ paths:
       tags:
       - Assets
       summary: Upload audio
-      description: "Upload an audio file to get recommendations of similar tracks in the Epidemic Sound library. When you post the audio file to this endpoint, you will receive an AudioID in return. Use this AudioID in a request to the similar tracks endpoint to get track recommendations.\n \n We currently support the formats: mp3, mpeg, ogg and vorbis. Maximum file size is 3.5MB. You can only upload music with the partner token, since we currently do not allow end users to use this feature."
+      description: 'Upload an audio file to get recommendations of similar tracks in the Epidemic Sound library. When you post the audio file to this endpoint, you will receive an AudioID in return. Use this AudioID in a request to the similar tracks endpoint to get track recommendations.
+
+
+        We currently support the formats: mp3, mpeg, ogg and vorbis. Maximum file size is 3.5MB. You can only upload music with the partner token, since we currently do not allow end users to use this feature.'
       operationId: POST_Upload_Partner_Audio
       requestBody:
         content:
@@ -220,7 +223,10 @@ paths:
       tags:
       - Assets
       summary: Upload image
-      description: "Upload an image from the user's video to get recommendations of tracks in the Epidemic Sound library that would work for the video. When you post the image to this endpoint, you will receive an ImageID in return. Use this ImageID in a request to the matching image endpoint to get track recommendations.\n \n We currently support jpeg format and maximum file size is 2MB."
+      description: 'Upload an image from the user''s video to get recommendations of tracks in the Epidemic Sound library that would work for the video. When you post the image to this endpoint, you will receive an ImageID in return. Use this ImageID in a request to the matching image endpoint to get track recommendations.
+
+
+        We currently support jpeg format and maximum file size is 2MB.'
       operationId: POST_Upload_User_Image
       requestBody:
         content:
@@ -300,22 +306,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    PartnerAudioResponse:
-      required:
-      - audioUploadId
-      - expires
-      - length
-      type: object
-      properties:
-        audioUploadId:
-          type: string
-          format: uuid
-        length:
-          type: number
-          format: double
-        expires:
-          type: string
-          format: date-time
     Error:
       required:
       - key
@@ -365,18 +355,34 @@ components:
         expirationDate:
           type: string
           format: date-time
+    PartnerAudioResponse:
+      required:
+      - audioUploadId
+      - expires
+      - length
+      type: object
+      properties:
+        audioUploadId:
+          type: string
+          format: uuid
+        length:
+          type: number
+          format: double
+        expires:
+          type: string
+          format: date-time
   parameters:
-    checksum:
-      name: checksum
-      in: path
-      description: File checksum
-      required: true
-      schema:
-        type: string
     audioIdOrChecksum:
       name: audioIdOrChecksum
       in: path
       description: Audio upload id or checksum of audio file
+      required: true
+      schema:
+        type: string
+    checksum:
+      name: checksum
+      in: path
+      description: File checksum
       required: true
       schema:
         type: string

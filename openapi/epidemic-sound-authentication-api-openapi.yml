@@ -1,8 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Partner Content Assets Authentication API
+  title: Partner Content Authentication API
   version: 0.1.17
-  description: These endpoints allows your application to upload assets such as images or audio.
+  description: Endpoints for user authentication.
 servers:
 - url: https://partner-content-api.epidemicsound.com
   description: Epidemic Sound Content API
@@ -62,7 +62,7 @@ paths:
       tags:
       - Authentication
       summary: Request a user token
-      description: 'Request a User Token. This endpoint requires a Partner Token for authentication. '
+      description: Request a User Token. This endpoint requires a Partner Token for authentication.
       operationId: POST_User_Token
       requestBody:
         description: Token request
@@ -108,30 +108,13 @@ paths:
       - PartnerAuth: []
 components:
   schemas:
-    UserTokenRequest:
+    AccessTokenResponse:
       required:
-      - userId
+      - accessToken
       type: object
       properties:
-        userId:
+        accessToken:
           type: string
-          description: End user id. UUID, numeric or matching ^[a-zA-Z0-9_-]+$
-          example: 898d611f-46bc-4747-af61-9883ff06b35b
-    Error:
-      required:
-      - key
-      - messages
-      type: object
-      properties:
-        key:
-          type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
     MessageResponse:
       required:
       - message
@@ -154,13 +137,30 @@ components:
           type: string
         accessKeySecret:
           type: string
-    AccessTokenResponse:
+    Error:
       required:
-      - accessToken
+      - key
+      - messages
       type: object
       properties:
-        accessToken:
+        key:
           type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    UserTokenRequest:
+      required:
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+          description: End user id. UUID, numeric or matching ^[a-zA-Z0-9_-]+$
+          example: 898d611f-46bc-4747-af61-9883ff06b35b
   securitySchemes:
     ApiKeyAuth:
       type: http

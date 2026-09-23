@@ -1,19 +1,19 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Partner Content Assets Sound effects API
+  title: Partner Content Sound effects API
   version: 0.1.17
-  description: These endpoints allows your application to upload assets such as images or audio.
+  description: Endpoints to get sound effect specific information. These endpoints allow you to build a UI to browse and search for sound effects.
 servers:
 - url: https://partner-content-api.epidemicsound.com
   description: Epidemic Sound Content API
 tags:
-- name: Sound effects
+- name: Sound Effects
   description: Endpoints to get sound effect specific information. These endpoints allow you to build a UI to browse and search for sound effects.
 paths:
   /v0/sound-effects/collections:
     get:
       tags:
-      - Sound effects
+      - Sound Effects
       summary: List sound-effect collections
       description: 'Returns the sound-effect collections active for your application.
 
@@ -100,7 +100,7 @@ paths:
   /v0/sound-effects/collections/{collectionId}:
     get:
       tags:
-      - Sound effects
+      - Sound Effects
       summary: Sound-effect collection details
       description: Returns a single sound-effect collection along with a paginated set of its sound effects. Use `limit` and `offset` to page through the collection.
       operationId: GET_Sound_Effect_Collection
@@ -174,7 +174,7 @@ paths:
   /v0/sound-effects/categories:
     get:
       tags:
-      - Sound effects
+      - Sound Effects
       summary: List SFX categories
       description: 'The sound effects categories endpoint allows you to get a list of all sound effects categories.
 
@@ -258,7 +258,7 @@ paths:
   /v0/sound-effects/categories/{categoryId}:
     get:
       tags:
-      - Sound effects
+      - Sound Effects
       summary: SFX category details
       description: 'The category details endpoint contains info on the requested sound effects category.
 
@@ -328,7 +328,7 @@ paths:
   /v0/sound-effects/categories/{categoryId}/tracks:
     get:
       tags:
-      - Sound effects
+      - Sound Effects
       summary: List SFX by category
       description: Use the sound effects details endpoint to display all sound effects for a given category.
       operationId: GET_Sound_Effect_Category_Tracks
@@ -429,7 +429,7 @@ paths:
   /v0/sound-effects/{trackId}/download:
     get:
       tags:
-      - Sound effects
+      - Sound Effects
       summary: Download sound effect
       description: 'The download endpoint allows you to download an MP3 file of the sound effect.
 
@@ -503,11 +503,9 @@ paths:
   /v0/sound-effects/search:
     get:
       tags:
-      - Sound effects
+      - Sound Effects
       summary: Search SFX
-      description: 'Use the sound effects search endpoint to allow users to search within the sound effects library.
-
-        '
+      description: Use the sound effects search endpoint to allow users to search within the sound effects library.
       operationId: GET_Sound_Effect_Search
       parameters:
       - $ref: '#/components/parameters/offset'
@@ -602,7 +600,193 @@ paths:
       - EpidemicSoundConnectAuth: []
       - ApiKeyAuth: []
 components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Max number of entries returned in the response, default 50 and max 100
+      required: false
+      schema:
+        type: integer
+        format: int32
+    quality:
+      name: quality
+      in: query
+      description: Track quality, normal is used as the default if not specified
+      required: false
+      schema:
+        type: string
+        enum:
+        - normal
+        - high
+        default: normal
+    trackId:
+      name: trackId
+      in: path
+      description: Track id
+      required: true
+      schema:
+        type: string
+    categoryId:
+      name: categoryId
+      in: path
+      description: Category id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    format:
+      name: format
+      in: query
+      description: Track format
+      required: false
+      schema:
+        type: string
+        enum:
+        - mp3
+    term:
+      name: term
+      in: query
+      description: Term for search
+      required: false
+      schema:
+        type: string
+    collectionId:
+      name: collectionId
+      in: path
+      description: Collection id
+      required: true
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      description: Index of the entry track in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
   schemas:
+    RelatedSoundEffectCategoryResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    SoundEffectResponse:
+      required:
+      - added
+      - id
+      - length
+      - title
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        added:
+          type: string
+          format: date-time
+        length:
+          type: integer
+          format: int32
+        images:
+          $ref: '#/components/schemas/ImagesResponse'
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    SoundEffectCollectionPaginatedResponse:
+      required:
+      - id
+      - links
+      - name
+      - pagination
+      - soundEffects
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        soundEffects:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoundEffectResponse'
+        availableSoundEffects:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SoundEffectCollectionResponse:
+      required:
+      - id
+      - name
+      - soundEffects
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the sound-effect collection.
+          format: uuid
+        name:
+          type: string
+          description: Name of the collection
+        soundEffects:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoundEffectResponse'
+        availableSoundEffects:
+          type:
+          - integer
+          - 'null'
+          description: Total number of sound effects available in the collection
+          format: int32
+    SoundEffectCollectionsPaginatedResponse:
+      required:
+      - collections
+      - links
+      - pagination
+      type: object
+      properties:
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoundEffectCollectionResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    DownloadResponse:
+      required:
+      - expires
+      - url
+      type: object
+      properties:
+        url:
+          type: string
+        expires:
+          type: string
     SoundEffectCategoryWithParentResponse:
       required:
       - id
@@ -618,49 +802,29 @@ components:
           $ref: '#/components/schemas/ImagesResponse'
         parent:
           $ref: '#/components/schemas/RelatedSoundEffectCategoryResponse'
-    DownloadResponse:
-      required:
-      - expires
-      - url
-      type: object
-      properties:
-        url:
-          type: string
-        expires:
-          type: string
-    SoundEffectCategoriesResponse:
-      required:
-      - categories
-      - links
-      - pagination
-      type: object
-      properties:
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/SoundEffectCategoryWithParentResponse'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
     ImagesResponse:
       type: object
       properties:
         default:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         L:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         M:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         S:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         XS:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
     Pagination:
       required:
       - limit
@@ -710,111 +874,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RelatedSoundEffectCategoryResponse'
-    SoundEffectCollectionResponse:
-      required:
-      - id
-      - name
-      - soundEffects
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the sound-effect collection.
-          format: uuid
-        name:
-          type: string
-          description: Name of the collection
-        soundEffects:
-          type: array
-          items:
-            $ref: '#/components/schemas/SoundEffectResponse'
-        availableSoundEffects:
-          type: integer
-          description: Total number of sound effects available in the collection
-          format: int32
-          nullable: true
     PaginationLinks:
       type: object
       properties:
         next:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         prev:
-          type: string
-          nullable: true
-    SoundEffectCollectionsPaginatedResponse:
-      required:
-      - collections
-      - links
-      - pagination
-      type: object
-      properties:
-        collections:
-          type: array
-          items:
-            $ref: '#/components/schemas/SoundEffectCollectionResponse'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    RelatedSoundEffectCategoryResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-    SoundEffectResponse:
-      required:
-      - added
-      - id
-      - length
-      - title
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        title:
-          type: string
-        added:
-          type: string
-          format: date-time
-        length:
-          type: integer
-          format: int32
-        images:
-          $ref: '#/components/schemas/ImagesResponse'
-    SoundEffectCollectionPaginatedResponse:
-      required:
-      - id
-      - links
-      - name
-      - pagination
-      - soundEffects
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        soundEffects:
-          type: array
-          items:
-            $ref: '#/components/schemas/SoundEffectResponse'
-        availableSoundEffects:
-          type: integer
-          format: int32
-          nullable: true
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
+          type:
+          - string
+          - 'null'
     Error:
       required:
       - key
@@ -830,84 +900,21 @@ components:
           items:
             type: string
             description: Error messages
-    MessageResponse:
+    SoundEffectCategoriesResponse:
       required:
-      - message
+      - categories
+      - links
+      - pagination
       type: object
       properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
+        categories:
           type: array
           items:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    categoryId:
-      name: categoryId
-      in: path
-      description: Category id
-      required: true
-      schema:
-        type: string
-        format: uuid
-    collectionId:
-      name: collectionId
-      in: path
-      description: Collection id
-      required: true
-      schema:
-        type: string
-    format:
-      name: format
-      in: query
-      description: Track format
-      required: false
-      schema:
-        type: string
-        enum:
-        - mp3
-    limit:
-      name: limit
-      in: query
-      description: Max number of entries returned in the response, default 50 and max 100
-      required: false
-      schema:
-        type: integer
-        format: int32
-    term:
-      name: term
-      in: query
-      description: Term for search
-      required: false
-      schema:
-        type: string
-    quality:
-      name: quality
-      in: query
-      description: Track quality, normal is used as the default if not specified
-      required: false
-      schema:
-        type: string
-        enum:
-        - normal
-        - high
-        default: normal
-    trackId:
-      name: trackId
-      in: path
-      description: Track id
-      required: true
-      schema:
-        type: string
-    offset:
-      name: offset
-      in: query
-      description: Index of the entry track in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
+            $ref: '#/components/schemas/SoundEffectCategoryWithParentResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
   securitySchemes:
     ApiKeyAuth:
       type: http

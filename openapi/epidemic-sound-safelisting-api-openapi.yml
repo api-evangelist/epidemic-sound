@@ -1,8 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Partner Content Assets Safelisting API
+  title: Partner Content Safelisting API
   version: 0.1.17
-  description: These endpoints allows your application to upload assets such as images or audio.
+  description: Endpoints for managing safelisting licenses. Allows partners to create, list, update, and delete licenses for channels and videos on behalf of their end users.
 servers:
 - url: https://partner-content-api.epidemicsound.com
   description: Epidemic Sound Content API
@@ -427,13 +427,16 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    SafelistingAssetRequest:
+    SafelistingAssetResponse:
       required:
+      - id
       - platform
       - type
       - url
       type: object
       properties:
+        id:
+          type: string
         type:
           type: string
           enum:
@@ -472,6 +475,49 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SafelistingLicenseResponse'
+    UpdateSafelistingLicenseRequest:
+      required:
+      - expiresAt
+      type: object
+      properties:
+        expiresAt:
+          type: string
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    CreateSafelistingLicenseRequest:
+      required:
+      - asset
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/SafelistingAssetRequest'
+        expiresAt:
+          type: string
+    SafelistingLicenseResponse:
+      required:
+      - asset
+      - createdAt
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+        expiresAt:
+          type: string
+        asset:
+          $ref: '#/components/schemas/SafelistingAssetResponse'
     Error:
       required:
       - key
@@ -487,44 +533,13 @@ components:
           items:
             type: string
             description: Error messages
-    MessageResponse:
+    SafelistingAssetRequest:
       required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    UpdateSafelistingLicenseRequest:
-      required:
-      - expiresAt
-      type: object
-      properties:
-        expiresAt:
-          type: string
-    CreateSafelistingLicenseRequest:
-      required:
-      - asset
-      type: object
-      properties:
-        asset:
-          $ref: '#/components/schemas/SafelistingAssetRequest'
-        expiresAt:
-          type: string
-    SafelistingAssetResponse:
-      required:
-      - id
       - platform
       - type
       - url
       type: object
       properties:
-        id:
-          type: string
         type:
           type: string
           enum:
@@ -542,21 +557,6 @@ components:
           - website
         url:
           type: string
-    SafelistingLicenseResponse:
-      required:
-      - asset
-      - createdAt
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-        createdAt:
-          type: string
-        expiresAt:
-          type: string
-        asset:
-          $ref: '#/components/schemas/SafelistingAssetResponse'
   securitySchemes:
     ApiKeyAuth:
       type: http

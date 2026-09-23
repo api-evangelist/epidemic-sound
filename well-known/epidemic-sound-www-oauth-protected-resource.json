@@ -1,0 +1,1 @@
+{"resource":"https://www.epidemicsound.com/a/mcp-service/mcp","authorization_servers":["https://login.epidemicsound.com/auth/realms/accounts"],"bearer_methods_supported":["header"],"scopes_supported":["email","openid"]}

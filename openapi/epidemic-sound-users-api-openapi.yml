@@ -1,8 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Partner Content Assets Users API
+  title: Partner Content Users API
   version: 0.1.17
-  description: These endpoints allows your application to upload assets such as images or audio.
+  description: These endpoints allows your application to get user specific information such as liked sounds.
 servers:
 - url: https://partner-content-api.epidemicsound.com
   description: Epidemic Sound Content API
@@ -181,6 +181,21 @@ paths:
       - EpidemicSoundConnectAuth: []
 components:
   schemas:
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
     TrackResponse:
       required:
       - added
@@ -237,44 +252,127 @@ components:
           type: string
           description: Reference to the waveform as a json object.
         hasVocals:
-          type: boolean
+          type:
+          - boolean
+          - 'null'
           description: Set to true if the track has vocals. Set to false for instrumental tracks.
-          nullable: true
         added:
           type: string
           description: The date the track was released in the format YYYY-mm-dd.
         tierOption:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           enum:
           - PAID
           - FREE
         isExplicit:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
         isPreviewOnly:
           type: boolean
-    TaxonomyAggregations:
+    UserInfo:
+      required:
+      - esConnect
+      - userId
       type: object
       properties:
-        moods:
+        userId:
+          type: string
+          description: 'is the userId given in the User Token if not ES Connect authenticated or
+
+            the ES Connect user id if user is authenticated against ES Connect.'
+        esConnect:
+          type: boolean
+          description: "is false for a not ES Connect authenticated user but \nis true for a ES Connect authenticated user."
+        hasActiveSubscription:
+          type:
+          - boolean
+          - 'null'
+          description: 'is true if the user has an active subscription but
+
+            is false if the user has no active subscription.
+
+            Returns null if the user is not ES Connect authenticated.'
+        email:
+          type:
+          - string
+          - 'null'
+          description: email value will present only for the Epidemic Sound users and will be null otherwise
+    ImagesResponse:
+      type: object
+      properties:
+        default:
+          type:
+          - string
+          - 'null'
+        L:
+          type:
+          - string
+          - 'null'
+        M:
+          type:
+          - string
+          - 'null'
+        S:
+          type:
+          - string
+          - 'null'
+        XS:
+          type:
+          - string
+          - 'null'
+    Pagination:
+      required:
+      - limit
+      - page
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/TaxonomyAggregation'
-        genres:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxonomyAggregation'
-    TaxonomyAggregation:
+            $ref: '#/components/schemas/Error'
+    PaginationLinks:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+    ParentGenreResponse:
+      required:
+      - id
+      - name
       type: object
       properties:
         id:
           type: string
+          description: Unique ID of the parent genre
         name:
           type: string
-        count:
-          type: integer
-          format: int32
+          description: Name of the parent genre
     TracksResponse:
       required:
       - links
@@ -292,66 +390,6 @@ components:
           $ref: '#/components/schemas/PaginationLinks'
         aggregations:
           $ref: '#/components/schemas/TaxonomyAggregations'
-    Error:
-      required:
-      - key
-      - messages
-      type: object
-      properties:
-        key:
-          type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    PaginationLinks:
-      type: object
-      properties:
-        next:
-          type: string
-          nullable: true
-        prev:
-          type: string
-          nullable: true
-    GenreResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        parent:
-          $ref: '#/components/schemas/ParentGenreResponse'
-    ParentGenreResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the parent genre
-        name:
-          type: string
-          description: Name of the parent genre
     MoodResponse:
       required:
       - id
@@ -364,65 +402,39 @@ components:
         name:
           type: string
           description: Name of the mood
-    UserInfo:
+    TaxonomyAggregation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        count:
+          type: integer
+          format: int32
+    TaxonomyAggregations:
+      type: object
+      properties:
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+    GenreResponse:
       required:
-      - esConnect
-      - userId
+      - id
+      - name
       type: object
       properties:
-        userId:
+        id:
           type: string
-          description: 'is the userId given in the User Token if not ES Connect authenticated or
-
-            the ES Connect user id if user is authenticated against ES Connect.'
-        esConnect:
-          type: boolean
-          description: "is false for a not ES Connect authenticated user but \nis true for a ES Connect authenticated user."
-        hasActiveSubscription:
-          type: boolean
-          description: 'is true if the user has an active subscription but
-
-            is false if the user has no active subscription.
-
-            Returns null if the user is not ES Connect authenticated.'
-          nullable: true
-        email:
+        name:
           type: string
-          description: email value will present only for the Epidemic Sound users and will be null otherwise
-          nullable: true
-    ImagesResponse:
-      type: object
-      properties:
-        default:
-          type: string
-          nullable: true
-        L:
-          type: string
-          nullable: true
-        M:
-          type: string
-          nullable: true
-        S:
-          type: string
-          nullable: true
-        XS:
-          type: string
-          nullable: true
-    Pagination:
-      required:
-      - limit
-      - page
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int32
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int32
+        parent:
+          $ref: '#/components/schemas/ParentGenreResponse'
   securitySchemes:
     ApiKeyAuth:
       type: http
