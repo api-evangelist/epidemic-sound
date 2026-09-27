@@ -306,6 +306,18 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     Error:
       required:
       - key
@@ -321,18 +333,6 @@ components:
           items:
             type: string
             description: Error messages
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
     PartnerAudioDeleteResponse:
       required:
       - audioFilesRemoved
@@ -372,13 +372,6 @@ components:
           type: string
           format: date-time
   parameters:
-    audioIdOrChecksum:
-      name: audioIdOrChecksum
-      in: path
-      description: Audio upload id or checksum of audio file
-      required: true
-      schema:
-        type: string
     checksum:
       name: checksum
       in: path
@@ -390,6 +383,13 @@ components:
       name: imageId
       in: path
       description: Image id
+      required: true
+      schema:
+        type: string
+    audioIdOrChecksum:
+      name: audioIdOrChecksum
+      in: path
+      description: Audio upload id or checksum of audio file
       required: true
       schema:
         type: string

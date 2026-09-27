@@ -815,48 +815,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    CollectionResponse:
-      required:
-      - id
-      - images
-      - name
-      - tracks
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the track.
-          format: uuid
-        name:
-          type: string
-          description: Name of the collection
-        tracks:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrackResponse'
-        availableTracks:
-          type:
-          - integer
-          - 'null'
-          description: Number of available tracks based on the partner's tier
-          format: int32
-        images:
-          $ref: '#/components/schemas/CollectionImagesPublicResponse'
-    GenresWithImagesPaginatedResponse:
-      required:
-      - genres
-      - links
-      - pagination
-      type: object
-      properties:
-        genres:
-          type: array
-          items:
-            $ref: '#/components/schemas/GenreResponseWithImages'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
     CollectionPaginatedResponse:
       required:
       - id
@@ -887,7 +845,7 @@ components:
           $ref: '#/components/schemas/PaginationLinks'
         images:
           $ref: '#/components/schemas/CollectionImagesPublicResponse'
-    MoodResponseWithImages:
+    GenreResponseWithImages:
       required:
       - id
       - name
@@ -897,122 +855,10 @@ components:
           type: string
         name:
           type: string
-        images:
-          $ref: '#/components/schemas/MoodImagesResponse'
-        tracks:
-          $ref: '#/components/schemas/TracksResponse'
-    ParentGenreResponseWithImages:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
+        parent:
+          $ref: '#/components/schemas/ParentGenreResponseWithImages'
         images:
           $ref: '#/components/schemas/GenreImagesResponse'
-    SearchSuggestionsResponse:
-      type: object
-      properties:
-        suggestions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Option'
-    GenreImagesResponse:
-      type: object
-      properties:
-        default:
-          type: string
-        L:
-          type:
-          - string
-          - 'null'
-        M:
-          type:
-          - string
-          - 'null'
-        S:
-          type:
-          - string
-          - 'null'
-        XS:
-          type:
-          - string
-          - 'null'
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    MoodResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the mood
-        name:
-          type: string
-          description: Name of the mood
-    TaxonomyAggregation:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        count:
-          type: integer
-          format: int32
-    MoodsPaginatedResponseWithImages:
-      required:
-      - links
-      - moods
-      - pagination
-      type: object
-      properties:
-        moods:
-          type: array
-          items:
-            $ref: '#/components/schemas/MoodResponseWithImages'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    MoodImagesResponse:
-      type: object
-      properties:
-        default:
-          type:
-          - string
-          - 'null'
-        L:
-          type:
-          - string
-          - 'null'
-        M:
-          type:
-          - string
-          - 'null'
-        S:
-          type:
-          - string
-          - 'null'
-        XS:
-          type:
-          - string
-          - 'null'
     ImagesResponse:
       type: object
       properties:
@@ -1036,36 +882,8 @@ components:
           type:
           - string
           - 'null'
-    Pagination:
+    MoodResponseWithImages:
       required:
-      - limit
-      - page
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int32
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int32
-    ParentGenreResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the parent genre
-        name:
-          type: string
-          description: Name of the parent genre
-    GenreResponseWithChildren:
-      required:
-      - children
       - id
       - name
       type: object
@@ -1074,82 +892,10 @@ components:
           type: string
         name:
           type: string
-        parent:
-          $ref: '#/components/schemas/ParentGenreResponse'
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/GenreResponse'
         images:
-          $ref: '#/components/schemas/GenreImagesResponse'
+          $ref: '#/components/schemas/MoodImagesResponse'
         tracks:
           $ref: '#/components/schemas/TracksResponse'
-    TracksResponse:
-      required:
-      - links
-      - pagination
-      - tracks
-      type: object
-      properties:
-        tracks:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrackResponse'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-        aggregations:
-          $ref: '#/components/schemas/TaxonomyAggregations'
-    TaxonomyAggregations:
-      type: object
-      properties:
-        moods:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxonomyAggregation'
-        genres:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxonomyAggregation'
-    CollectionsPaginatedResponse:
-      required:
-      - collections
-      - links
-      - pagination
-      type: object
-      properties:
-        collections:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollectionResponse'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    CollectionImagesPublicResponse:
-      required:
-      - default
-      type: object
-      properties:
-        default:
-          type: string
-        L:
-          type:
-          - string
-          - 'null'
-        M:
-          type:
-          - string
-          - 'null'
-        S:
-          type:
-          - string
-          - 'null'
-        XS:
-          type:
-          - string
-          - 'null'
     TrackResponse:
       required:
       - added
@@ -1226,26 +972,44 @@ components:
           - 'null'
         isPreviewOnly:
           type: boolean
-    Option:
+    CollectionsPaginatedResponse:
+      required:
+      - collections
+      - links
+      - pagination
       type: object
       properties:
-        type:
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    MoodResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
           type: string
-          enum:
-          - TEXT
-          - EXTERNAL_SPOTIFY
-    PaginationLinks:
+          description: Unique ID of the mood
+        name:
+          type: string
+          description: Name of the mood
+    TaxonomyAggregation:
       type: object
       properties:
-        next:
-          type:
-          - string
-          - 'null'
-        prev:
-          type:
-          - string
-          - 'null'
-    GenreResponseWithImages:
+        id:
+          type: string
+        name:
+          type: string
+        count:
+          type: integer
+          format: int32
+    GenreResponse:
       required:
       - id
       - name
@@ -1256,9 +1020,69 @@ components:
         name:
           type: string
         parent:
-          $ref: '#/components/schemas/ParentGenreResponseWithImages'
+          $ref: '#/components/schemas/ParentGenreResponse'
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    ParentGenreResponseWithImages:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
         images:
           $ref: '#/components/schemas/GenreImagesResponse'
+    ParentGenreResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the parent genre
+        name:
+          type: string
+          description: Name of the parent genre
+    TaxonomyAggregations:
+      type: object
+      properties:
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+    GenresWithImagesPaginatedResponse:
+      required:
+      - genres
+      - links
+      - pagination
+      type: object
+      properties:
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreResponseWithImages'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     Error:
       required:
       - key
@@ -1274,8 +1098,9 @@ components:
           items:
             type: string
             description: Error messages
-    GenreResponse:
+    GenreResponseWithChildren:
       required:
+      - children
       - id
       - name
       type: object
@@ -1286,11 +1111,228 @@ components:
           type: string
         parent:
           $ref: '#/components/schemas/ParentGenreResponse'
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreResponse'
+        images:
+          $ref: '#/components/schemas/GenreImagesResponse'
+        tracks:
+          $ref: '#/components/schemas/TracksResponse'
+    SearchSuggestionsResponse:
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+    Pagination:
+      required:
+      - limit
+      - page
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+    GenreImagesResponse:
+      type: object
+      properties:
+        default:
+          type: string
+        L:
+          type:
+          - string
+          - 'null'
+        M:
+          type:
+          - string
+          - 'null'
+        S:
+          type:
+          - string
+          - 'null'
+        XS:
+          type:
+          - string
+          - 'null'
+    MoodImagesResponse:
+      type: object
+      properties:
+        default:
+          type:
+          - string
+          - 'null'
+        L:
+          type:
+          - string
+          - 'null'
+        M:
+          type:
+          - string
+          - 'null'
+        S:
+          type:
+          - string
+          - 'null'
+        XS:
+          type:
+          - string
+          - 'null'
+    PaginationLinks:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+    CollectionImagesPublicResponse:
+      required:
+      - default
+      type: object
+      properties:
+        default:
+          type: string
+        L:
+          type:
+          - string
+          - 'null'
+        M:
+          type:
+          - string
+          - 'null'
+        S:
+          type:
+          - string
+          - 'null'
+        XS:
+          type:
+          - string
+          - 'null'
+    MoodsPaginatedResponseWithImages:
+      required:
+      - links
+      - moods
+      - pagination
+      type: object
+      properties:
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/MoodResponseWithImages'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    CollectionResponse:
+      required:
+      - id
+      - images
+      - name
+      - tracks
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the track.
+          format: uuid
+        name:
+          type: string
+          description: Name of the collection
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackResponse'
+        availableTracks:
+          type:
+          - integer
+          - 'null'
+          description: Number of available tracks based on the partner's tier
+          format: int32
+        images:
+          $ref: '#/components/schemas/CollectionImagesPublicResponse'
+    TracksResponse:
+      required:
+      - links
+      - pagination
+      - tracks
+      type: object
+      properties:
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        aggregations:
+          $ref: '#/components/schemas/TaxonomyAggregations'
+    Option:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - TEXT
+          - EXTERNAL_SPOTIFY
   parameters:
-    limit:
-      name: limit
+    collectionId:
+      name: collectionId
+      in: path
+      description: Collection id
+      required: true
+      schema:
+        type: string
+    expand:
+      name: expand
       in: query
-      description: Max number of entries returned in the response, default 50 and max 100
+      description: Add parameter if tracks should be included in the response
+      required: false
+      schema:
+        type: string
+        enum:
+        - tracks
+    sort:
+      name: sort
+      in: query
+      description: 'Sorting options. Available values: alphabetic, relevance'
+      required: false
+      schema:
+        type: string
+        enum:
+        - alphabetic
+        - relevance
+        default: relevance
+    genreId:
+      name: genreId
+      in: path
+      description: Genre id
+      required: true
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      description: Index of the entry track in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+    bpmMax:
+      name: bpmMax
+      in: query
+      description: BPM Max
       required: false
       schema:
         type: integer
@@ -1306,6 +1348,23 @@ components:
         - asc
         - desc
         default: asc
+    bpmMin:
+      name: bpmMin
+      in: query
+      description: BPM Min
+      required: false
+      schema:
+        type: integer
+        format: int32
+    genre:
+      name: genre
+      in: query
+      description: Id for genre
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
     excludeField:
       name: excludeField
       in: query
@@ -1315,42 +1374,13 @@ components:
         type: string
         enum:
         - tracks
-    collectionId:
-      name: collectionId
+    moodId:
+      name: moodId
       in: path
-      description: Collection id
+      description: Mood id
       required: true
       schema:
         type: string
-    sort:
-      name: sort
-      in: query
-      description: 'Sorting options. Available values: alphabetic, relevance'
-      required: false
-      schema:
-        type: string
-        enum:
-        - alphabetic
-        - relevance
-        default: relevance
-    expand:
-      name: expand
-      in: query
-      description: Add parameter if tracks should be included in the response
-      required: false
-      schema:
-        type: string
-        enum:
-        - tracks
-    mood:
-      name: mood
-      in: query
-      description: Id for mood
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
     type:
       name: type
       in: query
@@ -1363,30 +1393,15 @@ components:
         - featured
         - partner-tier
         default: all
-    moodId:
-      name: moodId
-      in: path
-      description: Mood id
-      required: true
-      schema:
-        type: string
-    genre:
-      name: genre
+    mood:
+      name: mood
       in: query
-      description: Id for genre
+      description: Id for mood
       required: false
       schema:
         type: array
         items:
           type: string
-    bpmMax:
-      name: bpmMax
-      in: query
-      description: BPM Max
-      required: false
-      schema:
-        type: integer
-        format: int32
     term:
       name: term
       in: query
@@ -1394,29 +1409,14 @@ components:
       required: false
       schema:
         type: string
-    bpmMin:
-      name: bpmMin
+    limit:
+      name: limit
       in: query
-      description: BPM Min
+      description: Max number of entries returned in the response, default 50 and max 100
       required: false
       schema:
         type: integer
         format: int32
-    offset:
-      name: offset
-      in: query
-      description: Index of the entry track in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-    genreId:
-      name: genreId
-      in: path
-      description: Genre id
-      required: true
-      schema:
-        type: string
   securitySchemes:
     ApiKeyAuth:
       type: http

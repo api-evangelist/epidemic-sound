@@ -240,50 +240,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    TrackBeat:
-      type: object
-      properties:
-        time:
-          type: number
-          format: double
-        value:
-          type: number
-          format: double
-    TrackEditResultResponse:
-      type: object
-      properties:
-        previewUrl:
-          type: string
-        waveform:
-          $ref: '#/components/schemas/TrackEditWaveform'
-        highQualityUrl:
-          type: string
-    TrackEditWaveform:
-      type: object
-      properties:
-        version:
-          type: integer
-          format: int32
-        channels:
-          type: integer
-          format: int32
-        sampleRate:
-          type: integer
-          format: int32
-        samplesPerPixel:
-          type: integer
-          format: int32
-        bits:
-          type: integer
-          format: int32
-        length:
-          type: integer
-          format: int32
-        data:
-          type: array
-          items:
-            type: integer
-            format: int32
     MessageResponse:
       required:
       - message
@@ -296,25 +252,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
-    TrackEditsResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - PENDING
-          - PROCESSING
-          - COMPLETED
-          - FAILED
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrackEditResultResponse'
-        message:
-          type: string
-        jobId:
-          type: string
-          format: uuid
     TrackEditsJobRequest:
       required:
       - durationMs
@@ -349,6 +286,69 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TrackBeat'
+    TrackEditResultResponse:
+      type: object
+      properties:
+        previewUrl:
+          type: string
+        waveform:
+          $ref: '#/components/schemas/TrackEditWaveform'
+        highQualityUrl:
+          type: string
+    TrackEditsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackEditResultResponse'
+        message:
+          type: string
+        jobId:
+          type: string
+          format: uuid
+    TrackBeat:
+      type: object
+      properties:
+        time:
+          type: number
+          format: double
+        value:
+          type: number
+          format: double
+    TrackEditWaveform:
+      type: object
+      properties:
+        version:
+          type: integer
+          format: int32
+        channels:
+          type: integer
+          format: int32
+        sampleRate:
+          type: integer
+          format: int32
+        samplesPerPixel:
+          type: integer
+          format: int32
+        bits:
+          type: integer
+          format: int32
+        length:
+          type: integer
+          format: int32
+        data:
+          type: array
+          items:
+            type: integer
+            format: int32
   parameters:
     trackId:
       name: trackId

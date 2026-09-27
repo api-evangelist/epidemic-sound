@@ -170,7 +170,7 @@ apis:
   - type: SwaggerUI
     url: https://partner-content-api.epidemicsound.com/swagger
 - aid: epidemic-sound:epidemic-sound-sound-effects-api
-  name: Epidemic Sound effects API
+  name: Epidemic Sound Effects API
   description: Endpoints to get sound effect specific information. These endpoints allow you to build
     a UI to browse and search for sound effects.
   humanURL: https://developers.epidemicsound.com/docs/

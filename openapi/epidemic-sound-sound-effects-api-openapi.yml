@@ -601,54 +601,11 @@ paths:
       - ApiKeyAuth: []
 components:
   parameters:
-    limit:
-      name: limit
-      in: query
-      description: Max number of entries returned in the response, default 50 and max 100
-      required: false
-      schema:
-        type: integer
-        format: int32
-    quality:
-      name: quality
-      in: query
-      description: Track quality, normal is used as the default if not specified
-      required: false
-      schema:
-        type: string
-        enum:
-        - normal
-        - high
-        default: normal
     trackId:
       name: trackId
       in: path
       description: Track id
       required: true
-      schema:
-        type: string
-    categoryId:
-      name: categoryId
-      in: path
-      description: Category id
-      required: true
-      schema:
-        type: string
-        format: uuid
-    format:
-      name: format
-      in: query
-      description: Track format
-      required: false
-      schema:
-        type: string
-        enum:
-        - mp3
-    term:
-      name: term
-      in: query
-      description: Term for search
-      required: false
       schema:
         type: string
     collectionId:
@@ -666,51 +623,73 @@ components:
       schema:
         type: integer
         format: int32
+    format:
+      name: format
+      in: query
+      description: Track format
+      required: false
+      schema:
+        type: string
+        enum:
+        - mp3
+    quality:
+      name: quality
+      in: query
+      description: Track quality, normal is used as the default if not specified
+      required: false
+      schema:
+        type: string
+        enum:
+        - normal
+        - high
+        default: normal
+    categoryId:
+      name: categoryId
+      in: path
+      description: Category id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    term:
+      name: term
+      in: query
+      description: Term for search
+      required: false
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Max number of entries returned in the response, default 50 and max 100
+      required: false
+      schema:
+        type: integer
+        format: int32
   schemas:
-    RelatedSoundEffectCategoryResponse:
-      required:
-      - id
-      - name
+    ImagesResponse:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-    SoundEffectResponse:
-      required:
-      - added
-      - id
-      - length
-      - title
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        title:
-          type: string
-        added:
-          type: string
-          format: date-time
-        length:
-          type: integer
-          format: int32
-        images:
-          $ref: '#/components/schemas/ImagesResponse'
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
+        default:
+          type:
+          - string
+          - 'null'
+        L:
+          type:
+          - string
+          - 'null'
+        M:
+          type:
+          - string
+          - 'null'
+        S:
+          type:
+          - string
+          - 'null'
+        XS:
+          type:
+          - string
+          - 'null'
     SoundEffectCollectionPaginatedResponse:
       required:
       - id
@@ -734,6 +713,50 @@ components:
           - integer
           - 'null'
           format: int32
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    DownloadResponse:
+      required:
+      - expires
+      - url
+      type: object
+      properties:
+        url:
+          type: string
+        expires:
+          type: string
+    SoundEffectCategoryWithRelativesResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        images:
+          $ref: '#/components/schemas/ImagesResponse'
+        parent:
+          $ref: '#/components/schemas/RelatedSoundEffectCategoryResponse'
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedSoundEffectCategoryResponse'
+    PaginatedSoundEffectsResponse:
+      required:
+      - links
+      - pagination
+      - soundEffects
+      type: object
+      properties:
+        soundEffects:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoundEffectResponse'
         pagination:
           $ref: '#/components/schemas/Pagination'
         links:
@@ -762,129 +785,18 @@ components:
           - 'null'
           description: Total number of sound effects available in the collection
           format: int32
-    SoundEffectCollectionsPaginatedResponse:
+    MessageResponse:
       required:
-      - collections
-      - links
-      - pagination
+      - message
       type: object
       properties:
-        collections:
+        message:
+          type: string
+          description: Human readable message
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/SoundEffectCollectionResponse'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    DownloadResponse:
-      required:
-      - expires
-      - url
-      type: object
-      properties:
-        url:
-          type: string
-        expires:
-          type: string
-    SoundEffectCategoryWithParentResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        images:
-          $ref: '#/components/schemas/ImagesResponse'
-        parent:
-          $ref: '#/components/schemas/RelatedSoundEffectCategoryResponse'
-    ImagesResponse:
-      type: object
-      properties:
-        default:
-          type:
-          - string
-          - 'null'
-        L:
-          type:
-          - string
-          - 'null'
-        M:
-          type:
-          - string
-          - 'null'
-        S:
-          type:
-          - string
-          - 'null'
-        XS:
-          type:
-          - string
-          - 'null'
-    Pagination:
-      required:
-      - limit
-      - page
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int32
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int32
-    PaginatedSoundEffectsResponse:
-      required:
-      - links
-      - pagination
-      - soundEffects
-      type: object
-      properties:
-        soundEffects:
-          type: array
-          items:
-            $ref: '#/components/schemas/SoundEffectResponse'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    SoundEffectCategoryWithRelativesResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        images:
-          $ref: '#/components/schemas/ImagesResponse'
-        parent:
-          $ref: '#/components/schemas/RelatedSoundEffectCategoryResponse'
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/RelatedSoundEffectCategoryResponse'
-    PaginationLinks:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-        prev:
-          type:
-          - string
-          - 'null'
+            $ref: '#/components/schemas/Error'
     Error:
       required:
       - key
@@ -900,6 +812,53 @@ components:
           items:
             type: string
             description: Error messages
+    SoundEffectResponse:
+      required:
+      - added
+      - id
+      - length
+      - title
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        added:
+          type: string
+          format: date-time
+        length:
+          type: integer
+          format: int32
+        images:
+          $ref: '#/components/schemas/ImagesResponse'
+    Pagination:
+      required:
+      - limit
+      - page
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+    RelatedSoundEffectCategoryResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
     SoundEffectCategoriesResponse:
       required:
       - categories
@@ -915,6 +874,47 @@ components:
           $ref: '#/components/schemas/Pagination'
         links:
           $ref: '#/components/schemas/PaginationLinks'
+    SoundEffectCollectionsPaginatedResponse:
+      required:
+      - collections
+      - links
+      - pagination
+      type: object
+      properties:
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoundEffectCollectionResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SoundEffectCategoryWithParentResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        images:
+          $ref: '#/components/schemas/ImagesResponse'
+        parent:
+          $ref: '#/components/schemas/RelatedSoundEffectCategoryResponse'
+    PaginationLinks:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
   securitySchemes:
     ApiKeyAuth:
       type: http

@@ -152,91 +152,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    TrackDownloadedEvent:
-      type: object
-      properties:
-        trackId:
-          type: string
-        format:
-          type: string
-          enum:
-          - mp3
-          - hls
-          - hls_with_cookie
-        quality:
-          type: string
-          enum:
-          - normal
-          - high
-        type:
-          type: string
-          enum:
-          - trackDownloaded
-    AnalyticsReportEvent:
-      type: object
-      properties:
-        userId:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        userConnected:
-          type:
-          - boolean
-          - 'null'
-        analyticsEvent:
-          $ref: '#/components/schemas/AnalyticsEvent'
-    TrackPreviewedEvent:
-      type: object
-      properties:
-        trackId:
-          type: string
-        type:
-          type: string
-          enum:
-          - trackPreviewed
-    AnalyticsReportRequest:
-      required:
-      - events
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnalyticsReportEvent'
-    TracksExportedEvent:
-      type: object
-      properties:
-        trackIds:
-          type: array
-          items:
-            type: string
-        platform:
-          type: string
-          enum:
-          - YOUTUBE
-          - TWITTER
-          - TWITCH
-          - FACEBOOK
-          - INSTAGRAM
-          - TIKTOK
-          - OTHER
-          - LOCAL
-        type:
-          type: string
-          enum:
-          - tracksExported
-    AnalyticsReportResponse:
-      required:
-      - batchId
-      - eventsCount
-      type: object
-      properties:
-        batchId:
-          type: string
-        eventsCount:
-          type: integer
-          format: int32
     MessageResponse:
       required:
       - message
@@ -249,6 +164,56 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
+    AnalyticsReportResponse:
+      required:
+      - batchId
+      - eventsCount
+      type: object
+      properties:
+        batchId:
+          type: string
+        eventsCount:
+          type: integer
+          format: int32
+    AnalyticsEvent:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/TrackPreviewedEvent'
+      - $ref: '#/components/schemas/TrackDownloadedEvent'
+      - $ref: '#/components/schemas/TracksExportedEvent'
+    AnalyticsReportRequest:
+      required:
+      - events
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyticsReportEvent'
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    TrackPreviewedEvent:
+      type: object
+      properties:
+        trackId:
+          type: string
+        type:
+          type: string
+          enum:
+          - trackPreviewed
     TrackUsageRequest:
       required:
       - platform
@@ -278,27 +243,62 @@ components:
           type:
           - string
           - 'null'
-    Error:
-      required:
-      - key
-      - messages
+    AnalyticsReportEvent:
       type: object
       properties:
-        key:
+        userId:
           type: string
-          description: Error key
-        messages:
+        timestamp:
+          type: string
+          format: date-time
+        userConnected:
+          type:
+          - boolean
+          - 'null'
+        analyticsEvent:
+          $ref: '#/components/schemas/AnalyticsEvent'
+    TrackDownloadedEvent:
+      type: object
+      properties:
+        trackId:
+          type: string
+        format:
+          type: string
+          enum:
+          - mp3
+          - hls
+          - hls_with_cookie
+        quality:
+          type: string
+          enum:
+          - normal
+          - high
+        type:
+          type: string
+          enum:
+          - trackDownloaded
+    TracksExportedEvent:
+      type: object
+      properties:
+        trackIds:
           type: array
-          description: Error messages
           items:
             type: string
-            description: Error messages
-    AnalyticsEvent:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/TrackPreviewedEvent'
-      - $ref: '#/components/schemas/TrackDownloadedEvent'
-      - $ref: '#/components/schemas/TracksExportedEvent'
+        platform:
+          type: string
+          enum:
+          - YOUTUBE
+          - TWITTER
+          - TWITCH
+          - FACEBOOK
+          - INSTAGRAM
+          - TIKTOK
+          - OTHER
+          - LOCAL
+        type:
+          type: string
+          enum:
+          - tracksExported
   securitySchemes:
     ApiKeyAuth:
       type: http

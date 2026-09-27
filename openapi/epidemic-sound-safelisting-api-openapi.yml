@@ -427,32 +427,39 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    SafelistingAssetResponse:
+    MessageResponse:
       required:
-      - id
-      - platform
-      - type
-      - url
+      - message
       type: object
       properties:
-        id:
+        message:
           type: string
-        type:
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
           type: string
-          enum:
-          - channel
-          - video
-        platform:
-          type: string
-          enum:
-          - youtube
-          - instagram
-          - facebook
-          - twitch
-          - tiktok
-          - podcast
-          - website
-        url:
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    UpdateSafelistingLicenseRequest:
+      required:
+      - expiresAt
+      type: object
+      properties:
+        expiresAt:
           type: string
     SafelistingLicenseListResponse:
       required:
@@ -475,34 +482,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SafelistingLicenseResponse'
-    UpdateSafelistingLicenseRequest:
-      required:
-      - expiresAt
-      type: object
-      properties:
-        expiresAt:
-          type: string
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    CreateSafelistingLicenseRequest:
-      required:
-      - asset
-      type: object
-      properties:
-        asset:
-          $ref: '#/components/schemas/SafelistingAssetRequest'
-        expiresAt:
-          type: string
     SafelistingLicenseResponse:
       required:
       - asset
@@ -518,21 +497,15 @@ components:
           type: string
         asset:
           $ref: '#/components/schemas/SafelistingAssetResponse'
-    Error:
+    CreateSafelistingLicenseRequest:
       required:
-      - key
-      - messages
+      - asset
       type: object
       properties:
-        key:
+        asset:
+          $ref: '#/components/schemas/SafelistingAssetRequest'
+        expiresAt:
           type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
     SafelistingAssetRequest:
       required:
       - platform
@@ -540,6 +513,33 @@ components:
       - url
       type: object
       properties:
+        type:
+          type: string
+          enum:
+          - channel
+          - video
+        platform:
+          type: string
+          enum:
+          - youtube
+          - instagram
+          - facebook
+          - twitch
+          - tiktok
+          - podcast
+          - website
+        url:
+          type: string
+    SafelistingAssetResponse:
+      required:
+      - id
+      - platform
+      - type
+      - url
+      type: object
+      properties:
+        id:
+          type: string
         type:
           type: string
           enum:

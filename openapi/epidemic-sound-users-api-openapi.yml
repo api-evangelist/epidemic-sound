@@ -181,6 +181,52 @@ paths:
       - EpidemicSoundConnectAuth: []
 components:
   schemas:
+    PaginationLinks:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    ParentGenreResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the parent genre
+        name:
+          type: string
+          description: Name of the parent genre
+    TaxonomyAggregations:
+      type: object
+      properties:
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
     Error:
       required:
       - key
@@ -196,6 +242,29 @@ components:
           items:
             type: string
             description: Error messages
+    ImagesResponse:
+      type: object
+      properties:
+        default:
+          type:
+          - string
+          - 'null'
+        L:
+          type:
+          - string
+          - 'null'
+        M:
+          type:
+          - string
+          - 'null'
+        S:
+          type:
+          - string
+          - 'null'
+        XS:
+          type:
+          - string
+          - 'null'
     TrackResponse:
       required:
       - added
@@ -272,6 +341,18 @@ components:
           - 'null'
         isPreviewOnly:
           type: boolean
+    MoodResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the mood
+        name:
+          type: string
+          description: Name of the mood
     UserInfo:
       required:
       - esConnect
@@ -300,29 +381,16 @@ components:
           - string
           - 'null'
           description: email value will present only for the Epidemic Sound users and will be null otherwise
-    ImagesResponse:
+    TaxonomyAggregation:
       type: object
       properties:
-        default:
-          type:
-          - string
-          - 'null'
-        L:
-          type:
-          - string
-          - 'null'
-        M:
-          type:
-          - string
-          - 'null'
-        S:
-          type:
-          - string
-          - 'null'
-        XS:
-          type:
-          - string
-          - 'null'
+        id:
+          type: string
+        name:
+          type: string
+        count:
+          type: integer
+          format: int32
     Pagination:
       required:
       - limit
@@ -338,30 +406,7 @@ components:
         offset:
           type: integer
           format: int32
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    PaginationLinks:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-        prev:
-          type:
-          - string
-          - 'null'
-    ParentGenreResponse:
+    GenreResponse:
       required:
       - id
       - name
@@ -369,10 +414,10 @@ components:
       properties:
         id:
           type: string
-          description: Unique ID of the parent genre
         name:
           type: string
-          description: Name of the parent genre
+        parent:
+          $ref: '#/components/schemas/ParentGenreResponse'
     TracksResponse:
       required:
       - links
@@ -390,51 +435,6 @@ components:
           $ref: '#/components/schemas/PaginationLinks'
         aggregations:
           $ref: '#/components/schemas/TaxonomyAggregations'
-    MoodResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the mood
-        name:
-          type: string
-          description: Name of the mood
-    TaxonomyAggregation:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        count:
-          type: integer
-          format: int32
-    TaxonomyAggregations:
-      type: object
-      properties:
-        moods:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxonomyAggregation'
-        genres:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxonomyAggregation'
-    GenreResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        parent:
-          $ref: '#/components/schemas/ParentGenreResponse'
   securitySchemes:
     ApiKeyAuth:
       type: http
