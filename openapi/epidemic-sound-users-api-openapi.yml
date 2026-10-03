@@ -181,67 +181,6 @@ paths:
       - EpidemicSoundConnectAuth: []
 components:
   schemas:
-    PaginationLinks:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-        prev:
-          type:
-          - string
-          - 'null'
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    ParentGenreResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the parent genre
-        name:
-          type: string
-          description: Name of the parent genre
-    TaxonomyAggregations:
-      type: object
-      properties:
-        moods:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxonomyAggregation'
-        genres:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxonomyAggregation'
-    Error:
-      required:
-      - key
-      - messages
-      type: object
-      properties:
-        key:
-          type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
     ImagesResponse:
       type: object
       properties:
@@ -262,6 +201,94 @@ components:
           - string
           - 'null'
         XS:
+          type:
+          - string
+          - 'null'
+    TaxonomyAggregations:
+      type: object
+      properties:
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+    Pagination:
+      required:
+      - limit
+      - page
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+    TaxonomyAggregation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        count:
+          type: integer
+          format: int32
+    TracksResponse:
+      required:
+      - links
+      - pagination
+      - tracks
+      type: object
+      properties:
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        aggregations:
+          $ref: '#/components/schemas/TaxonomyAggregations'
+    GenreResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        parent:
+          $ref: '#/components/schemas/ParentGenreResponse'
+    ParentGenreResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the parent genre
+        name:
+          type: string
+          description: Name of the parent genre
+    PaginationLinks:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
           type:
           - string
           - 'null'
@@ -341,6 +368,33 @@ components:
           - 'null'
         isPreviewOnly:
           type: boolean
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     MoodResponse:
       required:
       - id
@@ -381,60 +435,6 @@ components:
           - string
           - 'null'
           description: email value will present only for the Epidemic Sound users and will be null otherwise
-    TaxonomyAggregation:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        count:
-          type: integer
-          format: int32
-    Pagination:
-      required:
-      - limit
-      - page
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int32
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int32
-    GenreResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        parent:
-          $ref: '#/components/schemas/ParentGenreResponse'
-    TracksResponse:
-      required:
-      - links
-      - pagination
-      - tracks
-      type: object
-      properties:
-        tracks:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrackResponse'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-        aggregations:
-          $ref: '#/components/schemas/TaxonomyAggregations'
   securitySchemes:
     ApiKeyAuth:
       type: http

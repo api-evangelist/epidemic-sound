@@ -306,55 +306,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    Error:
-      required:
-      - key
-      - messages
-      type: object
-      properties:
-        key:
-          type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
-    PartnerAudioDeleteResponse:
-      required:
-      - audioFilesRemoved
-      type: object
-      properties:
-        audioFilesRemoved:
-          type: array
-          items:
-            type: string
-            format: uuid
-    UploadUserImageResponse:
-      required:
-      - expirationDate
-      - imageId
-      type: object
-      properties:
-        imageId:
-          type: string
-          format: uuid
-        expirationDate:
-          type: string
-          format: date-time
     PartnerAudioResponse:
       required:
       - audioUploadId
@@ -371,7 +322,63 @@ components:
         expires:
           type: string
           format: date-time
+    PartnerAudioDeleteResponse:
+      required:
+      - audioFilesRemoved
+      type: object
+      properties:
+        audioFilesRemoved:
+          type: array
+          items:
+            type: string
+            format: uuid
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    UploadUserImageResponse:
+      required:
+      - expirationDate
+      - imageId
+      type: object
+      properties:
+        imageId:
+          type: string
+          format: uuid
+        expirationDate:
+          type: string
+          format: date-time
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   parameters:
+    audioIdOrChecksum:
+      name: audioIdOrChecksum
+      in: path
+      description: Audio upload id or checksum of audio file
+      required: true
+      schema:
+        type: string
     checksum:
       name: checksum
       in: path
@@ -383,13 +390,6 @@ components:
       name: imageId
       in: path
       description: Image id
-      required: true
-      schema:
-        type: string
-    audioIdOrChecksum:
-      name: audioIdOrChecksum
-      in: path
-      description: Audio upload id or checksum of audio file
       required: true
       schema:
         type: string

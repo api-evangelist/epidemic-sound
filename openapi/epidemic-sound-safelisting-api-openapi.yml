@@ -427,33 +427,30 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    MessageResponse:
+    SafelistingAssetRequest:
       required:
-      - message
+      - platform
+      - type
+      - url
       type: object
       properties:
-        message:
+        type:
           type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    Error:
-      required:
-      - key
-      - messages
-      type: object
-      properties:
-        key:
+          enum:
+          - channel
+          - video
+        platform:
           type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
+          enum:
+          - youtube
+          - instagram
+          - facebook
+          - twitch
+          - tiktok
+          - podcast
+          - website
+        url:
+          type: string
     UpdateSafelistingLicenseRequest:
       required:
       - expiresAt
@@ -482,54 +479,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SafelistingLicenseResponse'
-    SafelistingLicenseResponse:
+    Error:
       required:
-      - asset
-      - createdAt
-      - id
+      - key
+      - messages
       type: object
       properties:
-        id:
+        key:
           type: string
-        createdAt:
-          type: string
-        expiresAt:
-          type: string
-        asset:
-          $ref: '#/components/schemas/SafelistingAssetResponse'
-    CreateSafelistingLicenseRequest:
-      required:
-      - asset
-      type: object
-      properties:
-        asset:
-          $ref: '#/components/schemas/SafelistingAssetRequest'
-        expiresAt:
-          type: string
-    SafelistingAssetRequest:
-      required:
-      - platform
-      - type
-      - url
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - channel
-          - video
-        platform:
-          type: string
-          enum:
-          - youtube
-          - instagram
-          - facebook
-          - twitch
-          - tiktok
-          - podcast
-          - website
-        url:
-          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
     SafelistingAssetResponse:
       required:
       - id
@@ -557,6 +521,42 @@ components:
           - website
         url:
           type: string
+    SafelistingLicenseResponse:
+      required:
+      - asset
+      - createdAt
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+        expiresAt:
+          type: string
+        asset:
+          $ref: '#/components/schemas/SafelistingAssetResponse'
+    CreateSafelistingLicenseRequest:
+      required:
+      - asset
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/SafelistingAssetRequest'
+        expiresAt:
+          type: string
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: http

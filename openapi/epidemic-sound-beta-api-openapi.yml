@@ -240,30 +240,22 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    MessageResponse:
-      required:
-      - message
+    TrackBeatsResponse:
       type: object
       properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
+        beats:
           type: array
           items:
-            $ref: '#/components/schemas/Error'
-    TrackEditsJobRequest:
-      required:
-      - durationMs
-      - trackId
+            $ref: '#/components/schemas/TrackBeat'
+    TrackBeat:
       type: object
       properties:
-        durationMs:
-          type: integer
-          format: int32
-        trackId:
-          type: string
-          format: uuid
+        time:
+          type: number
+          format: double
+        value:
+          type: number
+          format: double
     Error:
       required:
       - key
@@ -279,50 +271,18 @@ components:
           items:
             type: string
             description: Error messages
-    TrackBeatsResponse:
+    TrackEditsJobRequest:
+      required:
+      - durationMs
+      - trackId
       type: object
       properties:
-        beats:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrackBeat'
-    TrackEditResultResponse:
-      type: object
-      properties:
-        previewUrl:
-          type: string
-        waveform:
-          $ref: '#/components/schemas/TrackEditWaveform'
-        highQualityUrl:
-          type: string
-    TrackEditsResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - PENDING
-          - PROCESSING
-          - COMPLETED
-          - FAILED
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrackEditResultResponse'
-        message:
-          type: string
-        jobId:
+        durationMs:
+          type: integer
+          format: int32
+        trackId:
           type: string
           format: uuid
-    TrackBeat:
-      type: object
-      properties:
-        time:
-          type: number
-          format: double
-        value:
-          type: number
-          format: double
     TrackEditWaveform:
       type: object
       properties:
@@ -349,6 +309,46 @@ components:
           items:
             type: integer
             format: int32
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    TrackEditsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackEditResultResponse'
+        message:
+          type: string
+        jobId:
+          type: string
+          format: uuid
+    TrackEditResultResponse:
+      type: object
+      properties:
+        previewUrl:
+          type: string
+        waveform:
+          $ref: '#/components/schemas/TrackEditWaveform'
+        highQualityUrl:
+          type: string
   parameters:
     trackId:
       name: trackId

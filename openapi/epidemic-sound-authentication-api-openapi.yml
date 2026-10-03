@@ -108,43 +108,6 @@ paths:
       - PartnerAuth: []
 components:
   schemas:
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    Error:
-      required:
-      - key
-      - messages
-      type: object
-      properties:
-        key:
-          type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
-    PartnerTokenRequest:
-      required:
-      - accessKeyId
-      - accessKeySecret
-      type: object
-      properties:
-        accessKeyId:
-          type: string
-        accessKeySecret:
-          type: string
     UserTokenRequest:
       required:
       - userId
@@ -160,6 +123,43 @@ components:
       type: object
       properties:
         accessToken:
+          type: string
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    PartnerTokenRequest:
+      required:
+      - accessKeyId
+      - accessKeySecret
+      type: object
+      properties:
+        accessKeyId:
+          type: string
+        accessKeySecret:
           type: string
   securitySchemes:
     ApiKeyAuth:
