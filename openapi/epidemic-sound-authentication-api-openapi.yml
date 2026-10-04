@@ -108,22 +108,6 @@ paths:
       - PartnerAuth: []
 components:
   schemas:
-    UserTokenRequest:
-      required:
-      - userId
-      type: object
-      properties:
-        userId:
-          type: string
-          description: End user id. UUID, numeric or matching ^[a-zA-Z0-9_-]+$
-          example: 898d611f-46bc-4747-af61-9883ff06b35b
-    AccessTokenResponse:
-      required:
-      - accessToken
-      type: object
-      properties:
-        accessToken:
-          type: string
     Error:
       required:
       - key
@@ -139,6 +123,32 @@ components:
           items:
             type: string
             description: Error messages
+    PartnerTokenRequest:
+      required:
+      - accessKeyId
+      - accessKeySecret
+      type: object
+      properties:
+        accessKeyId:
+          type: string
+        accessKeySecret:
+          type: string
+    AccessTokenResponse:
+      required:
+      - accessToken
+      type: object
+      properties:
+        accessToken:
+          type: string
+    UserTokenRequest:
+      required:
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+          description: End user id. UUID, numeric or matching ^[a-zA-Z0-9_-]+$
+          example: 898d611f-46bc-4747-af61-9883ff06b35b
     MessageResponse:
       required:
       - message
@@ -151,16 +161,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
-    PartnerTokenRequest:
-      required:
-      - accessKeyId
-      - accessKeySecret
-      type: object
-      properties:
-        accessKeyId:
-          type: string
-        accessKeySecret:
-          type: string
   securitySchemes:
     ApiKeyAuth:
       type: http

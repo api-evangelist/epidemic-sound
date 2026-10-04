@@ -1092,101 +1092,18 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    TaxonomyAggregation:
+    ParentGenreResponse:
+      required:
+      - id
+      - name
       type: object
       properties:
         id:
           type: string
+          description: Unique ID of the parent genre
         name:
           type: string
-        count:
-          type: integer
-          format: int32
-    TrackSectionPaginatedResponse:
-      required:
-      - links
-      - pagination
-      - trackSections
-      type: object
-      properties:
-        trackSections:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrackSectionResponse'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    HighlightsResponse:
-      required:
-      - highlights
-      type: object
-      properties:
-        highlights:
-          type: array
-          items:
-            $ref: '#/components/schemas/HighlightSectionResponse'
-    TrackSectionResponse:
-      required:
-      - end
-      - start
-      - track
-      type: object
-      properties:
-        track:
-          $ref: '#/components/schemas/TrackResponse'
-        start:
-          type: integer
-          format: int32
-        end:
-          type: integer
-          format: int32
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    HLSCookieResponse:
-      required:
-      - domain
-      - expires
-      - name
-      - path
-      - value
-      type: object
-      properties:
-        name:
-          type: string
-        domain:
-          type: string
-        path:
-          type: string
-        value:
-          type: string
-        expires:
-          type: string
-    Pagination:
-      required:
-      - limit
-      - page
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int32
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int32
+          description: Name of the parent genre
     TracksResponse:
       required:
       - links
@@ -1204,6 +1121,147 @@ components:
           $ref: '#/components/schemas/PaginationLinks'
         aggregations:
           $ref: '#/components/schemas/TaxonomyAggregations'
+    TrackSectionResponse:
+      required:
+      - end
+      - start
+      - track
+      type: object
+      properties:
+        track:
+          $ref: '#/components/schemas/TrackResponse'
+        start:
+          type: integer
+          format: int32
+        end:
+          type: integer
+          format: int32
+    MoodResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the mood
+        name:
+          type: string
+          description: Name of the mood
+    GenreResponse:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        parent:
+          $ref: '#/components/schemas/ParentGenreResponse'
+    TaxonomyAggregation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        count:
+          type: integer
+          format: int32
+    Pagination:
+      required:
+      - limit
+      - page
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+    HighlightSectionResponse:
+      required:
+      - duration
+      - from
+      - to
+      type: object
+      properties:
+        from:
+          type: integer
+          format: int32
+        to:
+          type: integer
+          format: int32
+        duration:
+          type: integer
+          format: int32
+    TrackSectionPaginatedResponse:
+      required:
+      - links
+      - pagination
+      - trackSections
+      type: object
+      properties:
+        trackSections:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackSectionResponse'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    TaxonomyAggregations:
+      type: object
+      properties:
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyAggregation'
+    ImagesResponse:
+      type: object
+      properties:
+        default:
+          type:
+          - string
+          - 'null'
+        L:
+          type:
+          - string
+          - 'null'
+        M:
+          type:
+          - string
+          - 'null'
+        S:
+          type:
+          - string
+          - 'null'
+        XS:
+          type:
+          - string
+          - 'null'
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     TrackResponse:
       required:
       - added
@@ -1295,100 +1353,25 @@ components:
           items:
             type: string
             description: Error messages
-    DownloadResponse:
+    HLSCookieResponse:
       required:
+      - domain
       - expires
-      - url
+      - name
+      - path
+      - value
       type: object
       properties:
-        url:
+        name:
+          type: string
+        domain:
+          type: string
+        path:
+          type: string
+        value:
           type: string
         expires:
           type: string
-    TaxonomyAggregations:
-      type: object
-      properties:
-        moods:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxonomyAggregation'
-        genres:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxonomyAggregation'
-    TrackParametersResponse:
-      required:
-      - genres
-      - moods
-      type: object
-      properties:
-        genres:
-          type: array
-          items:
-            $ref: '#/components/schemas/GenreResponse'
-        moods:
-          type: array
-          items:
-            $ref: '#/components/schemas/MoodResponse'
-    MoodResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the mood
-        name:
-          type: string
-          description: Name of the mood
-    ImagesResponse:
-      type: object
-      properties:
-        default:
-          type:
-          - string
-          - 'null'
-        L:
-          type:
-          - string
-          - 'null'
-        M:
-          type:
-          - string
-          - 'null'
-        S:
-          type:
-          - string
-          - 'null'
-        XS:
-          type:
-          - string
-          - 'null'
-    GenreResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        parent:
-          $ref: '#/components/schemas/ParentGenreResponse'
-    ParentGenreResponse:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the parent genre
-        name:
-          type: string
-          description: Name of the parent genre
     PaginationLinks:
       type: object
       properties:
@@ -1410,33 +1393,74 @@ components:
           type: string
         cookie:
           $ref: '#/components/schemas/HLSCookieResponse'
-    HighlightSectionResponse:
+    DownloadResponse:
       required:
-      - duration
-      - from
-      - to
+      - expires
+      - url
       type: object
       properties:
-        from:
-          type: integer
-          format: int32
-        to:
-          type: integer
-          format: int32
-        duration:
-          type: integer
-          format: int32
+        url:
+          type: string
+        expires:
+          type: string
+    TrackParametersResponse:
+      required:
+      - genres
+      - moods
+      type: object
+      properties:
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreResponse'
+        moods:
+          type: array
+          items:
+            $ref: '#/components/schemas/MoodResponse'
+    HighlightsResponse:
+      required:
+      - highlights
+      type: object
+      properties:
+        highlights:
+          type: array
+          items:
+            $ref: '#/components/schemas/HighlightSectionResponse'
   parameters:
-    duration:
-      name: duration
+    bpmMin:
+      name: bpmMin
       in: query
-      description: The highlight duration in seconds
+      description: BPM Min
+      required: false
+      schema:
+        type: integer
+        format: int32
+    genre:
+      name: genre
+      in: query
+      description: Id for genre
       required: false
       schema:
         type: array
         items:
-          type: integer
-          format: int32
+          type: string
+    format:
+      name: format
+      in: query
+      description: Track format
+      required: false
+      schema:
+        type: string
+        enum:
+        - mp3
+    offset:
+      name: offset
+      in: query
+      description: Index of the entry track in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
     quality:
       name: quality
       in: query
@@ -1448,31 +1472,31 @@ components:
         - normal
         - high
         default: normal
-    genre:
-      name: genre
+    duration:
+      name: duration
       in: query
-      description: Id for genre
+      description: The highlight duration in seconds
       required: false
       schema:
         type: array
         items:
-          type: string
-    offset:
-      name: offset
+          type: integer
+          format: int32
+    bpmMax:
+      name: bpmMax
       in: query
-      description: Index of the entry track in the response
+      description: BPM Max
       required: false
       schema:
         type: integer
         format: int32
-    limit:
-      name: limit
-      in: query
-      description: Max number of entries returned in the response, default 50 and max 100
-      required: false
+    trackId:
+      name: trackId
+      in: path
+      description: Track id
+      required: true
       schema:
-        type: integer
-        format: int32
+        type: string
     mood:
       name: mood
       in: query
@@ -1482,17 +1506,10 @@ components:
         type: array
         items:
           type: string
-    trackId:
-      name: trackId
-      in: path
-      description: Track id
-      required: true
-      schema:
-        type: string
-    bpmMax:
-      name: bpmMax
+    limit:
+      name: limit
       in: query
-      description: BPM Max
+      description: Max number of entries returned in the response, default 50 and max 100
       required: false
       schema:
         type: integer
@@ -1504,23 +1521,6 @@ components:
       required: true
       schema:
         type: string
-    bpmMin:
-      name: bpmMin
-      in: query
-      description: BPM Min
-      required: false
-      schema:
-        type: integer
-        format: int32
-    format:
-      name: format
-      in: query
-      description: Track format
-      required: false
-      schema:
-        type: string
-        enum:
-        - mp3
   securitySchemes:
     ApiKeyAuth:
       type: http

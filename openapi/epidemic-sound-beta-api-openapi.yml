@@ -240,22 +240,15 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    TrackBeatsResponse:
+    TrackEditResultResponse:
       type: object
       properties:
-        beats:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrackBeat'
-    TrackBeat:
-      type: object
-      properties:
-        time:
-          type: number
-          format: double
-        value:
-          type: number
-          format: double
+        previewUrl:
+          type: string
+        waveform:
+          $ref: '#/components/schemas/TrackEditWaveform'
+        highQualityUrl:
+          type: string
     Error:
       required:
       - key
@@ -271,6 +264,13 @@ components:
           items:
             type: string
             description: Error messages
+    TrackBeatsResponse:
+      type: object
+      properties:
+        beats:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackBeat'
     TrackEditsJobRequest:
       required:
       - durationMs
@@ -281,6 +281,25 @@ components:
           type: integer
           format: int32
         trackId:
+          type: string
+          format: uuid
+    TrackEditsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackEditResultResponse'
+        message:
+          type: string
+        jobId:
           type: string
           format: uuid
     TrackEditWaveform:
@@ -321,34 +340,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
-    TrackEditsResponse:
+    TrackBeat:
       type: object
       properties:
-        status:
-          type: string
-          enum:
-          - PENDING
-          - PROCESSING
-          - COMPLETED
-          - FAILED
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrackEditResultResponse'
-        message:
-          type: string
-        jobId:
-          type: string
-          format: uuid
-    TrackEditResultResponse:
-      type: object
-      properties:
-        previewUrl:
-          type: string
-        waveform:
-          $ref: '#/components/schemas/TrackEditWaveform'
-        highQualityUrl:
-          type: string
+        time:
+          type: number
+          format: double
+        value:
+          type: number
+          format: double
   parameters:
     trackId:
       name: trackId

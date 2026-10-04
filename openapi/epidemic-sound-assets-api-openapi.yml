@@ -306,6 +306,45 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    UploadUserImageResponse:
+      required:
+      - expirationDate
+      - imageId
+      type: object
+      properties:
+        imageId:
+          type: string
+          format: uuid
+        expirationDate:
+          type: string
+          format: date-time
     PartnerAudioResponse:
       required:
       - audioUploadId
@@ -332,45 +371,6 @@ components:
           items:
             type: string
             format: uuid
-    Error:
-      required:
-      - key
-      - messages
-      type: object
-      properties:
-        key:
-          type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
-    UploadUserImageResponse:
-      required:
-      - expirationDate
-      - imageId
-      type: object
-      properties:
-        imageId:
-          type: string
-          format: uuid
-        expirationDate:
-          type: string
-          format: date-time
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
   parameters:
     audioIdOrChecksum:
       name: audioIdOrChecksum

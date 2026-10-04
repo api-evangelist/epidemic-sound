@@ -427,6 +427,48 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    SafelistingAssetResponse:
+      required:
+      - id
+      - platform
+      - type
+      - url
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - channel
+          - video
+        platform:
+          type: string
+          enum:
+          - youtube
+          - instagram
+          - facebook
+          - twitch
+          - tiktok
+          - podcast
+          - website
+        url:
+          type: string
     SafelistingAssetRequest:
       required:
       - platform
@@ -479,48 +521,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SafelistingLicenseResponse'
-    Error:
-      required:
-      - key
-      - messages
-      type: object
-      properties:
-        key:
-          type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
-    SafelistingAssetResponse:
-      required:
-      - id
-      - platform
-      - type
-      - url
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - channel
-          - video
-        platform:
-          type: string
-          enum:
-          - youtube
-          - instagram
-          - facebook
-          - twitch
-          - tiktok
-          - podcast
-          - website
-        url:
-          type: string
     SafelistingLicenseResponse:
       required:
       - asset

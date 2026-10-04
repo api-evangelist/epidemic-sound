@@ -152,6 +152,44 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    AnalyticsReportResponse:
+      required:
+      - batchId
+      - eventsCount
+      type: object
+      properties:
+        batchId:
+          type: string
+        eventsCount:
+          type: integer
+          format: int32
     TrackDownloadedEvent:
       type: object
       properties:
@@ -172,24 +210,6 @@ components:
           type: string
           enum:
           - trackDownloaded
-    TrackPreviewedEvent:
-      type: object
-      properties:
-        trackId:
-          type: string
-        type:
-          type: string
-          enum:
-          - trackPreviewed
-    AnalyticsReportRequest:
-      required:
-      - events
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnalyticsReportEvent'
     AnalyticsReportEvent:
       type: object
       properties:
@@ -204,28 +224,15 @@ components:
           - 'null'
         analyticsEvent:
           $ref: '#/components/schemas/AnalyticsEvent'
-    TracksExportedEvent:
+    TrackPreviewedEvent:
       type: object
       properties:
-        trackIds:
-          type: array
-          items:
-            type: string
-        platform:
+        trackId:
           type: string
-          enum:
-          - YOUTUBE
-          - TWITTER
-          - TWITCH
-          - FACEBOOK
-          - INSTAGRAM
-          - TIKTOK
-          - OTHER
-          - LOCAL
         type:
           type: string
           enum:
-          - tracksExported
+          - trackPreviewed
     TrackUsageRequest:
       required:
       - platform
@@ -255,50 +262,43 @@ components:
           type:
           - string
           - 'null'
-    Error:
-      required:
-      - key
-      - messages
-      type: object
-      properties:
-        key:
-          type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
-    AnalyticsReportResponse:
-      required:
-      - batchId
-      - eventsCount
-      type: object
-      properties:
-        batchId:
-          type: string
-        eventsCount:
-          type: integer
-          format: int32
     AnalyticsEvent:
       type: object
       oneOf:
       - $ref: '#/components/schemas/TrackPreviewedEvent'
       - $ref: '#/components/schemas/TrackDownloadedEvent'
       - $ref: '#/components/schemas/TracksExportedEvent'
-    MessageResponse:
-      required:
-      - message
+    TracksExportedEvent:
       type: object
       properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
+        trackIds:
           type: array
           items:
-            $ref: '#/components/schemas/Error'
+            type: string
+        platform:
+          type: string
+          enum:
+          - YOUTUBE
+          - TWITTER
+          - TWITCH
+          - FACEBOOK
+          - INSTAGRAM
+          - TIKTOK
+          - OTHER
+          - LOCAL
+        type:
+          type: string
+          enum:
+          - tracksExported
+    AnalyticsReportRequest:
+      required:
+      - events
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyticsReportEvent'
   securitySchemes:
     ApiKeyAuth:
       type: http
