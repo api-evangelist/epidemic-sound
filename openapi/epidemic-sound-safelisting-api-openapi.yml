@@ -427,21 +427,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    Error:
-      required:
-      - key
-      - messages
-      type: object
-      properties:
-        key:
-          type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
     SafelistingAssetResponse:
       required:
       - id
@@ -469,6 +454,33 @@ components:
           - website
         url:
           type: string
+    SafelistingLicenseResponse:
+      required:
+      - asset
+      - createdAt
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+        expiresAt:
+          type: string
+        asset:
+          $ref: '#/components/schemas/SafelistingAssetResponse'
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     SafelistingAssetRequest:
       required:
       - platform
@@ -493,11 +505,35 @@ components:
           - website
         url:
           type: string
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
     UpdateSafelistingLicenseRequest:
       required:
       - expiresAt
       type: object
       properties:
+        expiresAt:
+          type: string
+    CreateSafelistingLicenseRequest:
+      required:
+      - asset
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/SafelistingAssetRequest'
         expiresAt:
           type: string
     SafelistingLicenseListResponse:
@@ -521,42 +557,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SafelistingLicenseResponse'
-    SafelistingLicenseResponse:
-      required:
-      - asset
-      - createdAt
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-        createdAt:
-          type: string
-        expiresAt:
-          type: string
-        asset:
-          $ref: '#/components/schemas/SafelistingAssetResponse'
-    CreateSafelistingLicenseRequest:
-      required:
-      - asset
-      type: object
-      properties:
-        asset:
-          $ref: '#/components/schemas/SafelistingAssetRequest'
-        expiresAt:
-          type: string
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: http

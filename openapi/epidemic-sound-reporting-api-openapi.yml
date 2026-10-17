@@ -152,21 +152,21 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    Error:
+    AnalyticsEvent:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/TrackPreviewedEvent'
+      - $ref: '#/components/schemas/TrackDownloadedEvent'
+      - $ref: '#/components/schemas/TracksExportedEvent'
+    AnalyticsReportRequest:
       required:
-      - key
-      - messages
+      - events
       type: object
       properties:
-        key:
-          type: string
-          description: Error key
-        messages:
+        events:
           type: array
-          description: Error messages
           items:
-            type: string
-            description: Error messages
+            $ref: '#/components/schemas/AnalyticsReportEvent'
     MessageResponse:
       required:
       - message
@@ -179,60 +179,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
-    AnalyticsReportResponse:
-      required:
-      - batchId
-      - eventsCount
-      type: object
-      properties:
-        batchId:
-          type: string
-        eventsCount:
-          type: integer
-          format: int32
-    TrackDownloadedEvent:
-      type: object
-      properties:
-        trackId:
-          type: string
-        format:
-          type: string
-          enum:
-          - mp3
-          - hls
-          - hls_with_cookie
-        quality:
-          type: string
-          enum:
-          - normal
-          - high
-        type:
-          type: string
-          enum:
-          - trackDownloaded
-    AnalyticsReportEvent:
-      type: object
-      properties:
-        userId:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        userConnected:
-          type:
-          - boolean
-          - 'null'
-        analyticsEvent:
-          $ref: '#/components/schemas/AnalyticsEvent'
-    TrackPreviewedEvent:
-      type: object
-      properties:
-        trackId:
-          type: string
-        type:
-          type: string
-          enum:
-          - trackPreviewed
     TrackUsageRequest:
       required:
       - platform
@@ -262,12 +208,55 @@ components:
           type:
           - string
           - 'null'
-    AnalyticsEvent:
+    AnalyticsReportResponse:
+      required:
+      - batchId
+      - eventsCount
       type: object
-      oneOf:
-      - $ref: '#/components/schemas/TrackPreviewedEvent'
-      - $ref: '#/components/schemas/TrackDownloadedEvent'
-      - $ref: '#/components/schemas/TracksExportedEvent'
+      properties:
+        batchId:
+          type: string
+        eventsCount:
+          type: integer
+          format: int32
+    AnalyticsReportEvent:
+      type: object
+      properties:
+        userId:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        userConnected:
+          type:
+          - boolean
+          - 'null'
+        analyticsEvent:
+          $ref: '#/components/schemas/AnalyticsEvent'
+    TrackPreviewedEvent:
+      type: object
+      properties:
+        trackId:
+          type: string
+        type:
+          type: string
+          enum:
+          - trackPreviewed
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
     TracksExportedEvent:
       type: object
       properties:
@@ -290,15 +279,26 @@ components:
           type: string
           enum:
           - tracksExported
-    AnalyticsReportRequest:
-      required:
-      - events
+    TrackDownloadedEvent:
       type: object
       properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnalyticsReportEvent'
+        trackId:
+          type: string
+        format:
+          type: string
+          enum:
+          - mp3
+          - hls
+          - hls_with_cookie
+        quality:
+          type: string
+          enum:
+          - normal
+          - high
+        type:
+          type: string
+          enum:
+          - trackDownloaded
   securitySchemes:
     ApiKeyAuth:
       type: http

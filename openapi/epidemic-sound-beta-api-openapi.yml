@@ -249,28 +249,6 @@ components:
           $ref: '#/components/schemas/TrackEditWaveform'
         highQualityUrl:
           type: string
-    Error:
-      required:
-      - key
-      - messages
-      type: object
-      properties:
-        key:
-          type: string
-          description: Error key
-        messages:
-          type: array
-          description: Error messages
-          items:
-            type: string
-            description: Error messages
-    TrackBeatsResponse:
-      type: object
-      properties:
-        beats:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrackBeat'
     TrackEditsJobRequest:
       required:
       - durationMs
@@ -302,6 +280,40 @@ components:
         jobId:
           type: string
           format: uuid
+    MessageResponse:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human readable message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    TrackBeatsResponse:
+      type: object
+      properties:
+        beats:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackBeat'
+    Error:
+      required:
+      - key
+      - messages
+      type: object
+      properties:
+        key:
+          type: string
+          description: Error key
+        messages:
+          type: array
+          description: Error messages
+          items:
+            type: string
+            description: Error messages
     TrackEditWaveform:
       type: object
       properties:
@@ -328,18 +340,6 @@ components:
           items:
             type: integer
             format: int32
-    MessageResponse:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human readable message
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
     TrackBeat:
       type: object
       properties:
