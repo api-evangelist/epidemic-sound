@@ -1,4 +1,4 @@
-# Epidemic Sound (epidemic-sound)
+# Epidemic Sound
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,102 +66,150 @@
 
 Epidemic Sound is a Stockholm-based royalty-free music and sound effects licensing platform for video creators, businesses, and platforms. The catalog includes 55,000+ tracks across 390 genres, 250,000+ sound effects, stems and instrumental versions, all under an all-inclusive license that covers mechanical, sync, and public performance rights globally. The Partner Content API ("Epidemic Sound Connect") exposes the full catalog and Epidemic Sound's AI-powered soundtracking tools — Soundmatch (video-to-music recommendation), semantic search, similar-track and similar-section lookup, image-based matching, beat detection, HLS streaming previews, AI voiceover generation, and the new track-versions endpoint that adapts a recording to a target duration while preserving musical structure. An official Model Context Protocol (MCP) server (beta) makes the same catalog and tools available to AI agents at https://www.epidemicsound.com/a/mcp-service/mcp. Access to the Partner API is gated behind a partnership agreement; once signed, partner engineers receive credentials via the Developer Portal and authenticate using API Key, Partner Token, or Epidemic Sound Connect (OAuth 2.0).
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/epidemic-sound/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/epidemic-sound/refs/heads/main/apis.yml)
+**Areas:** Music · Sound Effects · Royalty-Free Music · Audio · Audio Licensing · Soundtracking · Sync Licensing · Creators · Video · AI Voiceover · Semantic Search · MCP
 
-## Scope
+## Epidemic Sound on APIs.io
 
-- **Type:** Index
-- **Position:** Provider
-- **Access:** 3rd-Party
+Everything profiled for Epidemic Sound is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/epidemic-sound/](https://apis.io/providers/epidemic-sound/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (9)
 
-- Music
-- Sound Effects
-- Royalty-Free Music
-- Audio
-- Audio Licensing
-- Soundtracking
-- Sync Licensing
-- Creators
-- Video
-- AI Voiceover
-- Semantic Search
-- MCP
+- [Epidemic Sound Assets API](https://apis.io/apis/epidemic-sound/epidemic-sound-assets-api/) — These endpoints allows your application to upload assets such as images or audio.
+- [Epidemic Sound Authentication API](https://apis.io/apis/epidemic-sound/epidemic-sound-authentication-api/) — Endpoints for user authentication.
+- [Epidemic Sound Beta API](https://apis.io/apis/epidemic-sound/epidemic-sound-beta-api/) — These endpoints are in beta.
+- [Epidemic Sound Browse & search API](https://apis.io/apis/epidemic-sound/epidemic-sound-browse-search-api/) — These endpoints will allow you to explore the Epidemic Sound library. You can display tracks grouped in curated playlists, moods or genres or use search to…
+- [Epidemic Sound Reporting API](https://apis.io/apis/epidemic-sound/epidemic-sound-reporting-api/) — These endpoints will allow you to report how tracks are used in your application.
+- [Epidemic Sound Safelisting API](https://apis.io/apis/epidemic-sound/epidemic-sound-safelisting-api/) — Endpoints for managing safelisting licenses. Allows partners to create, list, update, and delete licenses for channels and videos on behalf of their end users.
+- [Epidemic Sound Effects API](https://apis.io/apis/epidemic-sound/epidemic-sound-sound-effects-api/) — Endpoints to get sound effect specific information. These endpoints allow you to build a UI to browse and search for sound effects.
+- [Epidemic Sound Tracks API](https://apis.io/apis/epidemic-sound/epidemic-sound-tracks-api/) — Endpoints to get track specific information.
+- [Epidemic Sound Users API](https://apis.io/apis/epidemic-sound/epidemic-sound-users-api/) — These endpoints allows your application to get user specific information such as liked sounds.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-25
-- **Modified:** 2026-05-25
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Epidemic Sound Partner Content API
+Model Context Protocol servers that expose the API to agents.
 
-Single REST API exposing the entire Epidemic Sound catalog — tracks, collections, moods, genres, sound effects, stems, beats, HLS previews, similar-track/section search, image-based and video-based matching, track-versions generation (beta), AI voiceovers (via the MCP tools), partner audio/image uploads, usage reporting, and safelisting licenses for end-user channels. Authenticates with ApiKey (`x-api-key`), Partner Token (bearer), or Epidemic Sound Connect OAuth (user-scoped). Versioned with `/v0/` path prefix. Hosted in Europe; audio delivered via Fastly's global CDN. No local caching of metadata or collections is permitted by the partner terms.
+- [epidemic-sound](https://apis.io/servers/epidemic-sound/epidemic-sound/)
 
-- **Human URL:** [https://developers.epidemicsound.com/docs/](https://developers.epidemicsound.com/docs/)
-- **Base URL:** `https://partner-content-api.epidemicsound.com`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Music
-- Sound Effects
-- Tracks
-- Search
-- Soundtracking
-- Voiceover
-- Licensing
+- [Epidemic Sound Agentic Access](https://apis.io/agentic-access/epidemic-sound/epidemic-sound-agentic-access/)
 
-#### Properties
+#### Collections (10)
 
-- [Documentation](https://developers.epidemicsound.com/docs/)
-- [Documentation](https://developers.epidemicsound.com/docs/api-reference/)
-- [Documentation](https://developers.epidemicsound.com/docs/guides)
-- [Swagger U I](https://partner-content-api.epidemicsound.com/swagger)
-- [OpenAPI](openapi/epidemic-sound-partner-content-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/epidemic-sound-partner-content-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/epidemic-sound-partner-content-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-## Common Properties
+- [Partner Content Assets API](https://apis.io/collections/epidemic-sound/open-epidemic-sound-assets-api/)
+- [Partner Content Assets Authentication API](https://apis.io/collections/epidemic-sound/open-epidemic-sound-authentication-api/)
+- [Partner Content Assets Beta API](https://apis.io/collections/epidemic-sound/open-epidemic-sound-beta-api/)
+- [Partner Content Assets Browse & search API](https://apis.io/collections/epidemic-sound/open-epidemic-sound-browse-search-api/)
+- [Partner Content API](https://apis.io/collections/epidemic-sound/open-epidemic-sound-partner-content-api/)
+- [Partner Content Assets Reporting API](https://apis.io/collections/epidemic-sound/open-epidemic-sound-reporting-api/)
+- [Partner Content Assets Safelisting API](https://apis.io/collections/epidemic-sound/open-epidemic-sound-safelisting-api/)
+- [Partner Content Assets Sound effects API](https://apis.io/collections/epidemic-sound/open-epidemic-sound-sound-effects-api/)
+- [Partner Content Assets Tracks API](https://apis.io/collections/epidemic-sound/open-epidemic-sound-tracks-api/)
+- [Partner Content Assets Users API](https://apis.io/collections/epidemic-sound/open-epidemic-sound-users-api/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Epidemic Sound Authentication](https://apis.io/security/epidemic-sound/epidemic-sound-authentication/)
+- [Epidemic Sound Domain Security](https://apis.io/security/epidemic-sound/epidemic-sound-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Epidemic Sound Scopes](https://apis.io/scopes/epidemic-sound/epidemic-sound-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Epidemic Sound Plans Pricing](https://apis.io/plans/epidemic-sound/epidemic-sound-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Epidemic Sound Rate Limits](https://apis.io/rate-limits/epidemic-sound/epidemic-sound-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Epidemic Sound Finops](https://apis.io/finops/epidemic-sound/epidemic-sound-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.epidemicsound.com)
-- [Portal](https://www.epidemicsound.com/business/developers/)
-- [Portal](https://developers.epidemicsound.com/)
 - [Documentation](https://developers.epidemicsound.com/docs/)
-- [Documentation](https://developers.epidemicsound.com/docs/api-reference/)
-- [Documentation](https://developers.epidemicsound.com/docs/guides)
-- [Getting Started](https://developers.epidemicsound.com/docs/get-started)
-- [Authentication](https://developers.epidemicsound.com/docs/authentication)
-- [Swagger U I](https://partner-content-api.epidemicsound.com/swagger)
-- [OpenAPI](https://partner-content-api.epidemicsound.com/docs/spec.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [M C P](https://developers.epidemicsound.com/docs/mcp/)
+- [Getting started](https://developers.epidemicsound.com/docs/get-started)
 - [Pricing](https://www.epidemicsound.com/pricing/)
-- [Plans](plans/epidemic-sound-plans-pricing.yml)
-- [Rate Limits](rate-limits/epidemic-sound-rate-limits.yml)
-- [Fin Ops](finops/epidemic-sound-finops.yml)
 - [Blog](https://www.epidemicsound.com/blog/)
-- [Blog](https://www.epidemicsound.com/blog/epidemic-sound-api/)
-- [Careers](https://www.epidemicsound.com/careers/)
-- [About](https://www.epidemicsound.com/about/)
-- [Contact](https://www.epidemicsound.com/contact/)
-- [Terms of Service](https://www.epidemicsound.com/terms/)
-- [Privacy Policy](https://www.epidemicsound.com/privacy-notice/)
-- [GitHub Organization](https://github.com/epidemicsound)
-- [SDK](https://github.com/epidemicsound/partner-content-api-demo-ios)
-- [SDK](https://github.com/epidemicsound/homebrew-epidemicsound)
-- [LinkedIn](https://www.linkedin.com/company/epidemic-sound)
-- [Twitter](https://twitter.com/epidemicsound)
-- [YouTube](https://www.youtube.com/@EpidemicSound)
-- [Instagram](https://www.instagram.com/epidemicsound/)
-- [Facebook](https://www.facebook.com/epidemicsound)
-- [Tik Tok](https://www.tiktok.com/@epidemicsound)
-- [Apps](https://www.epidemicsound.com/apps/)
-- [Integrations](https://www.epidemicsound.com/integrations/)
-- [Partners](https://www.epidemicsound.com/business/partners/)
-- [Features](undefined)
+- [Terms of service](https://www.epidemicsound.com/terms/)
+- [Privacy policy](https://www.epidemicsound.com/privacy-notice/)
+- [GitHub](https://github.com/epidemicsound)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 36.6** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 50.9 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 52.4 |
+| Access clarity | 26.3 |
+
+**Agent readiness 52.6** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/epidemic-sound/](https://apis.io/providers/epidemic-sound/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Epidemic Sound: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/epidemic-sound/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
